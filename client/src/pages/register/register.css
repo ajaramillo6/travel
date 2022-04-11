@@ -1,0 +1,72 @@
+.register{
+    height: calc(100vh - 50px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), url("/public/img/travel4reverse.jpg");
+    background-size: cover;
+    font-family: 'Lora', 'serif';
+}
+
+.registerTitle{
+    font-size: 50px;
+    color: rgb(51, 96, 139);
+}
+
+.registerForm{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.registerForm > label{
+    margin: 15px 0px;
+}
+
+.registerForm > input{
+    padding: 10px;
+    background-color: white;
+    border: none;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.registerButton{
+    margin-top: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    height: 40px;
+    background-color: rgb(65, 168, 139);
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.registerButton:hover{
+    background-color: rgb(67, 171, 142);
+}
+
+.registerLoginButton{
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    margin-top: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    height: 35px;
+    width: 70px;
+    background-color: rgb(65, 72, 168);
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.registerLoginButton:hover{
+    background-color: rgb(75, 81, 167);
+}
