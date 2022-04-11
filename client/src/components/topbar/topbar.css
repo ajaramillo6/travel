@@ -35,7 +35,14 @@
     margin-right: 10px;
     color: #444;
     cursor: pointer;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
 }
+
+.topIcon:hover {
+    transform: rotateZ(-20deg);
+    color: rgb(82, 82, 82);
+  }
 
 .topImg{
     width: 40px;
