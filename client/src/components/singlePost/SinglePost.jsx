@@ -1,53 +1,42 @@
 import "./singlePost.css";
+import { useLocation } from "react-router-dom"
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import { format } from 'timeago.js';
 
 export default function SinglePost() {
+
+  const[post, setPost] = useState({});
+
+  const location = useLocation()
+  const path = location.pathname.split("/")[2];
+
+  useEffect(()=> {
+    const getPost = async() => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    }
+    getPost();
+  },[path])
+
   return (
     <div className="singlePost">
         <div className="singlePostWrapper">
-          <img className="singlePostImg" src="/img/.travel6.jpg" alt="" />
+          {post.photo &&
+            <img className="singlePostImg" src={post.photo} alt="" />
+          }
           <h1 className="singlePostTitle">
-            Lorem ipsum dolor sit
+            {post.title}
             <div className="singlePostEdit">
               <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
               <i className="singlePostIcon fa-solid fa-trash"></i>
             </div>
           </h1>
           <div className="singlePostInfo">
-            <span className="singlePostAuthor">Author: <b>Megan</b></span>
-            <span className="singlePostDate">1 hour ago</span>
+            <span className="singlePostAuthor">Author: <b>{post.username}</b></span>
+            <span className="singlePostDate">{format(post.createdAt)}</span>
           </div>
-          <p className="singlePostDesc">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, ex! 
-            Quia, eaque. Blanditiis incidunt commodi sunt unde aut vitae atque voluptatibus? 
-            Consectetur pariatur quod impedit cum soluta explicabo recusandae autem.
-          </p>
+          <p className="singlePostDesc">{post.desc}</p>
         </div>
     </div>
   )

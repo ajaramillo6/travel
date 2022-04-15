@@ -1,26 +1,29 @@
 import "./post.css";
+import { format } from 'timeago.js';
+import { Link } from "react-router-dom";
 
-export default function Post() {
+export default function Post({ post }) {
   return (
     <div className="post">
-        <img className="postImg" src="/img/travel6.jpg" alt="" />
-        <div className="postInfo">
-            <div className="postCats">
-                <span className="postCat">Breckenridge, CO</span>
-            </div>
-            <span className="postTitle">Lorem ipsum dolor, sit amet consectetur</span>
-        <span className="postDate">1 hour ago</span>
-      </div>
-        <p className="postDesc">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-          Dicta eveniet assumenda nesciunt laboriosam autem magnam 
-          nemo fuga suscipit, perspiciatis doloremque nulla natus ullam 
-          incidunt reiciendis quo amet nobis hic sint.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-          Dicta eveniet assumenda nesciunt laboriosam autem magnam 
-          nemo fuga suscipit, perspiciatis doloremque nulla natus ullam 
-          incidunt reiciendis quo amet nobis hic sint.
-        </p>
+      <Link to={`/post/${post._id}`}  className="link">
+        <div>
+        {post.photo && (
+          <img className="postImg" src={post.photo} alt="" />
+        )}
+          <div className="postInfo">
+              <div className="postCats">
+                {post.categories.map((c)=> (
+                  <span className="postCat">{c.name}</span>
+                ))}
+              </div>
+              <span className="postTitle">{post.title}</span>
+              <span className="postDate">{format(post.createdAt)}</span>
+          </div>
+          <p className="postDesc">
+            {post.desc}
+          </p>
+        </div>
+      </Link>
     </div>
   )
 }
