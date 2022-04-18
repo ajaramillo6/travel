@@ -1,5 +1,6 @@
 import "./topbar.css";
 import { Link } from 'react-router-dom';
+import SideNavbar from "../sideNavbar/SideNavbar";
 
 export default function Topbar() {
 
@@ -8,7 +9,7 @@ export default function Topbar() {
   return (
     <div className="top">
         <div className="topLeft">
-            <i className="bars fa-solid fa-bars"></i>
+            <SideNavbar />
         </div>
         <div className="topCenter">
             <ul className="topList">
@@ -17,7 +18,7 @@ export default function Topbar() {
                     <Link className="topListItem" to="/">HOME</Link>
                 </li>
                 <li>
-                <Link className="topListItem" to="/about">ABOUT</Link>
+                    <Link className="topListItem" to="/about">ABOUT</Link>
                 </li>
                 <li>
                     <Link className="topListItem" to="/write">TRAVEL</Link>
