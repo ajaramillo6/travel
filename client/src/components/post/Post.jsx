@@ -1,5 +1,5 @@
 import "./post.css";
-import { format } from 'timeago.js';
+// import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
@@ -17,7 +17,7 @@ export default function Post({ post }) {
                 ))}
               </div>
               <span className="postTitle">{post.title}</span>
-              <span className="postDate">{format(post.createdAt)}</span>
+              {/* <span className="postDate">{format(post.createdAt)}</span> */}
           </div>
           <p className="postDesc">
             {post.desc}

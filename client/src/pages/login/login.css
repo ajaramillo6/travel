@@ -46,6 +46,10 @@
     border-radius: 10px;
 }
 
+.loginButton:disabled{
+    cursor: not-allowed;
+}
+
 .loginButton:hover{
     background-color: rgb(75, 81, 167);
 }
