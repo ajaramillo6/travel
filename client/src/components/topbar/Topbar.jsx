@@ -1,22 +1,42 @@
 import "./topbar.css";
 import { Link } from 'react-router-dom';
 import SideNavbar from "../sideNavbar/SideNavbar";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import Rightbar from "../rightbar/Rightbar";
 import { Context } from "../../context/Context";
 
 export default function Topbar() {
 
     const[openAdmin, setOpenAdmin] = useState(false); 
+    const [goingUp, setGoingUp] = useState(true);
 
     const { user } = useContext(Context);
-    const PF = "http://localhost:5000/images/"
+    const PF = "http://localhost:5000/images/";
 
+    const prevScrollY = useRef(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const currentScrollY = window.scrollY;
+          if (prevScrollY.current < currentScrollY && goingUp) {
+            setGoingUp(false);
+          }
+          if (prevScrollY.current > currentScrollY && !goingUp) {
+            setGoingUp(true);
+          }
+          prevScrollY.current = currentScrollY;
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+      }, [goingUp]);
+      
     const handleAdmin = () => {
         setOpenAdmin(!openAdmin);
     }
 
   return (
+    <>
+    {goingUp &&
     <div className="top">
         <div className="topLeft">
             <SideNavbar />
@@ -50,5 +70,7 @@ export default function Topbar() {
                 }
         </div>
     </div>
+    }
+    </>
   )
 }
