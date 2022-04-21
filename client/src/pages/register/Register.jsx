@@ -52,7 +52,6 @@ export default function Register() {
             <button className="registerButton" type="submit">Register</button>
             {error && <span style={{color:"red", fontSize:"12px", marginTop:"10px"}}>Something went wrong!</span>}
         </form>
-        <button className="registerLoginButton">LOGIN</button>
     </div>
   )
 }

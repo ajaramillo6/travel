@@ -31,6 +31,7 @@
     border: none;
     width: 200px;
     border-radius: 5px;
+    outline: none;
 }
 
 .loginButton{
@@ -50,27 +51,22 @@
     cursor: not-allowed;
 }
 
+.spinner{
+    color: rgb(191, 191, 231);
+    font-size: 16px;
+    animation: circular-rotate 1.5s linear infinite;
+}
+  
+  @keyframes circular-rotate {
+    0% {
+      transform: rotate(0deg);
+      transform-origin: 50% 50%;
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 .loginButton:hover{
     background-color: rgb(75, 81, 167);
-}
-
-.loginRegisterButton{
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    margin-top: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    height: 35px;
-    width: 90px;
-    background-color: rgb(65, 168, 139);
-    border: none;
-    text-decoration: none;
-    font-size: 14px;
-    border-radius: 10px;
-}
-
-.loginRegisterButton:hover{
-    background-color: rgb(67, 171, 142);
 }

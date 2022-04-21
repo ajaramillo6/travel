@@ -1,14 +1,17 @@
 import "./post.css";
-// import { format } from 'timeago.js';
+import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
+
+  const PF = "http://localhost:5000/images/"
+
   return (
     <div className="post">
       <Link to={`/post/${post._id}`}  className="link">
         <div>
         {post.photo && (
-          <img className="postImg" src={post.photo} alt="" />
+          <img className="postImg" src={PF + post.photo} alt="" />
         )}
           <div className="postInfo">
               <div className="postCats">
@@ -17,7 +20,7 @@ export default function Post({ post }) {
                 ))}
               </div>
               <span className="postTitle">{post.title}</span>
-              {/* <span className="postDate">{format(post.createdAt)}</span> */}
+              <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <p className="postDesc">
             {post.desc}

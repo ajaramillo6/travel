@@ -23,7 +23,7 @@ export default function SideNavbar() {
               <Link className="link" to="/">
                 <div className="page">
                   <i className="fa-solid fa-house"></i>
-                  <span className="text">HOME</span>
+                  <span className="text">Home</span>
                 </div>
               </Link>
             </li>
@@ -31,7 +31,7 @@ export default function SideNavbar() {
               <Link className="link" to="/about">
                 <div className="page">
                   <i className="fa-solid fa-circle-info"></i>
-                  <span className="text">ABOUT</span>
+                  <span className="text">About</span>
                 </div>
               </Link>
             </li>
@@ -39,7 +39,7 @@ export default function SideNavbar() {
               <Link className="link" to="/write">
                 <div className="page">
                   <i className="fa-solid fa-plane"></i>
-                  <span className="text">TRAVEL</span>
+                  <span className="text">Travel</span>
                 </div>
               </Link>
             </li>
@@ -47,11 +47,10 @@ export default function SideNavbar() {
               <Link className="link" to="#">
                 <div className="page">
                   <i className="fa-solid fa-envelope"></i>
-                  <span className="text">CONTACT ME</span>
+                  <span className="text">Contact Me</span>
                 </div>
               </Link>
             </li>
-          
         </ul>
       </nav>
     </>

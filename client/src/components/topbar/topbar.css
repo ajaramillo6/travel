@@ -30,28 +30,6 @@
     justify-content: center;
 }
 
-.topIcon{
-    font-size: 20px;
-    margin-right: 10px;
-    color: #444;
-    cursor: pointer;
-    transition: transform 0.5s;
-    transform-style: preserve-3d;
-}
-
-.topIcon:hover {
-    transform: rotateZ(-20deg);
-    color: rgb(82, 82, 82);
-  }
-
-.topImg{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0px 10px;
-}
-
 .topList{
     display: flex;
     justify-content: space-between;
@@ -83,44 +61,11 @@
     color: rgb(75, 108, 135);
 }
 
-.topListLogin{
-    margin-right: 20px;
-    font-size: 14px;
-    font-weight: bold;
+.topIcon{
+    font-size: 20px;
+    margin-right: 10px;
+    color: #444;
     cursor: pointer;
-    width: 90px;
-    height: 32px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background-color: rgb(65, 72, 168);
-    color: white;
-}
-
-.topListLogin:hover{
-    background-color: rgb(75, 81, 167);
-}
-
-.topListRegister{
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 95px;
-    height: 32px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background-color: rgb(65, 168, 139);
-    color: white;
-    border-radius: 10px;
-}
-
-.topListRegister:hover{
-    background-color: rgb(67, 171, 142);
 }
 
 .topSearchIcon{
@@ -130,9 +75,20 @@
     margin-right: 15px;
 }
 
+.topAdminIcon{
+    color: rgb(165, 145, 122);
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.topAdminIcon:hover {
+    transform: rotateZ(-20deg);
+  }
+
 @media screen and (max-width: 995px){
     .topLeft{
-        flex:3;
+        flex:2;
         display: flex;
         align-items: center;
     }
@@ -152,13 +108,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex: 6;
-    }
-}
-
-@media screen and (max-width: 500px){
-    .topImg{
-        display:none;
+        flex: 4;
     }
 }
 

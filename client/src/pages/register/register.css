@@ -49,24 +49,3 @@
 .registerButton:hover{
     background-color: rgb(67, 171, 142);
 }
-
-.registerLoginButton{
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    margin-top: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    height: 35px;
-    width: 70px;
-    background-color: rgb(65, 72, 168);
-    border: none;
-    text-decoration: none;
-    font-size: 14px;
-    border-radius: 10px;
-}
-
-.registerLoginButton:hover{
-    background-color: rgb(75, 81, 167);
-}
