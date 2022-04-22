@@ -8,6 +8,11 @@
     background-color: white;
     font-family: 'Josefin Sans', 'sans-serif';
     z-index: 1200;
+    box-shadow: none;
+}
+
+.top.active{
+    box-shadow: 0 0 11px rgba(104, 104, 104, 0.2);
 }
 
 .topLeft{
