@@ -60,9 +60,15 @@ export default function Topbar() {
         <div className="topRight">
                 <div className="topIcons">
                     <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
-                        <i className="topIcon fa-brands fa-pinterest-square"></i>
-                        <i className="topIcon fa-brands fa-instagram-square"></i>
-                        <i className="topIcon fa-brands fa-facebook-square"></i>
+                    <a className="link" href="https://www.pinterest.com/megandunnavant/_saved/">
+                      <i className="topIcon fa-brands fa-pinterest-square"></i>
+                    </a>
+                    <a className="link" href="https://www.instagram.com/megglygweggly/?hl=en">
+                      <i className="topIcon fa-brands fa-instagram-square"></i>
+                    </a>
+                    <a className="link" href="https://www.facebook.com/profile.php?id=100008509874105">
+                      <i className="topIcon fa-brands fa-facebook-square"></i>
+                    </a>
                         <i className="topAdminIcon fa-solid fa-gear" onClick={handleAdmin}></i>
                 </div>
                 {openAdmin &&

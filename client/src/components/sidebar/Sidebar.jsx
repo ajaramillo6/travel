@@ -1,11 +1,14 @@
 import "./sidebar.css";
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Context } from "../../context/Context";
 
 export default function Sidebar() {
 
   const [cats, setCats] = useState([]);
+
+  const {user} = useContext(Context);
 
   useEffect(()=> {
     const getCats = async() => {
@@ -19,7 +22,7 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarItem">
         <span className="sidebarTitle">ABOUT ME</span>
-        <img src="/img/profile.jpg" alt="" />
+        <img src={user.profilePic} alt="" />
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
           Incidunt tenetur voluptatum accusantium voluptas laudantium 
           dolorum esse modi cum facere!</p>
@@ -37,9 +40,15 @@ export default function Sidebar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW</span>
         <div className="sidebarSocial">
-          <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
-          <i className="sidebarIcon fa-brands fa-instagram-square"></i>
-          <i className="sidebarIcon fa-brands fa-facebook-square"></i>
+          <a className="link" href="https://www.pinterest.com/megandunnavant/_saved/">
+            <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
+          </a>
+          <a className="link" href="https://www.instagram.com/megglygweggly/?hl=en">
+            <i className="sidebarIcon fa-brands fa-instagram-square"></i>
+          </a>
+          <a className="link" href="https://www.facebook.com/profile.php?id=100008509874105">
+            <i className="sidebarIcon fa-brands fa-facebook-square"></i>
+          </a>
         </div>
       </div>
     </div>
