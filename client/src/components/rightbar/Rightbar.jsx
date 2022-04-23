@@ -3,13 +3,15 @@ import { Context } from "../../context/Context";
 import { useContext } from "react";
 import { Link } from 'react-router-dom';
 
-export default function Rightbar({handleAdmin, PF, user}) {
+export default function Rightbar({handleAdmin, user}) {
 
     const { dispatch } = useContext(Context);
+    const PF = "http://localhost:5000/images/";
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
         handleAdmin();
+        window.location.replace("/login");
     }
 
   return (
@@ -27,7 +29,11 @@ export default function Rightbar({handleAdmin, PF, user}) {
                             className="link" 
                             to="/settings" 
                             onClick={handleAdmin}>
-                            <img className="rightbarImg" src="/img/profile.jpg" alt="" />
+                            <img 
+                                className="rightbarImg" 
+                                src={user.profilePic ? PF + user.profilePic : PF + "blank_avatar.jpg"} 
+                                alt="" 
+                            />
                         </Link> 
                     </li>
                     <li className="rightbarSection">

@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
+import Sidebar from "../sidebar/Sidebar";
 
 export default function SinglePost() {
 
@@ -32,7 +33,9 @@ export default function SinglePost() {
   const handleDelete = async() => {
     try{
       await axios.delete(`/posts/${post._id}`, {
-        data: {username: user.username},
+        data: {
+          username: user.username, 
+        },
       });
       window.location.replace("/")
     }catch(err){
@@ -54,6 +57,7 @@ export default function SinglePost() {
   }
 
   return (
+    <>
     <div className="singlePost">
         <div className="singlePostWrapper">
           {post.photo &&
@@ -80,10 +84,13 @@ export default function SinglePost() {
             </h1>
           )}
           <div className="singlePostInfo">
-            <span className="singlePostAuthor">
-              Author: <b><Link className="link" to={`/?user=${post.username}`}>{post.username}</Link></b>
-            </span>
-            <span className="singlePostDate">{format(post.createdAt)}</span>
+          <Link className="link" to={`/?user=${post.username}`}>
+            <div className="singlePostAuthor">
+                <img className="singlePostProfile" src={post.profilePic} alt="" />
+                <b>Author: {post.username}</b>
+            </div>
+          </Link>
+          <span className="singlePostDate">{format(post.createdAt)}</span>
           </div>
           {updateMode ? 
             <textarea 
@@ -102,6 +109,10 @@ export default function SinglePost() {
             </button>
           }
         </div>
-    </div>
+        <div className="sidebar">
+          <Sidebar profile={post.profilePic}/>
+        </div>
+  </div>
+    </>
   )
 }

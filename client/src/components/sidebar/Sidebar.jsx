@@ -4,9 +4,11 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Context } from "../../context/Context";
 
-export default function Sidebar() {
+export default function Sidebar({profile}) {
 
   const [cats, setCats] = useState([]);
+  
+  const PF = "http://localhost:5000/images/";
 
   const {user} = useContext(Context);
 
@@ -21,8 +23,8 @@ export default function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarItem">
-        <span className="sidebarTitle">ABOUT ME</span>
-        <img src={user.profilePic} alt="" />
+        <span className="sidebarTitle">ABOUT AUTHOR</span>
+        <img src={profile} alt="" />
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
           Incidunt tenetur voluptatum accusantium voluptas laudantium 
           dolorum esse modi cum facere!</p>

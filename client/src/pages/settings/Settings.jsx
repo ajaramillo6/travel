@@ -6,8 +6,8 @@ import axios from "axios";
 
 export default function Settings() {
 
-  const {user} = useContext(Context);
-
+  const { user, dispatch } = useContext(Context);
+  const PF = "http://localhost:5000/images/";
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +16,7 @@ export default function Settings() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    dispatch({ type:'UPDATE_START' });
     const updatedUser = {
       userId: user._id,
       username,
@@ -36,9 +37,11 @@ export default function Settings() {
       }
     }
     try{
-      await axios.put("/users/"+user._id, updatedUser);
+      const res = await axios.put("/users/"+user._id, updatedUser);
+      dispatch({ type:'UPDATE_SUCCESS', payload: res.data });
       setSuccess(true);
     }catch(err){
+      dispatch({ type:'UPDATE_FAILURE' });
       console.log(err);
     }
   }
@@ -53,7 +56,11 @@ export default function Settings() {
           <form className="settingsForm" onSubmit={handleSubmit}>
             <label>Profile Picture</label>
             <div className="settingsPP">
-              <img src={file ? URL.createObjectURL(file) : user.profilePic} alt="" />
+              {user.profilePic ? 
+                <img src={file ? URL.createObjectURL(file) : PF + user.profilePic} alt="" /> 
+              :
+                <img src={file ? URL.createObjectURL(file) : PF + "blank_avatar.jpg"} alt="" />  
+              }
               <label htmlFor="fileInput">
                 <i className="settingsPPIcon fa-solid fa-circle-user"></i>
               </label>
@@ -83,13 +90,11 @@ export default function Settings() {
             />
             <button className="settingsSubmit" type="submit">Update</button>
             {success && 
-              <span style={{
-                  color:'aquamarine', 
-                  textAlign:"center", 
-                  marginTop:'20px', 
-                  fontSize: "12px"}}>
-                Profile has updated successfully.
-              </span>}
+              <div className="notification">
+                <i className="successIcon fa-solid fa-circle-check"></i>
+                Profile has updated successfully!
+              </div>
+            }
           </form>
         </div>
         <Sidebar />

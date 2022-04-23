@@ -103,3 +103,22 @@
 .settingsSubmit:hover{
     background-color: rgb(75, 81, 167);
 }
+
+.notification{
+    background-color: rgb(101, 204, 154);
+    color:white;
+    margin-top:20px;
+    width: 200px;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+}
+
+.successIcon{
+    margin-right: 5px;
+    font-size: 16px;
+}

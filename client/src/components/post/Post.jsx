@@ -20,7 +20,10 @@ export default function Post({ post }) {
                 ))}
               </div>
               <span className="postTitle">{post.title}</span>
-              <span className="postDate">{format(post.createdAt)}</span>
+              <div className='postUserDate'>
+                <span className="postUser">{post.username}</span>
+                <span className="postDate">{format(post.createdAt)}</span>
+              </div>
           </div>
           <p className="postDesc">
             {post.desc}
