@@ -22,7 +22,7 @@ export default function About() {
 <>
     <div className="about">
         {users.map((a, i)=>(
-            <Link className="link" to={`/?user=${a.username}`}>
+            <Link className="link" to={`/travel/?user=${a.username}`}>
                 <div className="aboutAuthorContainer" key={i}>
                     <img className="aboutAuthorPP" src={PF + a.profilePic} alt="" />
                     <span className="aboutAuthorUsername">{a.username}</span>

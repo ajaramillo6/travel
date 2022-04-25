@@ -84,7 +84,7 @@ export default function SinglePost() {
             </h1>
           )}
           <div className="singlePostInfo">
-          <Link className="link" to={`/?user=${post.username}`}>
+          <Link className="link" to={`/travel/?user=${post.username}`}>
             <div className="singlePostAuthor">
                 <img className="singlePostProfile" src={post.profilePic} alt="" />
                 <b>Author: {post.username}</b>
