@@ -86,6 +86,11 @@
     outline: none;
 }
 
+.settingsFinalStep{
+    display: flex;
+    justify-content: space-between;
+}
+
 .settingsSubmit{
     color: white;
     width: 110px;
@@ -107,7 +112,6 @@
 .notification{
     background-color: rgb(101, 204, 154);
     color:white;
-    margin-top:20px;
     width: 200px;
     padding: 10px;
     font-size: 12px;

@@ -19,6 +19,31 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    bio: {
+        type: String,
+        default: "",
+    },
+    favorites: {
+        type:
+            {
+            places:{type: String, default: "",},
+            books:{type: String, default: "",}, 
+            movies:{type: String, default: "",},
+            food:{type: String, default: "",},
+            },
+    },
+    pinterest: {
+        type: String,
+        default: "",
+    },
+    instagram: {
+        type: String,
+        default: "",
+    },
+    facebook: {
+        type: String,
+        default: "",
+    },
 }, 
 { timestamps:true }
 );

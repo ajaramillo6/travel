@@ -39,6 +39,8 @@
 
 .sidebarItem > p {
     padding: 30px;
+    font-family: 'Lora', 'serif';
+    font-size: 12;
 }
 
 .sidebarList {

@@ -1,5 +1,4 @@
 import "./settings.css";
-import Sidebar from "../../components/sidebar/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
@@ -12,6 +11,10 @@ export default function Settings() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [bio, setBio] = useState("");
+  const [pinterest, setPinterest] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [facebook, setFacebook] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async(e) => {
@@ -22,6 +25,10 @@ export default function Settings() {
       username,
       email,
       password,
+      bio,
+      pinterest,
+      instagram,
+      facebook,
     }
     if(file){
       const data = new FormData();
@@ -88,16 +95,41 @@ export default function Settings() {
               type="password" 
               onChange={(e)=>setPassword(e.target.value)} 
             />
-            <button className="settingsSubmit" type="submit">Update</button>
-            {success && 
-              <div className="notification">
-                <i className="successIcon fa-solid fa-circle-check"></i>
-                Profile has updated successfully!
-              </div>
-            }
+            <label>Bio</label>
+            <input 
+              type="text" 
+              placeholder={user.bio} 
+              onChange={(e)=>setBio(e.target.value)} 
+            />
+            <label>Pinterest</label>
+            <input 
+              type="text" 
+              placeholder={user.pinterest} 
+              onChange={(e)=>setPinterest(e.target.value)} 
+            />
+            <label>Instagram</label>
+            <input 
+              type="text" 
+              placeholder={user.instagram} 
+              onChange={(e)=>setInstagram(e.target.value)} 
+            />
+            <label>Facebook</label>
+            <input 
+              type="text" 
+              placeholder={user.facebook} 
+              onChange={(e)=>setFacebook(e.target.value)} 
+            />
+            <div className="settingsFinalStep">
+              <button className="settingsSubmit" type="submit">Update</button>
+              {success && 
+                <div className="notification">
+                  <i className="successIcon fa-solid fa-circle-check"></i>
+                  Profile has updated successfully!
+                </div>
+              }
+            </div>
           </form>
         </div>
-        <Sidebar />
     </div>
   )
 }

@@ -17,6 +17,22 @@ const PostSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    bio: {
+        type: String,
+        default: "",
+    },
+    pinterest: {
+        type: String,
+        default: "",
+    },
+    instagram: {
+        type: String,
+        default: "",
+    },
+    facebook: {
+        type: String,
+        default: "",
+    },
     username: {
         type: String,
         required: true,

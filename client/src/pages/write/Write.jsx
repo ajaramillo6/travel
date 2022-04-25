@@ -16,6 +16,10 @@ export default function Write() {
     const newPost = {
       username: user.username,
       profilePic: PF + user.profilePic,
+      bio: user.bio,
+      pinterest: user.pinterest,
+      instagram: user.instagram,
+      facebook: user.facebook,
       title,
       desc,
     }
@@ -34,7 +38,8 @@ export default function Write() {
     }
     try{
       const res = await axios.post("/posts", newPost);
-      window.location.replace("/post/"+res.data._id)
+      console.log(res);
+      window.location.replace("/post/"+res.data._id);
     }catch(err){
       console.log(err);
     }

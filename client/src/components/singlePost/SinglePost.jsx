@@ -110,7 +110,13 @@ export default function SinglePost() {
           }
         </div>
         <div className="sidebar">
-          <Sidebar profile={post.profilePic}/>
+          <Sidebar 
+            profile={post.profilePic} 
+            bio={post.bio} 
+            pinterest={post.pinterest} 
+            instagram={post.instagram} 
+            facebook={post.facebook} 
+          />
         </div>
   </div>
     </>

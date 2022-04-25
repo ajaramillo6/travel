@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Context } from "../../context/Context";
 
-export default function Sidebar({profile}) {
+export default function Sidebar({profile, bio, pinterest, instagram, facebook}) {
 
   const [cats, setCats] = useState([]);
   
@@ -25,9 +25,7 @@ export default function Sidebar({profile}) {
       <div className="sidebarItem">
         <span className="sidebarTitle">ABOUT AUTHOR</span>
         <img src={profile} alt="" />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Incidunt tenetur voluptatum accusantium voluptas laudantium 
-          dolorum esse modi cum facere!</p>
+        <p>{bio}</p>
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">PLACES</span>
@@ -42,13 +40,13 @@ export default function Sidebar({profile}) {
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW</span>
         <div className="sidebarSocial">
-          <a className="link" href="https://www.pinterest.com/megandunnavant/_saved/">
+          <a className="link" href={pinterest}>
             <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
           </a>
-          <a className="link" href="https://www.instagram.com/megglygweggly/?hl=en">
+          <a className="link" href={instagram}>
             <i className="sidebarIcon fa-brands fa-instagram-square"></i>
           </a>
-          <a className="link" href="https://www.facebook.com/profile.php?id=100008509874105">
+          <a className="link" href={facebook}>
             <i className="sidebarIcon fa-brands fa-facebook-square"></i>
           </a>
         </div>
