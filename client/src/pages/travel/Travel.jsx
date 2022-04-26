@@ -34,9 +34,10 @@ export default function Travel() {
     <>
       <div className="travel">
         {user &&
-          <div>
+          <div className="travelUserContainer">
             <img className="travelUserPic" src={PF + user.profilePic} alt="" />
-            <span className="travelUserUsername">{user.username}'s Posts</span>
+            <span className="travelUserUsername">{user.username}'s posts</span>
+            <span className="travelUserFavorites">Favorites</span>
             <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
           </div>
         }
