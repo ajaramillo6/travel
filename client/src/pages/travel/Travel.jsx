@@ -6,7 +6,13 @@ import { useLocation } from "react-router-dom";
 
 export default function Travel() {
   const[posts, setPosts] = useState([]);
+  const[user, setUser] = useState("");
+
+  const PF = "http://localhost:5000/images/";
+
   const {search} = useLocation();
+  const location = useLocation();
+  const author = location.search.split("=")[1];
 
   useEffect(()=> {
     const fetchPosts = async() => {
@@ -16,9 +22,24 @@ export default function Travel() {
     fetchPosts();
   },[search])
 
+  useEffect(()=> {
+    const fetchUser = async() => {
+      const res = await axios.get("/users/?user="+author);
+        setUser(res.data[0]);
+    }
+    fetchUser();
+  },[author])
+
   return (
     <>
       <div className="travel">
+        {user &&
+          <div>
+            <img className="travelUserPic" src={PF + user.profilePic} alt="" />
+            <span className="travelUserUsername">{user.username}'s Posts</span>
+            <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
+          </div>
+        }
         <Posts posts={posts} />
       </div>
     </>

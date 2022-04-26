@@ -5,7 +5,9 @@ import { useState } from 'react';
 export default function SideNavbar() {
 
   const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => {
+    setSidebar(!sidebar)
+  };
 
   return (
     <>
@@ -36,7 +38,7 @@ export default function SideNavbar() {
               </Link>
             </li>
             <li className="pageSection">
-              <Link className="link" to="/write">
+              <Link className="link" to="/travel">
                 <div className="page">
                   <i className="fa-solid fa-plane"></i>
                   <span className="text">Travel</span>

@@ -56,12 +56,26 @@ router.get("/:id", async(req,res)=> {
 
 //GET ALL USERS
 router.get("/", async(req,res)=> {
+    const username = req.query.user;
     try{
-        let users = await User.find();
+        let users;
+        if(username){
+            users = await User.find({
+                username,
+            });
+        } else {
+            users = await User.find();
+        }
         res.status(200).json(users);
     } catch(err){
         res.status(500).json(err);
     }
+    // try{
+    //     let users = await User.find();
+    //     res.status(200).json(users);
+    // } catch(err){
+    //     res.status(500).json(err);
+    // }
 });
 
 module.exports = router;
