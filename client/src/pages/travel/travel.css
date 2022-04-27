@@ -5,7 +5,7 @@
 }
 
 .travelUserContainer{
-    flex: 2;
+    flex: 1;
     display: flex;
     align-items: center;
     background-color: rgb(247, 248, 249);
@@ -15,6 +15,33 @@
 
 .travelUserPosts{
     flex: 9;
+    overflow: hidden;
+}
+
+.travelCats{
+    display: flex;
+    margin-bottom: 20px;
+    padding: 5px 0px;
+    background-color: rgb(78, 115, 160);
+    justify-content: center;
+    flex-direction: row;
+    overflow-x: scroll;
+}
+
+.travelCats::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .travelCats {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+.travelCat{
+    font-family: 'Josefin Sans', 'sans-serif';
+    padding: 0px 40px;
+    color: white;
 }
 
 .travelUserPicWrapper{

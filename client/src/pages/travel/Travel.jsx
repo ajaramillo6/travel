@@ -41,7 +41,7 @@ export default function Travel() {
     setCats.push(posts[i].loc);
   }
 
-  const cats = setCats.filter(onlyUnique)
+  const cats = setCats.filter(onlyUnique).sort();
 
   return (
     <>
@@ -62,14 +62,14 @@ export default function Travel() {
         
         <div className="travelUserPosts">
         {cats &&
-            <div>
+            <div className="travelCats">
               {cats.map((cat, i)=>(
                 <div>
-                  <ul key={i}>
-                <Link to={`/?cat=${cat}`}>
-                  <li>{cat}</li>
-                </Link>
-                </ul>
+                  <div key={i}>
+                    <Link className="link" to={`/travel/?cat=${cat}`}>
+                      <span className="travelCat">{cat}</span>
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
