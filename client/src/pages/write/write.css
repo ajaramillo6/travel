@@ -48,6 +48,14 @@
     outline: none;
 }
 
+.writeLocationInput{
+    font-size: 20px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+    outline: none;
+}
+
 .writeText{
     font-size: 20px;
     height: 100vh;
@@ -71,3 +79,4 @@
 .writeSubmit:hover{
     background-color: rgb(75, 81, 167);
 }
+

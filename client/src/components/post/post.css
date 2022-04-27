@@ -1,7 +1,7 @@
 .post{
     transition: box-shadow 0.3s;
     width: 385px;
-    margin: 0px 10px 40px 10px;
+    margin: 20px 20px 40px 20px;
     border-radius: 10px;
     padding: 20px 40px;
     cursor: pointer;

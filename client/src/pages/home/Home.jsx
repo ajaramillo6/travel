@@ -12,7 +12,9 @@ export default function Home() {
   useEffect(()=> {
     const fetchPosts = async() => {
       const res = await axios.get("/posts" + search);
-      setPosts(res.data);
+      setPosts(res.data.sort((p1,p2)=> {
+        return new Date(p2.createdAt) - new Date(p1.createdAt)
+      }));
     }
     fetchPosts();
   },[search])
@@ -21,7 +23,9 @@ export default function Home() {
     <>
       <Header />
       <div className="home">
-        <Posts posts={posts} />
+        <span className="homeText">Latest Posts</span>
+        <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto'}}></hr>
+        <Posts posts={posts.slice(0, 4)} />
       </div>
     </>
   )

@@ -67,7 +67,7 @@ router.get("/:id", async(req,res)=> {
 router.get("/", async(req,res)=> {
 
     const username = req.query.user;
-    const catName = req.query.cat;
+    const loc = req.query.cat;
 
     try{
         let posts;
@@ -75,11 +75,9 @@ router.get("/", async(req,res)=> {
             posts = await Post.find({
                 username,
             });
-        } else if(catName){
+        } else if(loc){
             posts = await Post.find({
-                categories:{
-                    $in:[catName],
-                }
+                loc,
             });
         } else {
             posts = await Post.find();

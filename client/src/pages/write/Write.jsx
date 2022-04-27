@@ -10,6 +10,7 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [loc, setLoc] = useState("");
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export default function Write() {
       facebook: user.facebook,
       title,
       desc,
+      loc,
     }
     if(file){
       const data = new FormData();
@@ -38,7 +40,6 @@ export default function Write() {
     }
     try{
       const res = await axios.post("/posts", newPost);
-      console.log(res);
       window.location.replace("/post/"+res.data._id);
     }catch(err){
       console.log(err);
@@ -68,6 +69,14 @@ export default function Write() {
                   autoFocus={true} 
                   onChange={e=>setTitle(e.target.value)}
                 />
+            </div>
+            <div className="writeFormGroup">
+              <input 
+                type="text" 
+                placeholder="Country" 
+                className="writeLocationInput" 
+                onChange={e=>setLoc(e.target.value)}
+              />
             </div>
             <div className="writeFormGroup">
               <textarea 

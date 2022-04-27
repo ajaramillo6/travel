@@ -29,13 +29,13 @@ export default function Sidebar({profile, bio, pinterest, instagram, facebook}) 
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">PLACES</span>
-        <ul className="sidebarList">
+        {/* <ul className="sidebarList">
           {cats.map((cat)=>(
-            <Link className="link" to={`/?cat=${cat.name}`}>
-              <li className="sidebarListItem">{cat.name}</li>
+            <Link className="link" to={`/?cat=${cat.loc}`}>
+              <li className="sidebarListItem">{cat.loc}</li>
             </Link>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW</span>

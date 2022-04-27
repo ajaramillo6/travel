@@ -48,12 +48,11 @@ export default function Topbar() {
                     <Link className="topListItem" to="/">Home</Link>
                 </li>
                 <li>
-                    <Link className="topListItem" to="/about">About</Link>
+                    <Link className="topListItem" to="/about">Team</Link>
                 </li>
                 <li>
                     <Link className="topListItem" to="/travel">Travel</Link>
                 </li>
-                <li className="topListItem">Contact Me</li>
             </ul>
         </div>
         <div className="topCenterLogo">

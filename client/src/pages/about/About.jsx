@@ -12,7 +12,9 @@ export default function About() {
   useEffect(()=> {
     const fetchUsers = async() => {
       const res = await axios.get("/users");
-      setUsers(res.data);
+      setUsers(res.data.sort((a,b)=>
+        a.username.localeCompare(b.username)
+      ));
     }
     fetchUsers();
   },[])

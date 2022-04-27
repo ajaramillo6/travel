@@ -5,12 +5,22 @@
 }
 
 .travelUserContainer{
+    flex: 2;
     display: flex;
     align-items: center;
     background-color: rgb(247, 248, 249);
-    height: 100vh;
     padding: 20px;
     flex-direction: column;
+}
+
+.travelUserPosts{
+    flex: 9;
+}
+
+.travelUserPicWrapper{
+    background-color: #5694be;
+    padding: 5px;
+    border-radius: 50%;
 }
 
 .travelUserPic{
@@ -42,5 +52,12 @@
     font-family: 'Varela Round', 'sans-serif';
     font-size: 15px;
     color: #999999;
+    margin-top: 15px;
+}
+
+.travelUserContactText{
+    font-family: 'Varela Round', 'sans-serif';
+    font-size: 15px;
+    color: #5664be;
     margin-top: 15px;
 }

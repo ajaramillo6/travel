@@ -10,6 +10,10 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    loc: {
+        type: String,
+        required: true,
+    },
     photo: {
         type: String,
     },

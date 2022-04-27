@@ -32,8 +32,8 @@ export default function SideNavbar() {
             <li className="pageSection">
               <Link className="link" to="/about">
                 <div className="page">
-                  <i className="fa-solid fa-circle-info"></i>
-                  <span className="text">About</span>
+                  <i className="fa-solid fa-user-group"></i>
+                  <span className="text">Team</span>
                 </div>
               </Link>
             </li>
@@ -42,14 +42,6 @@ export default function SideNavbar() {
                 <div className="page">
                   <i className="fa-solid fa-plane"></i>
                   <span className="text">Travel</span>
-                </div>
-              </Link>
-            </li>
-            <li className="pageSection">
-              <Link className="link" to="#">
-                <div className="page">
-                  <i className="fa-solid fa-envelope"></i>
-                  <span className="text">Contact Me</span>
                 </div>
               </Link>
             </li>
