@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
 import { Context } from "../../context/Context";
 
-export default function Sidebar({author, profile, bio, pinterest, instagram, facebook}) {
+export default function Sidebar({author, profile, pinterest, instagram, facebook}) {
   
   const PF = "http://localhost:5000/images/";
 
@@ -51,9 +51,12 @@ export default function Sidebar({author, profile, bio, pinterest, instagram, fac
   return (
     <div className="sidebar">
       <div className="sidebarItem">
-        <span className="sidebarTitle">ABOUT AUTHOR</span>
-        <img src={profile} alt="" />
-        <p>{bio}</p>
+        <span className="sidebarTitle">AUTHOR</span>
+        <Link className="link" to={`/travel/?user=${author}`}>
+          <div className="sidebarProfileWrapper">
+            <img className="sidebarProfilePic" src={profile} alt="" />
+          </div>
+        </Link>
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">COUNTRIES</span>
@@ -62,7 +65,9 @@ export default function Sidebar({author, profile, bio, pinterest, instagram, fac
                   <div>
                     <div key={i}>
                       <Link className="link" to={`/travel/?cat=${loc}`}>
-                        <div className="sidebarListItem">{loc}</div>
+                        <div className="sidebarListItemWrapper">
+                          <div className="sidebarListItem">{loc}</div>
+                        </div>
                       </Link>
                     </div>
                   </div>

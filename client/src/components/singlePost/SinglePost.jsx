@@ -11,6 +11,7 @@ export default function SinglePost() {
   const[post, setPost] = useState({});
   const[title, setTitle] = useState("");
   const[desc, setDesc] = useState("");
+  const[loc, setLoc] = useState("");
   const[updateMode, setUpdateMode] = useState(false);
 
   const { user } = useContext(Context);
@@ -26,6 +27,7 @@ export default function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setLoc(res.data.loc);
     }
     getPost();
   },[path])
@@ -49,6 +51,7 @@ export default function SinglePost() {
         username: user.username,
         title,
         desc,
+        loc,
       });
       setUpdateMode(false);
     }catch(err){
@@ -65,6 +68,7 @@ export default function SinglePost() {
           }
           {
             updateMode ? 
+            <div className="singlePostTitleInputContainer">
               <input 
                 type="text" 
                 value={title} 
@@ -72,6 +76,14 @@ export default function SinglePost() {
                 onChange={(e)=>setTitle(e.target.value)}
                 autofocus
               /> 
+              <input 
+                type="text" 
+                value={loc} 
+                className="singlePostLocInput" 
+                onChange={(e)=>setLoc(e.target.value)}
+                autofocus
+              /> 
+            </div>
           : (
             <div className="singlePostTitleContainer">
               <Link className="link" to={`/travel/?cat=${post.loc}`}>
@@ -117,7 +129,6 @@ export default function SinglePost() {
         <div className="sidebar">
           <Sidebar 
             profile={post.profilePic} 
-            bio={post.bio} 
             pinterest={post.pinterest} 
             instagram={post.instagram} 
             facebook={post.facebook} 

@@ -19,6 +19,11 @@
     object-fit: cover;
 }
 
+.singlePostTitleInputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
 .singlePostTitleContainer{
     display: flex;
     flex-direction: column;
@@ -38,6 +43,15 @@
 
 .singlePostCat:hover{
     background-color: rgb(93, 124, 162);
+}
+
+.singlePostLocInput{
+    margin: 10px;
+    font-family: 'Lora', 'serif';
+    font-size: 15px;
+    border: none;
+    color: gray;
+    outline: none;
 }
 
 .singlePostTitle{

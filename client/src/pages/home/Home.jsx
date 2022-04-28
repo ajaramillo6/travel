@@ -25,7 +25,7 @@ export default function Home() {
       <div className="home">
         <span className="homeText">Latest Posts</span>
         <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto'}}></hr>
-        <Posts posts={posts.slice(0, 4)} />
+        <Posts posts={posts.slice(0, 6)} />
       </div>
     </>
   )
