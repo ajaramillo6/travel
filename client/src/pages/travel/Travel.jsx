@@ -1,12 +1,31 @@
 import "./travel.css";
 import Posts from "../../components/posts/Posts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Travel() {
   const[posts, setPosts] = useState([]);
   const[user, setUser] = useState("");
+  const [goingUp, setGoingUp] = useState(true);
+
+  //Hide on scroll
+  const prevScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (prevScrollY.current < currentScrollY && goingUp) {
+        setGoingUp(false);
+      }
+      if (prevScrollY.current > currentScrollY && !goingUp) {
+        setGoingUp(true);
+      }
+      prevScrollY.current = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [goingUp]);
 
   const PF = "http://localhost:5000/images/";
 
@@ -32,6 +51,7 @@ export default function Travel() {
     fetchUser();
   },[author])
 
+  //Find locations from posts
   function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
@@ -46,28 +66,27 @@ export default function Travel() {
   return (
     <>
       <div className="travel">
-        {user &&
+        {(user && cats) &&
           <div className="travelUserContainer">
             <div className="travelUserPicWrapper">
               <img className="travelUserPic" src={PF + user.profilePic} alt="" />
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
-            <span className="travelUserFavorites">Favorites</span>
             <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
+            <span className="travelUserFavorites">Favorites</span>
             <span className="travelUserContactText">
               Contact Me
             </span>
           </div>
         }
-        
         <div className="travelUserPosts">
-        {cats &&
+        {goingUp &&
             <div className="travelCats">
               {cats.map((cat, i)=>(
                 <div>
                   <div key={i}>
                     <Link className="link" to={`/travel/?cat=${cat}`}>
-                      <span className="travelCat">{cat}</span>
+                      <div className="travelCat">{cat}</div>
                     </Link>
                   </div>
                 </div>

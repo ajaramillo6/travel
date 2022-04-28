@@ -1,5 +1,5 @@
 .travel{
-    margin-top: 60px;
+    margin-top: 50px;
     display: flex;
     flex-direction: row;
 }
@@ -20,12 +20,27 @@
 
 .travelCats{
     display: flex;
-    margin-bottom: 20px;
-    padding: 5px 0px;
+    padding: 4px 10px;
     background-color: rgb(78, 115, 160);
-    justify-content: center;
+    align-items: center;
     flex-direction: row;
     overflow-x: scroll;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    animation: fade-slide-up 0.4s 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fade-slide-up {
+0% {
+opacity: 0;
+transform: translateY(4rem);
+}
+100% {
+opacity: 1;
+transform: none;
+}
 }
 
 .travelCats::-webkit-scrollbar {
@@ -40,8 +55,13 @@
 
 .travelCat{
     font-family: 'Josefin Sans', 'sans-serif';
-    padding: 0px 40px;
+    padding: 2px 40px;
     color: white;
+}
+
+.travelCat:hover{
+    background-color:rgb(91, 126, 170);
+    border-radius: 5px;
 }
 
 .travelUserPicWrapper{
@@ -68,17 +88,17 @@
     margin-top: 15px;
 }
 
-.travelUserFavorites{
-    font-family: 'Varela Round', 'sans-serif';
-    font-size: 15px;
-    color: #5694be;
-    margin-top: 30px;
-}
-
 .travelUserPostsCount{
     font-family: 'Varela Round', 'sans-serif';
     font-size: 15px;
     color: #999999;
+    margin-top: 30px;
+}
+
+.travelUserFavorites{
+    font-family: 'Varela Round', 'sans-serif';
+    font-size: 15px;
+    color: #5694be;
     margin-top: 15px;
 }
 

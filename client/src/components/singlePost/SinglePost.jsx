@@ -73,15 +73,20 @@ export default function SinglePost() {
                 autofocus
               /> 
           : (
-            <h1 className="singlePostTitle">
-              {title}
-              {post.username === user?.username &&
-                <div className="singlePostEdit">
-                  <i className="singlePostIcon fa-solid fa-pen-to-square" onClick={()=>setUpdateMode(true)}></i>
-                  <i className="singlePostIcon fa-solid fa-trash" onClick={handleDelete}></i>
-                </div>
-              }
-            </h1>
+            <div className="singlePostTitleContainer">
+              <Link className="link" to={`/travel/?cat=${post.loc}`}>
+                <div className="singlePostCat">{post.loc}</div>
+              </Link>
+              <h1 className="singlePostTitle">
+                {title}
+                {post.username === user?.username &&
+                  <div className="singlePostEdit">
+                    <i className="singlePostIcon fa-solid fa-pen-to-square" onClick={()=>setUpdateMode(true)}></i>
+                    <i className="singlePostIcon fa-solid fa-trash" onClick={handleDelete}></i>
+                  </div>
+                }
+              </h1>
+            </div>
           )}
           <div className="singlePostInfo">
           <Link className="link" to={`/travel/?user=${post.username}`}>
@@ -116,6 +121,7 @@ export default function SinglePost() {
             pinterest={post.pinterest} 
             instagram={post.instagram} 
             facebook={post.facebook} 
+            author={post.username}
           />
         </div>
   </div>

@@ -19,11 +19,32 @@
     object-fit: cover;
 }
 
-.singlePostTitle{
+.singlePostTitleContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.singlePostCat{
+    margin: 10px;
+    font-family: 'Lora', 'serif';
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(78, 115, 160);
+    color: white;
+    width: 100px;
     text-align: center;
+}
+
+.singlePostCat:hover{
+    background-color: rgb(93, 124, 162);
+}
+
+.singlePostTitle{
     margin: 10px;
     font-family: 'Lora', 'serif';
     font-size: 28px;
+    text-align: center;
 }
 
 .singlePostTitleInput{
@@ -69,6 +90,11 @@
 }
 
 .singlePostAuthor{
+    display: flex;
+    align-items: center;
+}
+
+.singlePostDate{
     display: flex;
     align-items: center;
 }
