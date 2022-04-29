@@ -108,3 +108,13 @@ transform: none;
     color: #5664be;
     margin-top: 15px;
 }
+
+.travelSocialContainer{
+    display: flex;
+    margin: 15px 10px;
+}
+
+.travelSocialIcon{
+    margin-left: 5px;
+    margin-right: 5px;
+}

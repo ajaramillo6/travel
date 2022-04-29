@@ -75,15 +75,17 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
           </div>
       </div>
       <div className="sidebarItem">
-        <span className="sidebarTitle">FOLLOW</span>
+        <span className={(pinterest && instagram && facebook) != "" ? "sidebarTitle":"noLink"}>
+          FOLLOW
+        </span>
         <div className="sidebarSocial">
-          <a className="link" href={pinterest}>
+          <a className={pinterest != "" ? "link":"noLink"} href={pinterest}>
             <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
           </a>
-          <a className="link" href={instagram}>
+          <a className={instagram != "" ? "link":"noLink"} href={instagram}>
             <i className="sidebarIcon fa-brands fa-instagram-square"></i>
           </a>
-          <a className="link" href={facebook}>
+          <a className={facebook != "" ? "link":"noLink"} href={facebook}>
             <i className="sidebarIcon fa-brands fa-facebook-square"></i>
           </a>
         </div>
