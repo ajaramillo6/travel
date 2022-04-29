@@ -20,6 +20,34 @@
     color: rgb(53, 109, 161);
 }
 
+.settingsUpdateMode{
+    display: flex;
+}
+
+.settingsEdit{
+    font-size: 15px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    background-color: rgb(65, 150, 123);
+    color: white;
+}
+
+.settingsEditCancel{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: rgb(65, 65, 65);
+}
+
 .settingsDelete{
     font-size: 15px;
     cursor: pointer;
@@ -30,11 +58,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.settingsDelete:hover{
-    color: white;
     background-color: rgb(220, 68, 68);
+    color: white;
 }
 
 .settingsForm{
@@ -45,6 +70,16 @@
 .settingsPP{
     display: flex;
     align-items:center;
+    margin: 10px 0px;
+}
+
+.settingsPPSaved{
+    display: flex;
+    height: 70px;
+    width: 70px;
+    align-items:center;
+    border-radius: 20px;
+    object-fit: cover;
     margin: 10px 0px;
 }
 
@@ -86,6 +121,18 @@
     outline: none;
 }
 
+.settingsBioText {
+    border: none;
+    height: 50px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.settingsInfoSaved{
+    margin: 15px 0px;
+    color: gray;
+}
+
 .settingsFinalStep{
     display: flex;
     justify-content: space-between;
@@ -123,6 +170,24 @@
 }
 
 .successIcon{
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.notificationError{
+    background-color: rgb(213, 137, 70);
+    color:white;
+    width: 150px;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+}
+
+.errorIcon{
     margin-right: 5px;
     font-size: 16px;
 }

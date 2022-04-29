@@ -5,6 +5,12 @@ import { Link, useLocation} from 'react-router-dom';
 
 export default function Sidebar({author, profile, pinterest, instagram, facebook}) {
 
+
+    console.log(profile)
+    console.log(author)
+
+    //IF POST USER PROFILEPIC DOES NOT MATCH PROFILE, THEN USE THE PF INSTEAD OF POST.PROFILEPIC
+
     //FIND LOCATIONS BY USER
 
     const[posts, setPosts] = useState([]);

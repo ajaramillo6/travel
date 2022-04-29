@@ -81,7 +81,6 @@ export default function SinglePost() {
                 value={loc} 
                 className="singlePostLocInput" 
                 onChange={(e)=>setLoc(e.target.value)}
-                autofocus
               /> 
             </div>
           : (
