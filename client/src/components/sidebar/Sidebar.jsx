@@ -3,13 +3,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
 
-export default function Sidebar({author, profile, pinterest, instagram, facebook}) {
+export default function Sidebar({author, profile, pinterest, instagram, facebook, compareProfile}) {
 
-
-    console.log(profile)
-    console.log(author)
-
-    //IF POST USER PROFILEPIC DOES NOT MATCH PROFILE, THEN USE THE PF INSTEAD OF POST.PROFILEPIC
+  const PF = "http://localhost:5000/images/";
 
     //FIND LOCATIONS BY USER
 
@@ -31,19 +27,19 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
     }
   
     //PULL USER AND LOCS
-    let locations = [];
+    const locations = [];
     for (let i=0; i < posts.length; i++){
       locations.push([posts[i].username,posts[i].loc]);
     }
 
-    let userLocs = [];
+    const userLocs = [];
     for (let i=0; i < locations.length; i++){
       if(locations[i][0] === author){
         userLocs.push(locations[i])
       }
     }
 
-    let userLocList = [];
+    const userLocList = [];
     for (let i=0; i < userLocs.length; i++){
         userLocList.push(userLocs[i][1])
     }
@@ -55,7 +51,7 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
         <span className="sidebarTitle">AUTHOR</span>
         <Link className="link" to={`/travel/?user=${author}`}>
           <div className="sidebarProfileWrapper">
-            <img className="sidebarProfilePic" src={profile} alt="" />
+            <img className="sidebarProfilePic" src={PF + compareProfile} alt="" />
           </div>
         </Link>
       </div>

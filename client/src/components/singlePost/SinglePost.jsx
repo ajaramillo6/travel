@@ -5,6 +5,7 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
 import Sidebar from "../sidebar/Sidebar";
+import isEqual from 'lodash/isEqual';
 
 export default function SinglePost() {
 
@@ -13,6 +14,7 @@ export default function SinglePost() {
   const[desc, setDesc] = useState("");
   const[loc, setLoc] = useState("");
   const[updateMode, setUpdateMode] = useState(false);
+  const[users, setUsers] = useState([]);
 
   const { user } = useContext(Context);
 
@@ -58,6 +60,38 @@ export default function SinglePost() {
       console.log(err);
     }
   }
+  
+  //Search for Users to compare with Author info
+  useEffect(()=> {
+    const fetchUsers = async() => {
+      const res = await axios.get("/users");
+      setUsers(res.data);
+    }
+    fetchUsers();
+  },[])
+
+  const userList = [];
+  for(let i=0; i < users.length; i++){
+    if(users[i].username === post.username){
+      userList.push([users[i].username, users[i].profilePic])
+    }
+  }
+
+  const postProfile = [];
+  if(post.profilePic !== undefined){
+    JSON.stringify(postProfile.push(post.profilePic.split("/")[4]));
+  }
+
+  const compareProfile = []
+  if(userList[0] !== undefined){
+    if(userList[0][1] !==undefined){
+      JSON.stringify(compareProfile.push(userList[0][1]));
+    }
+  }
+
+  if(isEqual(postProfile,compareProfile)){
+    console.log("MATCH")
+  }
 
   return (
     <>
@@ -102,7 +136,7 @@ export default function SinglePost() {
           <div className="singlePostInfo">
           <Link className="link" to={`/travel/?user=${post.username}`}>
             <div className="singlePostAuthor">
-                <img className="singlePostProfile" src={post.profilePic} alt="" />
+                <img className="singlePostProfile" src={PF + compareProfile} alt="" />
                 <b>Author: {post.username}</b>
             </div>
           </Link>
@@ -127,6 +161,7 @@ export default function SinglePost() {
         </div>
         <div className="sidebar">
           <Sidebar 
+            compareProfile={compareProfile}
             profile={post.profilePic} 
             pinterest={post.pinterest} 
             instagram={post.instagram} 

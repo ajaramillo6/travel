@@ -29,7 +29,6 @@
     cursor: pointer;
     width: 25px;
     height: 25px;
-    border: 1px solid gray;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -37,6 +36,10 @@
     margin-right: 10px;
     background-color: rgb(65, 150, 123);
     color: white;
+}
+
+.settingsEdit:hover{
+    background-color: rgb(73, 156, 130);
 }
 
 .settingsEditCancel{
@@ -53,13 +56,16 @@
     cursor: pointer;
     width: 25px;
     height: 25px;
-    border: 1px solid gray;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: rgb(220, 68, 68);
     color: white;
+}
+
+.settingsDelete:hover{
+    background-color: rgb(233, 86, 86);
 }
 
 .settingsForm{

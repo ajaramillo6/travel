@@ -127,7 +127,7 @@ export default function Settings() {
               <input 
                 type="password" 
                 value={password}
-                placeholder={user.password}
+                placeholder="Enter a password"
                 onChange={(e)=>setPassword(e.target.value)} 
               />
             </>
