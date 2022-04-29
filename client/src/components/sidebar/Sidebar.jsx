@@ -1,14 +1,9 @@
 import "./sidebar.css";
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
-import { Context } from "../../context/Context";
 
 export default function Sidebar({author, profile, pinterest, instagram, facebook}) {
-  
-  const PF = "http://localhost:5000/images/";
-
-  const {user} = useContext(Context);
 
     //FIND LOCATIONS BY USER
 
@@ -37,7 +32,7 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
 
     let userLocs = [];
     for (let i=0; i < locations.length; i++){
-      if(locations[i][0] == author){
+      if(locations[i][0] === author){
         userLocs.push(locations[i])
       }
     }
@@ -75,17 +70,17 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
           </div>
       </div>
       <div className="sidebarItem">
-        <span className={(pinterest && instagram && facebook) != "" ? "sidebarTitle":"noLink"}>
+        <span className={(pinterest && instagram && facebook) !== "" ? "sidebarTitle":"noLink"}>
           FOLLOW
         </span>
         <div className="sidebarSocial">
-          <a className={pinterest != "" ? "link":"noLink"} href={pinterest}>
+          <a className={pinterest !== "" ? "link":"noLink"} href={pinterest}>
             <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
           </a>
-          <a className={instagram != "" ? "link":"noLink"} href={instagram}>
+          <a className={instagram !== "" ? "link":"noLink"} href={instagram}>
             <i className="sidebarIcon fa-brands fa-instagram-square"></i>
           </a>
-          <a className={facebook != "" ? "link":"noLink"} href={facebook}>
+          <a className={facebook !== "" ? "link":"noLink"} href={facebook}>
             <i className="sidebarIcon fa-brands fa-facebook-square"></i>
           </a>
         </div>

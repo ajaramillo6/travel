@@ -53,13 +53,13 @@ export default function About() {
                     <i className="aboutReadMoreIcon fa-solid fa-angle-right"></i>
                 </div>
                 <div className="aboutSocial">
-                    <a className={a.pinterest != "" ? "link":"noLink"} href={a.pinterest}>
+                    <a className={a.pinterest !== "" ? "link":"noLink"} href={a.pinterest}>
                         <i className="aboutSocialIcon fa-brands fa-pinterest-square"></i>
                     </a>
-                    <a className={a.instagram != "" ? "link":"noLink"} href={a.instagram}>
+                    <a className={a.instagram !== "" ? "link":"noLink"} href={a.instagram}>
                         <i className="aboutSocialIcon fa-brands fa-instagram-square"></i>
                     </a>
-                    <a className={a.facebook != "" ? "link":"noLink"} href={a.facebook}>
+                    <a className={a.facebook !== "" ? "link":"noLink"} href={a.facebook}>
                         <i className="aboutSocialIcon fa-brands fa-facebook-square"></i>
                     </a>
                 </div>
@@ -76,13 +76,13 @@ export default function About() {
                         <div className="aboutBioUsernameContainer">
                             <span className="aboutBioUsername">{readMore[2]}</span>
                             <div className="aboutBioSocialContainer">
-                                <a className={readMore[3] != "" ? "link":"noLink"} href={readMore[3]}>
+                                <a className={readMore[3] !== "" ? "link":"noLink"} href={readMore[3]}>
                                     <i className="aboutSocialIcon fa-brands fa-pinterest-square"></i>
                                 </a>
-                                <a className={readMore[4] != "" ? "link":"noLink"} href={readMore[4]}>
+                                <a className={readMore[4] !== "" ? "link":"noLink"} href={readMore[4]}>
                                     <i className="aboutSocialIcon fa-brands fa-instagram-square"></i>
                                 </a>
-                                <a className={readMore[5] != "" ? "link":"noLink"} href={readMore[5]}>
+                                <a className={readMore[5] !== "" ? "link":"noLink"} href={readMore[5]}>
                                     <i className="aboutSocialIcon fa-brands fa-facebook-square"></i>
                                 </a>
                             </div>

@@ -78,13 +78,13 @@ export default function Travel() {
               Contact Me
             </span>
             <div className="travelSocialContainer">
-              <a className={user.pinterest != "" ? "link":"noLink"} href={user.pinterest}>
+              <a className={user.pinterest !== "" ? "link":"noLink"} href={user.pinterest}>
                 <i className="travelSocialIcon fa-brands fa-pinterest-square"></i>
               </a>
-              <a className={user.instagram != "" ? "link":"noLink"} href={user.instagram}>
+              <a className={user.instagram !== "" ? "link":"noLink"} href={user.instagram}>
                 <i className="travelSocialIcon fa-brands fa-instagram-square"></i>
               </a>
-              <a className={user.facebook != "" ? "link":"noLink"} href={user.facebook}>
+              <a className={user.facebook !== "" ? "link":"noLink"} href={user.facebook}>
                 <i className="travelSocialIcon fa-brands fa-facebook-square"></i>
               </a>
             </div>
