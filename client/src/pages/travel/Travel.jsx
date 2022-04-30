@@ -1,8 +1,8 @@
 import "./travel.css";
-import Posts from "../../components/posts/Posts";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
+import Searchbar from "../../components/searchbar/Searchbar";
 
 export default function Travel() {
   const[posts, setPosts] = useState([]);
@@ -104,7 +104,7 @@ export default function Travel() {
               ))}
             </div>
         }
-          <Posts posts={posts} />
+          <Searchbar posts={posts} />
         </div> 
       </div>
     </>

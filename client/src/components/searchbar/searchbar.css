@@ -1,0 +1,36 @@
+.searchbar{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchbarTitle{
+    font-family: 'Lora', 'serif';
+    font-size: 30px;
+    color: rgb(111, 111, 111);
+    margin-bottom: 15px;
+}
+
+.searchbarBar{
+    height: 25px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+}
+
+.searchbarIcon{
+    margin-right: 10px;
+}
+
+.search{
+    font-family: 'Lora', 'serif';
+    font-size: 15px;
+    border: none;
+    outline: none;
+    width: 400px;
+}
