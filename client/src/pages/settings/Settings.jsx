@@ -17,6 +17,8 @@ export default function Settings() {
   const [facebook, setFacebook] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [wrongPassword, setWrongPassword] = useState(false);
 
   useEffect(()=> {
     const getUser = async() => {
@@ -47,6 +49,10 @@ export default function Settings() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     dispatch({ type:'UPDATE_START' });
+    if(password !== passwordCheck){
+      setWrongPassword(true)
+    } else {
+      setWrongPassword(false)
     const updatedUser = {
       userId: user._id,
       profilePic: user.profilePic,
@@ -57,7 +63,7 @@ export default function Settings() {
       pinterest,
       instagram,
       facebook,
-    }
+      }
       if(file){
         const data = new FormData();
         const filename = Date.now() + file.name;
@@ -80,6 +86,7 @@ export default function Settings() {
           dispatch({ type:'UPDATE_FAILURE' });
           console.log(err);
       }
+    }
   }
 
   return (
@@ -117,7 +124,10 @@ export default function Settings() {
               </div> 
             ) : (
               <div className="settingsPPSavedContainer">
-                <img src={PF + user.profilePic} alt="" className="settingsPPSaved" />
+                {user.profilePic ?
+                  <img src={PF + user.profilePic} alt="" className="settingsPPSaved" /> :
+                  <img src={PF + "blank_avatar.jpg"} alt="" className="settingsPPSaved" />
+                }
               </div>
             )
             }
@@ -129,6 +139,15 @@ export default function Settings() {
                 value={password}
                 placeholder="Enter a password"
                 onChange={(e)=>setPassword(e.target.value)} 
+              />
+              <label>
+                Confirm Password
+              </label>
+              <input 
+                type="password" 
+                value={passwordCheck}
+                placeholder="Re-enter password"
+                onChange={(e)=>setPasswordCheck(e.target.value)} 
               />
             </>
             }
@@ -224,6 +243,12 @@ export default function Settings() {
                   >
                   Update
                 </button>
+                {wrongPassword &&
+                  <div className="notificationPassword">
+                    <i className="errorIcon fa-solid fa-circle-exclamation"></i>
+                    Passwords didn't match. Try again.
+                  </div>
+                }
               </div>
             }
             {(updateMode && password === "") &&

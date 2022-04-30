@@ -193,6 +193,19 @@
     font-weight: 800;
 }
 
+.notificationPassword{
+    background-color: rgb(213, 70, 70);
+    color:white;
+    width: 230px;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+}
+
 .errorIcon{
     margin-right: 5px;
     font-size: 16px;
