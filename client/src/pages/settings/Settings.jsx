@@ -37,7 +37,7 @@ export default function Settings() {
     try{
       await axios.delete(`/users/${user._id}`, {
         data: {
-          username: user.username, 
+          userId: user._id,
         },
       });
       window.location.replace("/")
