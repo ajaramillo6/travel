@@ -2,15 +2,17 @@ import "./write.css";
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../context/Context";
+import { countryListAllIsoData } from "../../countryListAllIsoData";
+import { usaStatesListAllData } from "../../usaStatesListAllData";
 
 export default function Write() {
-
   const { user } = useContext(Context);
   const PF = "http://localhost:5000/images/"
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const [loc, setLoc] = useState("");
+  const [state, setState] = useState("");
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ export default function Write() {
       title,
       desc,
       loc,
+      state,
     }
     if(file){
       const data = new FormData();
@@ -71,12 +74,30 @@ export default function Write() {
                 />
             </div>
             <div className="writeFormGroup">
-              <input 
-                type="text" 
-                placeholder="Country" 
+              <select 
                 className="writeLocationInput" 
-                onChange={e=>setLoc(e.target.value)}
-              />
+                onChange={(e)=>setLoc(e.target.value)}>
+                {countryListAllIsoData.map(country=>(
+                  <option 
+                    key={country.number} 
+                    >
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+              {loc === 'United States' &&
+                <select 
+                  className="writeLocationInput" 
+                  onChange={(e)=>setState(e.target.value)}>
+                  {usaStatesListAllData.map(state=>(
+                    <option 
+                      key={state.number} 
+                      >
+                      {state.name}
+                    </option>
+                  ))}
+                </select>
+              }
             </div>
             <div className="writeFormGroup">
               <textarea 

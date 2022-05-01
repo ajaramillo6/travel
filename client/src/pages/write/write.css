@@ -50,10 +50,13 @@
 
 .writeLocationInput{
     font-size: 20px;
-    border: none;
-    padding: 20px;
-    width: 70vw;
     outline: none;
+    border: none;
+    width: 200px;
+    color:rgb(103, 103, 103);
+    margin: 10px;
+    cursor: pointer;
+    margin-right: 20px;
 }
 
 .writeText{
