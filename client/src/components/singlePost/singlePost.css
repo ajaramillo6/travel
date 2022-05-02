@@ -45,7 +45,37 @@
     background-color: rgb(93, 124, 162);
 }
 
+
+.singlePostState{
+    margin: 10px;
+    font-family: 'Lora', 'serif';
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(78, 115, 160);
+    color: white;
+    width: 100px;
+    text-align: center;
+}
+
+.singlePostState:hover{
+    background-color: rgb(93, 124, 162);
+}
+
+.singlePostLocationsContainer{
+    display: flex;
+}
+
 .singlePostLocInput{
+    margin: 10px;
+    font-family: 'Lora', 'serif';
+    font-size: 15px;
+    border: none;
+    color: gray;
+    outline: none;
+}
+
+.singlePostStateInput{
     margin: 10px;
     font-family: 'Lora', 'serif';
     font-size: 15px;

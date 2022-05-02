@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
 
-export default function Sidebar({author, profile, pinterest, instagram, facebook, compareProfile}) {
+export default function Sidebar({author, pinterest, instagram, facebook, compareProfile}) {
 
   const PF = "http://localhost:5000/images/";
 
@@ -45,6 +45,27 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
     }
     const locs = userLocList.filter(onlyUnique).sort();
 
+  //PULL USER AND STATES
+  const states = [];
+  for (let i=0; i < posts.length; i++){
+    states.push([posts[i].username,posts[i].state]);
+  }
+
+  const userStates = [];
+  for (let i=0; i < states.length; i++){
+    if(states[i][0] === author){
+      userStates.push(states[i])
+    }
+  }
+
+  const userStatesList = [];
+  for (let i=0; i < userStates.length; i++){
+      userStatesList.push(userStates[i][1])
+  }
+  const usStates = userStatesList.filter(onlyUnique).sort();
+
+  
+
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -59,17 +80,35 @@ export default function Sidebar({author, profile, pinterest, instagram, facebook
         <span className="sidebarTitle">COUNTRIES</span>
         <div className="sidebarList">
           {locs.map((loc, i)=>(
-                  <div>
-                    <div key={i}>
-                      <Link className="link" to={`/travel/?cat=${loc}`}>
-                        <div className="sidebarListItemWrapper">
-                          <div className="sidebarListItem">{loc}</div>
-                        </div>
-                      </Link>
+              <div>
+                <div key={i}>
+                  <Link className="link" to={`/travel/?cat=${loc}`}>
+                    <div className="sidebarListItemWrapper">
+                      <div className="sidebarListItem">{loc}</div>
                     </div>
-                  </div>
+                  </Link>
+                </div>
+              </div>
             ))}
-          </div>
+        </div>
+      </div>
+      <div className="sidebarItem">
+        <span className="sidebarTitle">STATES</span>
+        <div className="sidebarList">
+          {usStates.map((state, i)=>(
+              <div>
+                <div key={i}>
+                  <Link className="link" to={`/travel/?state=${state}`}>
+                    <div className="sidebarListItemWrapper">
+                      {state !== "" &&
+                        <div className="sidebarListItem">{state}</div>
+                      }
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
       <div className="sidebarItem">
         <span className={(pinterest && instagram && facebook) !== "" ? "sidebarTitle":"noLink"}>

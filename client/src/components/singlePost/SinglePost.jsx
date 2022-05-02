@@ -5,7 +5,6 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
 import Sidebar from "../sidebar/Sidebar";
-import isEqual from 'lodash/isEqual';
 
 export default function SinglePost() {
 
@@ -92,10 +91,6 @@ export default function SinglePost() {
     }
   }
 
-  if(isEqual(postProfile,compareProfile)){
-    console.log("MATCH")
-  }
-
   return (
     <>
     <div className="singlePost">
@@ -119,12 +114,27 @@ export default function SinglePost() {
                 className="singlePostLocInput" 
                 onChange={(e)=>setLoc(e.target.value)}
               /> 
+              {post.state !== "" &&
+              <input 
+                type="text" 
+                value={state} 
+                className="singlePostStateInput" 
+                onChange={(e)=>setState(e.target.value)}
+              /> 
+              }
             </div>
           : (
             <div className="singlePostTitleContainer">
-              <Link className="link" to={`/travel/?cat=${post.loc}`}>
-                <div className="singlePostCat">{post.loc}</div>
-              </Link>
+              <div className="singlePostLocationsContainer">
+                <Link className="link" to={`/travel/?cat=${post.loc}`}>
+                  <div className="singlePostCat">{post.loc}</div>
+                </Link>
+                {post.state !== "" &&
+                  <Link className="link" to={`/travel/?state=${post.state}`}>
+                    <div className="singlePostState">{post.state}</div>
+                  </Link>
+                }
+              </div>
               <h1 className="singlePostTitle">
                 {title}
                 {post.username === user?.username &&
