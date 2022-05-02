@@ -1,0 +1,25 @@
+.dropdownStates{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center;
+    font-family: 'Josefin Sans', 'sans-serif';
+    margin-left: 5px;
+}
+
+.dropdownState{
+    display: flex;
+    background-color: #727272;
+    color: white;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-radius: 15px;
+    margin-right: 5px;
+    padding: 4px 10px;
+    height: 100%;
+}
+
+.dropdownState:hover{
+    background-color: #7e7e7e;
+}

@@ -19,6 +19,7 @@ export default function Settings() {
   const [success, setSuccess] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
 
   useEffect(()=> {
     const getUser = async() => {
@@ -33,6 +34,10 @@ export default function Settings() {
     getUser();
   },[user._id]);
 
+  const handleDeleteConfirm = () => {
+    setDeleteAccount(!deleteAccount);
+  }
+
   const handleDelete = async() => {
     try{
       await axios.delete(`/users/${user._id}`, {
@@ -40,7 +45,9 @@ export default function Settings() {
           userId: user._id,
         },
       });
-      window.location.replace("/")
+      dispatch({ type: "LOGOUT" });
+      window.location.replace("/login")
+      window.alert("Account deleted. Sorry to see you go :(");
     }catch(err){
       console.log(err);
     }
@@ -99,7 +106,19 @@ export default function Settings() {
                 <i className="settingsEdit fa-solid fa-pen-to-square" onClick={()=>setUpdateMode(true)}></i> :
                 <i className="settingsEditCancel fa-solid fa-circle-xmark fa-xl" onClick={()=>setUpdateMode(false)}></i>
               }
-              <i className="settingsDelete fa-solid fa-trash" onClick={handleDelete}></i>
+              <i className="settingsDelete fa-solid fa-trash" onClick={handleDeleteConfirm}></i>
+              {deleteAccount &&
+                <div className="settingsDeleteAccount">
+                  <h2 className="settingsDeleteTitle">Delete Account</h2>
+                  <span className="settingsDeleteText">
+                    Are you sure you want to delete your account and all posts?
+                  </span>
+                  <div className="settingsDeleteOptions">
+                    <div className="settingsDeleteOption" onClick={handleDeleteConfirm}>Cancel</div>
+                    <div className="settingsDeleteOption" onClick={handleDelete}>Yes</div>
+                  </div>
+                </div>
+              }
             </div>
           </div>
           <form className="settingsForm" onSubmit={handleSubmit}>

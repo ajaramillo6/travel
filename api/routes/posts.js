@@ -68,6 +68,7 @@ router.get("/", async(req,res)=> {
 
     const username = req.query.user;
     const loc = req.query.cat;
+    const state = req.query.state;
 
     try{
         let posts;
@@ -78,6 +79,10 @@ router.get("/", async(req,res)=> {
         } else if(loc){
             posts = await Post.find({
                 loc,
+            });
+        } else if(state){
+            posts = await Post.find({
+                state,
             });
         } else {
             posts = await Post.find();

@@ -13,6 +13,7 @@ export default function SinglePost() {
   const[title, setTitle] = useState("");
   const[desc, setDesc] = useState("");
   const[loc, setLoc] = useState("");
+  const[state, setState] = useState("");
   const[updateMode, setUpdateMode] = useState(false);
   const[users, setUsers] = useState([]);
 
@@ -30,6 +31,7 @@ export default function SinglePost() {
       setTitle(res.data.title);
       setDesc(res.data.desc);
       setLoc(res.data.loc);
+      setState(res.data.state);
     }
     getPost();
   },[path])
@@ -54,6 +56,7 @@ export default function SinglePost() {
         title,
         desc,
         loc,
+        state,
       });
       setUpdateMode(false);
     }catch(err){

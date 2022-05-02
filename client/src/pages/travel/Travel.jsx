@@ -3,11 +3,25 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import Searchbar from "../../components/searchbar/Searchbar";
+import Dropdown from "../../components/dropdown/Dropdown";
 
 export default function Travel() {
   const[posts, setPosts] = useState([]);
   const[user, setUser] = useState("");
+  const[showDropdown, setShowDropdown] = useState(false);
   const [goingUp, setGoingUp] = useState(true);
+
+  const handleDropdown = (cat) => {
+    if(cat === "United States"){
+      setShowDropdown(!showDropdown)
+    } else if (cat !== "United States"){
+      setShowDropdown(false)
+    }
+  }
+
+  const handleDropdownLeave = () => {
+      setShowDropdown(!showDropdown)
+  }
 
   //Hide on scroll
   const prevScrollY = useRef(0);
@@ -63,10 +77,19 @@ export default function Travel() {
 
   const cats = setCats.filter(onlyUnique).sort();
 
+  let setStates = [];
+  for(let i=0; i < posts.length; i++){
+    if(posts[i].state !== ""){
+      setStates.push(posts[i].state);
+    }
+  }
+
+  const states = setStates.filter(onlyUnique).sort();
+
   return (
     <>
       <div className="travel">
-        {(user && cats) &&
+        {user &&
           <div className="travelUserContainer">
             <div className="travelUserPicWrapper">
               <img className="travelUserPic" src={PF + user.profilePic} alt="" />
@@ -92,17 +115,27 @@ export default function Travel() {
         }
         <div className="travelUserPosts">
         {goingUp &&
+        <>
             <div className="travelCats">
               {cats.map((cat, i)=>(
-                <div>
+                <>
                   <div key={i}>
                     <Link className="link" to={`/travel/?cat=${cat}`}>
-                      <div className="travelCat">{cat}</div>
+                      <div 
+                        className="travelCat" 
+                        onMouseEnter={()=>handleDropdown(cat)}
+                        >
+                        {cat}
+                      </div>
                     </Link>
                   </div>
-                </div>
+                  <div className={!showDropdown && "hideDropdown"} onMouseLeave={handleDropdownLeave}>
+                    <Dropdown cat={cat} states={states} />
+                  </div>
+                </>
               ))}
             </div>
+        </>
         }
           <Searchbar posts={posts} />
         </div> 

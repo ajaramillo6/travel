@@ -6,7 +6,6 @@ export default function Searchbar({posts}) {
     const [query, setQuery] = useState("");
 
     const keys = ["title", "desc", "loc", "username"];
-    console.log(posts)
     const Search = (posts) => {
         return posts.filter((post)=>
             keys.some((key)=>post[key].toLowerCase().includes(query) || 
@@ -20,7 +19,7 @@ export default function Searchbar({posts}) {
             <i className="searchbarIcon fa-solid fa-magnifying-glass fa-xs"></i>
             <input 
                 type="text" 
-                placeholder="Search for a location..." 
+                placeholder="Search" 
                 className="search" 
                 autoFocus={true} 
                 onChange={(e)=>setQuery(e.target.value)}
