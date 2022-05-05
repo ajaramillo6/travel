@@ -5,11 +5,12 @@
     align-items: center;
     font-family: 'Josefin Sans', 'sans-serif';
     margin-left: 5px;
+    font-size: 14px;
 }
 
 .dropdownState{
     display: flex;
-    background-color: #727272;
+    background-color: #939393;
     color: white;
     border-right: 1px solid grey;
     border-left: 1px solid grey;

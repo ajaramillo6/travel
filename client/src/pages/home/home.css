@@ -1,12 +1,13 @@
 .home{
     display: flex;
     flex-direction: column;
+    /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%) */
 }
 
 .homeText{
     text-align: center;
     font-size: 20px;
     font-family: 'Lora', 'serif';
-    color: #444;
+    color: rgb(123, 123, 123);
     margin: 20px 0px 10px 0px;
 }

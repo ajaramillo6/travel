@@ -1,87 +1,134 @@
 .sidebar{
-    flex: 2;
-    margin: 20px;
-    padding-bottom: 30px;
-    background-color: rgb(247, 248, 249);
-    border-radius: 10px;
     display: flex;
+    flex: 3;
     flex-direction: column;
-    align-items: center;
+    padding-right: 10px;
+    font-family: 'Lora', 'serif';
 }
 
 .sidebarItem{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-right: 15px;
+}
+
+.sidebarItemProfile{
+    display: flex;
+    flex-direction: row;
     margin-bottom: 15px;
 }
 
-.sidebarTitle{
-    margin: 10px;
-    padding: 5px;
-    width: 80%;
-    border-top: 1px solid #a7a4a4;
-    border-bottom: 1px solid #a7a4a4;
-    font-family: 'Varela Round', 'sans-serif';
-    font-size: 12px;
-    color: #222;
-    font-weight: 600;
-    line-height: 20px;
-    text-align: center;
-}
-
 .sidebarProfileWrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #5694be;
+    display: flex;
     padding: 5px;
     border-radius: 50%;
 }
 
 .sidebarProfilePic{
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
 }
 
-.sidebarList {
-    list-style: none;
-    padding: 0;
+.sidebarProfileInfoContainer{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.sidebarSocialIcon{
+    margin-right: 10px;
+}
+
+.sidebarItem{
+    display: flex;
+}
+
+.sidebarList{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(246, 246, 246);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.sidebarTitle{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+hr{
+    width: 100%;
+    background-color: rgb(219, 219, 219);
+    height: 1px;
+    border: none;
+    margin: 5px 0px;
+}
+
+.sidebarPostsWrapper{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+}
+
+.sidebarPostPicContainer{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebarPostPic{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.sidebarPostContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.sidebarPostsWrapper:hover{
+    background-color: rgb(226, 231, 235);
+    border-radius: 10px;
+}
+
+.sidebarPostTitle{
+    color: rgb(61, 61, 61);
+    font-size: 12px;
+}
+
+.sidebarPostDate{
+    font-size: 10px;
+    color: rgb(140, 140, 140);
+    font-style: italic;
+}
+
+.sidebarItemLocations{
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
 }
 
 .sidebarListItemWrapper{
     display: flex;
-    background-color: rgb(95, 96, 97);
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.sidebarListItem{
-    width: 100%;
-    padding: 5px 10px;
-    cursor: pointer;
-    color: white;
-    align-items: center;
-    justify-content: center;
+    text-align: left;
+    margin-bottom: 5px;
 }
 
 .sidebarListItemWrapper:hover{
-    background-color: rgb(107, 109, 110);
+    background-color: rgb(226, 231, 235);
+    border-radius: 10px;
 }
 
-.sidebarSocial{
-    margin-top: 15px;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.sidebarListItem{
+    padding: 10px;
+    color: rgb(61, 61, 61);
 }
 
-.sidebarIcon{
-    font-size: 16px;
-    margin-left: 10px;
-    cursor: pointer;
-}

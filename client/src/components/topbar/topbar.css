@@ -5,7 +5,7 @@
     top: 0;
     display: flex;
     align-items: center;
-    background-color: white;
+    background: white;
     font-family: 'Josefin Sans', 'sans-serif';
     z-index: 1200;
     box-shadow: none;
@@ -42,7 +42,7 @@
 }
 
 .topRight{
-    flex:3;
+    flex:1;
     display: flex;
     align-items: center;
     justify-content: center;

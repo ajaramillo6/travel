@@ -1,6 +1,7 @@
 .write{
     padding-top: 15px;
     margin-top: 40px;
+    color: #2d2d2d;
 }
 
 .writeImg{
@@ -29,7 +30,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(106, 106, 106);
     cursor: pointer;
 }
 
@@ -42,6 +42,13 @@
     border: none;
     padding: 20px;
     width: 70vw;
+    font-family: 'Lora', 'serif';
+    font-weight: bold;
+}
+
+.writeInput::placeholder{
+    color: #2d2d2d;
+    font-family: 'Lora', 'serif';
 }
 
 .writeInput:focus{
@@ -53,15 +60,21 @@
     outline: none;
     border: none;
     width: 200px;
-    color:rgb(103, 103, 103);
     margin: 10px;
     cursor: pointer;
     margin-right: 20px;
+    font-family: 'Lora', 'serif';
 }
 
 .writeText{
     font-size: 20px;
     height: 100vh;
+    font-family: 'Lora', 'serif';
+}
+
+.writeText::placeholder{
+    color: #2d2d2d;
+    font-family: 'Lora', 'serif';
 }
 
 .writeSubmit{

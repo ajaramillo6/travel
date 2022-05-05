@@ -60,9 +60,6 @@ export default function Topbar() {
         </div>
         <div className="topRight">
                 <div className="topIcons">
-                  <Link className="link" to="/travel">
-                    <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
-                  </Link>
                   <i className="topAdminIcon fa-solid fa-gear" onClick={handleAdmin}></i>
                 </div>
                 {openAdmin &&

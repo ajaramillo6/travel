@@ -2,6 +2,7 @@
     margin-top: 50px;
     display: flex;
     flex-direction: row;
+    /* background-color: rgb(249, 249, 249); */
 }
 
 .travelUserContainer{
@@ -20,14 +21,15 @@
 
 .travelCats{
     display: flex;
-    padding: 10px 10px;
-    background-color: rgb(78, 115, 160);
+    padding: 5px 10px;
+    background-color: rgb(98, 145, 203);
     align-items: center;
     flex-direction: row;
     overflow-x: scroll;
     z-index: 1000;
     animation: fade-slide-up 0.4s 0.4s ease-out forwards;
     opacity: 0;
+    font-size: 14px;
 }
 
 @keyframes fade-slide-up {

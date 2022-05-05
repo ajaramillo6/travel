@@ -1,10 +1,11 @@
 .post{
     transition: box-shadow 0.3s;
-    width: 385px;
-    margin: 20px 20px 40px 20px;
+    width: 500px;
+    margin: 10px 10px 20px 10px;
     border-radius: 10px;
     padding: 20px 40px;
     cursor: pointer;
+    background-color: white;
 }
 
 .post:hover {

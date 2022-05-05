@@ -10,17 +10,10 @@
     color: #444;
 }
 
-.headerTitleSm{
-    position: absolute;
-    top: 12%;
-    font-size: 20px;
-    z-index: 8
-}
-
 .headerTitleLg{
     position: absolute;
-    top: 16%;
-    font-size: 60px;
+    top: 13%;
+    font-size: 40px;
     color: rgb(39, 91, 140);
     z-index: 10;
 }

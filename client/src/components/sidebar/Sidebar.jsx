@@ -2,8 +2,9 @@ import "./sidebar.css";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
+import { format } from 'timeago.js';
 
-export default function Sidebar({author, pinterest, instagram, facebook, compareProfile}) {
+export default function Sidebar({author, compareProfile, post}) {
 
   const PF = "http://localhost:5000/images/";
 
@@ -16,7 +17,9 @@ export default function Sidebar({author, pinterest, instagram, facebook, compare
     useEffect(()=> {
       const fetchPosts = async() => {
         const res = await axios.get("/posts" + search);
-        setPosts(res.data);
+        setPosts(res.data.sort((p1,p2)=> {
+          return new Date(p2.createdAt) - new Date(p1.createdAt)
+        }));
       }
       fetchPosts();
     },[search])
@@ -64,66 +67,132 @@ export default function Sidebar({author, pinterest, instagram, facebook, compare
   }
   const usStates = userStatesList.filter(onlyUnique).sort();
 
-  
+  //OTHER POSTS BY AUTHOR
+  const otherPosts = [];
+  for (let i=0; i < posts.length; i++){
+    if(posts[i].username === author && posts[i].title !== post.title){
+      otherPosts.push(posts[i]);
+    }
+  }
+
+  //RELATED POSTS BY ANY AUTHOR
+  const relatedPosts = [];
+  for (let i=0; i < posts.length; i++){
+    if((posts[i].loc === post.loc || posts[i].state === post.state) && posts[i].title !== post.title){
+      relatedPosts.push(posts[i]);
+    }
+  }
 
   return (
     <div className="sidebar">
-      <div className="sidebarItem">
-        <span className="sidebarTitle">AUTHOR</span>
+      <div className="sidebarItemProfile">
         <Link className="link" to={`/travel/?user=${author}`}>
           <div className="sidebarProfileWrapper">
             <img className="sidebarProfilePic" src={PF + compareProfile} alt="" />
           </div>
         </Link>
+          <div className="sidebarProfileInfoContainer">
+            <div className="sidebarInfoSocial">
+              <a className={post.pinterest !== "" ? "link":"noLink"} href={post.pinterest}>
+                <i className="sidebarSocialIcon fa-brands fa-pinterest-square"></i>
+              </a>
+              <a className={post.instagram !== "" ? "link":"noLink"} href={post.instagram}>
+                <i className="sidebarSocialIcon fa-brands fa-instagram-square"></i>
+              </a>
+              <a className={post.facebook !== "" ? "link":"noLink"} href={post.facebook}>
+                <i className="sidebarSocialIcon fa-brands fa-facebook-square"></i>
+              </a>
+            </div>
+          </div>
       </div>
       <div className="sidebarItem">
-        <span className="sidebarTitle">COUNTRIES</span>
         <div className="sidebarList">
-          {locs.map((loc, i)=>(
+          <div className="sidebarTitle">Recent Posts</div>
+          <hr />
+          {otherPosts.slice(0,3).map((post, i)=>(
               <div>
                 <div key={i}>
-                  <Link className="link" to={`/travel/?cat=${loc}`}>
-                    <div className="sidebarListItemWrapper">
-                      <div className="sidebarListItem">{loc}</div>
+                <Link className="link" to={`/post/${post._id}`}>
+                    <div className="sidebarPostsWrapper">
+                      <div className="sidebarPostPicContainer">
+                        <img className="sidebarPostPic" src={PF + post.photo} alt="" />
+                      </div>
+                      <div className="sidebarPostContainer">
+                        <div className="sidebarPostTitle">{post.title}</div>
+                        <div className="sidebarPostDate">{format(post.createdAt)}</div>
+                      </div>
                     </div>
-                  </Link>
+                </Link>
                 </div>
               </div>
             ))}
         </div>
       </div>
       <div className="sidebarItem">
-        <span className="sidebarTitle">STATES</span>
         <div className="sidebarList">
-          {usStates.map((state, i)=>(
+          <div className="sidebarTitle">Related Posts</div>
+          <hr />
+          {relatedPosts.map((post, i)=>(
               <div>
                 <div key={i}>
-                  <Link className="link" to={`/travel/?state=${state}`}>
-                    <div className="sidebarListItemWrapper">
+                <Link className="link" to={`/post/${post._id}`}>
+                    <div className="sidebarPostsWrapper">
+                      <div className="sidebarPostPicContainer">
+                        <img className="sidebarPostPic" src={PF + post.photo} alt="" />
+                      </div>
+                      <div className="sidebarPostContainer">
+                        <div className="sidebarPostTitle">{post.title}</div>
+                        <div className="sidebarPostDate">{format(post.createdAt)}</div>
+                      </div>
+                    </div>
+                </Link>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+      <div className="sidebarItemLocations">
+        <div className="sidebarItem">
+          <div className="sidebarList">
+            <div className="sidebarTitle">
+              Countries visited
+            </div>
+            <hr />
+            {locs.map((loc, i)=>(
+                <div>
+                  <div key={i}>
+                    <Link className="link" to={`/travel/?cat=${loc}`}>
+                      <div className="sidebarListItemWrapper">
+                        <div className="sidebarListItem">{loc}</div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+        <div className="sidebarItem">
+          <div className="sidebarList">
+            <div className="sidebarTitle">
+              States visited
+            </div>
+            <hr />
+            {usStates.map((state, i)=>(
+                <div>
+                  <div key={i}>
+                    <Link className="link" to={`/travel/?state=${state}`}>
+                      <div className="sidebarListItemWrapper">
                       {state !== "" &&
-                        <div className="sidebarListItem">{state}</div>
-                      }
-                    </div>
-                  </Link>
+                          <div className="sidebarListItem">
+                            {state}
+                          </div>
+                        }
+                      </div>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
-        </div>
-      </div>
-      <div className="sidebarItem">
-        <span className={(pinterest && instagram && facebook) !== "" ? "sidebarTitle":"noLink"}>
-          FOLLOW
-        </span>
-        <div className="sidebarSocial">
-          <a className={pinterest !== "" ? "link":"noLink"} href={pinterest}>
-            <i className="sidebarIcon fa-brands fa-pinterest-square"></i>
-          </a>
-          <a className={instagram !== "" ? "link":"noLink"} href={instagram}>
-            <i className="sidebarIcon fa-brands fa-instagram-square"></i>
-          </a>
-          <a className={facebook !== "" ? "link":"noLink"} href={facebook}>
-            <i className="sidebarIcon fa-brands fa-facebook-square"></i>
-          </a>
+              ))}
+          </div>
         </div>
       </div>
     </div>

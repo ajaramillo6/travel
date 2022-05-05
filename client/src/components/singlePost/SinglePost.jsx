@@ -15,6 +15,7 @@ export default function SinglePost() {
   const[state, setState] = useState("");
   const[updateMode, setUpdateMode] = useState(false);
   const[users, setUsers] = useState([]);
+  const[showSidebar, setShowSidebar] = useState(true);
 
   const { user } = useContext(Context);
 
@@ -91,10 +92,14 @@ export default function SinglePost() {
     }
   }
 
+  const handleOpenSidebar = () => {
+    setShowSidebar(!showSidebar);
+  }
+
   return (
     <>
     <div className="singlePost">
-        <div className="singlePostWrapper">
+        <div className={showSidebar ? "singlePostWrapper":"singlePostWrapperFill"}>
           {post.photo &&
             <img className="singlePostImg" src={PF+post.photo} alt="" />
           }
@@ -126,14 +131,18 @@ export default function SinglePost() {
           : (
             <div className="singlePostTitleContainer">
               <div className="singlePostLocationsContainer">
-                <Link className="link" to={`/travel/?cat=${post.loc}`}>
-                  <div className="singlePostCat">{post.loc}</div>
-                </Link>
-                {post.state !== "" &&
-                  <Link className="link" to={`/travel/?state=${post.state}`}>
-                    <div className="singlePostState">{post.state}</div>
+                <div className="singlePostCatWrapper">
+                  <Link className="link" to={`/travel/?cat=${post.loc}`}>
+                    <div className="singlePostCat">{post.loc}</div>
                   </Link>
-                }
+                </div>
+                <div className="singlePostStateWrapper">
+                  {post.state !== "" &&
+                    <Link className="link" to={`/travel/?state=${post.state}`}>
+                      <div className="singlePostState">{post.state}</div>
+                    </Link>
+                  }
+                </div>
               </div>
               <h1 className="singlePostTitle">
                 {title}
@@ -173,16 +182,26 @@ export default function SinglePost() {
           }
         </div>
         <div className="sidebar">
-          <Sidebar 
-            compareProfile={compareProfile}
-            profile={post.profilePic} 
-            pinterest={post.pinterest} 
-            instagram={post.instagram} 
-            facebook={post.facebook} 
-            author={post.username}
-          />
+          {showSidebar ? (
+            <div className="sidebarShow">
+              <i className="sidebarIcon fa-solid fa-angle-right" onClick={handleOpenSidebar}></i>
+              <Sidebar 
+                post={post}
+                compareProfile={compareProfile}
+                profile={post.profilePic} 
+                pinterest={post.pinterest} 
+                instagram={post.instagram} 
+                facebook={post.facebook} 
+                author={post.username}
+              />
+            </div>
+          ):(
+            <div className="sidebarShow">
+              <i className="sidebarIcon fa-solid fa-angle-left" onClick={handleOpenSidebar}></i>
+            </div>
+          )}
         </div>
   </div>
-    </>
+  </>
   )
 }

@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 5px;
     animation: fade-slide-up 0.7s 0.7s ease-out forwards;
     opacity: 0;
 }
