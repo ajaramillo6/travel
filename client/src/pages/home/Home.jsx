@@ -26,7 +26,7 @@ export default function Home() {
         <span className="homeText">Latest Posts</span>
         <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto'}}></hr>
         <div className="homePostsContainer">
-            {posts.slice(0,6).map((post) => (
+            {posts.slice(0,8).map((post) => (
               <LatestPosts post={post} />
             ))}
         </div>
