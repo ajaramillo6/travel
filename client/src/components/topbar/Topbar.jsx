@@ -92,7 +92,7 @@ export default function Topbar() {
         <div className="topIcons">
           {showMiniSearch &&
             <div className="topMiniSearchbar">
-              <MiniSearchbar posts={Search(posts)} setQuery={setQuery} />
+              <MiniSearchbar posts={Search(posts)} setQuery={setQuery} query={query} handleMiniSearch={handleMiniSearch} />
             </div>
           }
           <i class="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>

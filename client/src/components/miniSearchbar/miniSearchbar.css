@@ -16,6 +16,10 @@
     align-items: center;
 }
 
+.miniSearchbarBar .miniSearchPostsList {
+    border: none;
+}
+
 .miniSearchbarBarActive{
     height: 15px;
     padding: 5px 10px;
@@ -47,13 +51,18 @@ hr{
 .miniSearchPostsList{
     position: absolute;
     top: 25px;
+    margin-left: -11px;
     background-color: white;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
     border: 1px solid grey;
     border-top: none;
     max-height: 300px;
-    overflow-y: scroll;
+    overflow: auto;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.miniSearchPostsList::-webkit-scrollbar{
+    display: none;
 }
 
 .miniSearchPostsWrapper{
@@ -103,4 +112,16 @@ hr{
     font-size: 10px;
     color: rgb(140, 140, 140);
     font-style: italic;
+}
+
+.miniSearchPostsEmpty{
+    display: flex;
+    font-family: 'Lora', 'serif';
+    font-style: italic;
+    font-size: 12px;
+    color: gray;
+    padding: 20px 10px 20px 10px;
+    width: 210px;
+    align-items: center;
+    justify-content: center;
 }
