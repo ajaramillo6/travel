@@ -63,6 +63,10 @@ export default function SinglePost() {
       console.log(err);
     }
   }
+
+  const handleUpdateCancel = () => {
+    setUpdateMode(!updateMode);
+  }
   
   //Search for Users to compare with Author info
   useEffect(()=> {
@@ -174,11 +178,18 @@ export default function SinglePost() {
             <p className="singlePostDesc">{desc}</p>
           )}
           {updateMode &&
+          <div className="singlePostButtons">
+            <button 
+              className="singlePostButton"
+              onClick={handleUpdateCancel}>
+              Cancel
+            </button>
             <button 
               className="singlePostButton" 
               onClick={handleUpdate}>
               Update
             </button>
+          </div>
           }
         </div>
         <div className="sidebar">

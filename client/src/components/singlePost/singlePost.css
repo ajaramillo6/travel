@@ -85,7 +85,7 @@
 .singlePostLocInput{
     margin: 10px;
     font-family: 'Lora', 'serif';
-    font-size: 12px;
+    font-size: 14px;
     border: none;
     color: gray;
     outline: none;
@@ -94,7 +94,7 @@
 .singlePostStateInput{
     margin: 10px;
     font-family: 'Lora', 'serif';
-    font-size: 12px;
+    font-size: 14px;
     border: none;
     color: gray;
     outline: none;
@@ -191,6 +191,23 @@
     outline: none;
 }
 
+.singlePostDescInput{
+    height: 500px;
+}
+
+.singlePostButtons{
+    display: flex;
+    align-self: flex-end;
+}
+
+.singlePostButton:first-child{
+    background-color: rgb(79, 166, 124);
+}
+
+.singlePostButton:first-child:hover{
+    background-color: rgb(91, 176, 135);
+}
+
 .singlePostButton{
     margin-top: 20px;
     color: white;
@@ -203,8 +220,8 @@
     font-size: 16px;
     border-radius: 10px;
     width: 150px;
-    align-self: flex-end;
     margin-top: 20px;
+    margin-right: 10px;
 }
 
 .singlePostButton:hover{

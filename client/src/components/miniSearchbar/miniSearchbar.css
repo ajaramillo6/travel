@@ -1,0 +1,106 @@
+.miniSearchbar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.miniSearchbarBar{
+    height: 15px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+}
+
+.miniSearchbarBarActive{
+    height: 15px;
+    padding: 5px 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    outline: none;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+}
+
+hr{
+    width: 100%;
+    background-color: rgb(219, 219, 219);
+    height: 1px;
+    border: none;
+}
+
+.miniSearch{
+    font-family: 'Lora', 'serif';
+    font-size: 12px;
+    border: none;
+    outline: none;
+    width: 200px;
+    padding: 0px 5px;
+}
+
+.miniSearchPostsList{
+    position: absolute;
+    top: 25px;
+    background-color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid grey;
+    border-top: none;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.miniSearchPostsWrapper{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+}
+
+.miniSearchPostPicContainer{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.miniSearchPostPic{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.miniSearchPostContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.miniSearchPostsWrapper:hover{
+    background-color: rgb(226, 231, 235);
+    border-radius: 10px;
+}
+
+.miniSearchPostTitle{
+    color: rgb(61, 61, 61);
+    font-size: 12px;
+}
+
+.miniSearchPostAuthor{
+    color: rgb(145, 109, 54);
+    font-size: 12px;
+}
+
+.miniSearchPostDate{
+    font-size: 10px;
+    color: rgb(140, 140, 140);
+    font-style: italic;
+}
