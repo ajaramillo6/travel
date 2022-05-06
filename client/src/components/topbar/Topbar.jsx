@@ -1,7 +1,7 @@
 import "./topbar.css";
 import { Link } from 'react-router-dom';
 import SideNavbar from "../sideNavbar/SideNavbar";
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect } from "react";
 import Rightbar from "../rightbar/Rightbar";
 import { Context } from "../../context/Context";
 import { useLocation } from "react-router-dom";
@@ -11,7 +11,6 @@ import MiniSearchbar from "../miniSearchbar/MiniSearchbar";
 export default function Topbar() {
 
     const[openAdmin, setOpenAdmin] = useState(false); 
-    const [goingUp, setGoingUp] = useState(true);
     const[showMiniSearch, setShowMiniSearch] = useState(false);
     const[posts, setPosts] = useState([]);
     const [query, setQuery] = useState("");
@@ -31,23 +30,6 @@ export default function Topbar() {
     }
     fetchPosts();
   },[search])
-
-    const prevScrollY = useRef(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-          const currentScrollY = window.scrollY;
-          if (prevScrollY.current < currentScrollY && goingUp) {
-            setGoingUp(false);
-          }
-          if (prevScrollY.current > currentScrollY && !goingUp) {
-            setGoingUp(true);
-          }
-          prevScrollY.current = currentScrollY;
-        };
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-      }, [goingUp]);
       
     const handleAdmin = () => {
         setOpenAdmin(!openAdmin);
@@ -66,7 +48,6 @@ export default function Topbar() {
 
   return (
     <>
-    {goingUp &&
     <div className="top">
       <div className="topLeft">
         <SideNavbar />
@@ -103,7 +84,6 @@ export default function Topbar() {
         }
       </div>
     </div>
-    }
     </>
   )
 }

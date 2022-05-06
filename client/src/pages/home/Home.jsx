@@ -1,9 +1,9 @@
 import "./home.css";
 import Header from "../../components/header/Header";
-import Posts from "../../components/posts/Posts";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import LatestPosts from "../../components/latestPosts/LatestPosts";
 
 export default function Home() {
   const[posts, setPosts] = useState([]);
@@ -25,7 +25,11 @@ export default function Home() {
       <div className="home">
         <span className="homeText">Latest Posts</span>
         <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto'}}></hr>
-        <Posts posts={posts.slice(0, 6)} />
+        <div className="homePostsContainer">
+            {posts.slice(0,6).map((post) => (
+              <LatestPosts post={post} />
+            ))}
+        </div>
       </div>
     </>
   )

@@ -11,3 +11,21 @@
     color: rgb(123, 123, 123);
     margin: 20px 0px 10px 0px;
 }
+
+.homePostsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.homePostsContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .homePostsContainer {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
