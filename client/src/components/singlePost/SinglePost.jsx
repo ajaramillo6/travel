@@ -136,14 +136,14 @@ export default function SinglePost() {
             <div className="singlePostTitleContainer">
               <div className="singlePostLocationsContainer">
                 <div className="singlePostCatWrapper">
-                  <Link className="link" to={`/travel/?cat=${post.loc}`}>
-                    <div className="singlePostCat">{post.loc}</div>
+                  <Link className="link" to={`/travel/?cat=${loc}`}>
+                    <div className="singlePostCat">{loc}</div>
                   </Link>
                 </div>
                 <div className="singlePostStateWrapper">
                   {post.state !== "" &&
-                    <Link className="link" to={`/travel/?state=${post.state}`}>
-                      <div className="singlePostState">{post.state}</div>
+                    <Link className="link" to={`/travel/?state=${state}`}>
+                      <div className="singlePostState">{state}</div>
                     </Link>
                   }
                 </div>
