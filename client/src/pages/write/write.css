@@ -23,18 +23,39 @@
 }
 
 .writeIcon{
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(58, 128, 193);
+    cursor: pointer;
+}
+
+.writeIcon:hover, .writeIconImg:hover{
+    color:rgb(86, 144, 199)
+}
+
+.writeImageText{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: 'Lora', 'serif';
+}
+
+.writeIconImg{
+    margin-right: 10px;
+    color: rgb(58, 128, 193);
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 1px solid;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-}
-
-.writeIcon:hover{
-    color:rgb(81, 78, 89)
 }
 
 .writeInput{

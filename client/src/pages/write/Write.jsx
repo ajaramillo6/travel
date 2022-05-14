@@ -11,6 +11,7 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [file2, setFile2] = useState(null);
   const [loc, setLoc] = useState("");
   const [state, setState] = useState("");
 
@@ -34,13 +35,13 @@ export default function Write() {
       data.append("name", filename)
       data.append("file", file);
       newPost.photo = filename;
-
       try{
         await axios.post("/upload", data);
       }catch(err){
         console.log(err);
       }
     }
+
     try{
       const res = await axios.post("/posts", newPost);
       window.location.replace("/post/"+res.data._id);
@@ -48,6 +49,57 @@ export default function Write() {
       console.log(err);
     }
   }
+
+  //ADD IMAGES COMBINED WITH TEXT IN TEXTAREA
+
+  // const postField = document.getElementById('textAreaContent');
+
+  // const addImage = (alt, imgPath) => {
+  //   let curPos = postField.selectionStart;
+  //   let priorText = postField.value.slice(0, curPos);
+  //   let textToInsert = `\r![${alt}](${imgPath})\r`;
+  //   postField.value = priorText + textToInsert;
+  //   setFile2(null);
+  // }
+
+  // const findTypes = (el, data) => {
+  //   const findHeader = data.split("\n").filter(item => item.length);
+  //   findHeader.forEach(item =>{
+  //     if(item[0] === '#'){
+  //       let hCount = 0;
+  //       let i = 0;
+  //       while(item[i] === '#'){
+  //         hCount++;
+  //         i++;
+  //       }
+  //       let tag = `h${hCount}`;
+  //       if(item.length > 0){
+  //         el.dangerouslySetInnerHTML += `<${tag}>${item.slice(hCount, item.length)}</${tag}>`;
+  //       }
+  //     }
+  //     else if(item[0] === "!" && item[1] === "["){
+  //       let separator;
+  //       for(let i = 0; i<=item.length; i++){
+  //         if(item[i]==="]" & item[i+1] == "(" && item[item.length - 1] === ")"){
+  //           separator = i;
+  //         }
+  //       }
+  //       let alt = item.slice(2,separator);
+  //       let src = item.slice(separator + 2, item.length - 1);
+  //       el.dangerouslySetInnerHTML += `<img className="textAreaImg" src="${src}" alt="${alt}" />`;
+  //     } else {
+  //       el.dangerouslySetInnerHTML += `<p>${item}</p>`;
+  //     } 
+  //   });
+  // }
+
+  // if(postField){
+  //   findTypes(postField, postField.value)
+  // }
+
+  // if(file2){
+  //   addImage(file2.name,"/img/"+file2.name);
+  // }
 
   return (
     <div className="write">
@@ -60,9 +112,11 @@ export default function Write() {
                     <i className="writeIcon fa-solid fa-image"></i>
                 </label>
                 <input 
-                  type="file" 
-                  id="fileInput" 
-                  style={{display: "none"}} 
+                  style={{display:"none"}} 
+                  id = "fileInput"
+                  type="file"
+                  name="fileInput"
+                  accept=".jpeg, .jpg, .png" 
                   onChange={e=>setFile(e.target.files[0])} 
                 />
                 <input 
@@ -98,12 +152,24 @@ export default function Write() {
                   ))}
                 </select>
               }
+              <label htmlFor="fileInputImg">
+                <span className="writeImageText"><i className="writeIconImg fa-solid fa-images"></i> Add image to content</span>
+              </label>
+              <input 
+                style={{display:"none"}} 
+                id = "fileInputImg"
+                type="file"
+                name="fileInputImg"
+                accept=".jpeg, .jpg, .png"
+                onChange={e=>setFile2(e.target.files[0])} 
+              />
             </div>
             <div className="writeFormGroup">
               <textarea 
                 placeholder="Tell your story..." 
                 type="text" 
                 className="writeInput writeText"
+                id="textAreaContent"
                 onChange={e=>setDesc(e.target.value)}
               >
               </textarea>
