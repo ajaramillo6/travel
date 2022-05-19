@@ -15,16 +15,14 @@ export default function Write() {
   const [loc, setLoc] = useState("");
   const [state, setState] = useState("");
 
+  const [postSection, setPostSection] = useState([]);
   const[sectionHeader, setSectionHeader] = useState("");
   const [sectionImg, setSectionImg] = useState(null);
   const[sectionImgDesc, setSectionImgDesc] = useState("");
   const[sectionText, setSectionText] = useState("");
 
-
-const [postSections, setPostSections] = useState([]);
-
 function postSectionHistory(text) {
-  setPostSections((history) => [...history, text]);
+  setPostSection((history) => [...history, text]);
 }
 
   const handleSubmitSection = async(e) => {
@@ -52,43 +50,49 @@ function postSectionHistory(text) {
   }
 
   const handleRemoveSection = (id) => {
-    const filteredSection = postSections.filter((section) => section.sectionId !== id);
-    setPostSections(filteredSection);
+    const filteredSection = postSection.filter((section) => section.sectionId !== id);
+    setPostSection(filteredSection);
   }
- 
+
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const newPost = {
-      username: user.username,
-      profilePic: PF + user.profilePic,
-      bio: user.bio,
-      pinterest: user.pinterest,
-      instagram: user.instagram,
-      facebook: user.facebook,
-      title,
-      desc,
-      loc,
-      state,
-    }
-    if(file){
-      const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append("name", filename)
-      data.append("file", file);
-      newPost.photo = filename;
+    if(postSection !== []){
+      const newPost = {
+        username: user.username,
+        profilePic: PF + user.profilePic,
+        bio: user.bio,
+        pinterest: user.pinterest,
+        instagram: user.instagram,
+        facebook: user.facebook,
+        title,
+        desc,
+        loc,
+        state,
+        postSection,
+      }
+      if(file){
+        const data = new FormData();
+        const filename = Date.now() + file.name;
+        data.append("name", filename)
+        data.append("file", file);
+        newPost.photo = filename;
+        try{
+          await axios.post("/upload", data);
+        }catch(err){
+          console.log(err);
+        }
+      }
       try{
-        await axios.post("/upload", data);
+        const res = await axios.post("/posts", newPost);
+        window.location.replace("/post/"+res.data._id);
       }catch(err){
         console.log(err);
       }
     }
+  }
 
-    try{
-      const res = await axios.post("/posts", newPost);
-      window.location.replace("/post/"+res.data._id);
-    }catch(err){
-      console.log(err);
-    }
+  const handleCloseImg = () => {
+    setSectionImg(null);
   }
 
   return (
@@ -145,35 +149,63 @@ function postSectionHistory(text) {
             </div>
             <div className="writeFormGroup">
               <textarea 
+                id="textarea"
                 placeholder="Tell your story intro..." 
                 type="text" 
                 className="writeInput writeText"
                 onChange={e=>setDesc(e.target.value)}>
               </textarea>
             </div>
+            <div className="sectionContainer">
+              <span className="sectionSpan">Add New Section</span>
+              <div className="sectionTitleWrapper">
+                <label htmlFor="fileInput2">
+                  <i className="writeIcon fa-solid fa-image"></i>
+                </label>
+                <input 
+                  className="sectionInputHeader"
+                  type="text" 
+                  placeholder="Header Title" 
+                  onChange={e=>setSectionHeader(e.target.value)} 
+                />
+                <input 
+                  style={{display:"none"}} 
+                  id = "fileInput2"
+                  type="file"
+                  name="fileInput2"
+                  accept=".jpeg, .jpg, .png" 
+                  onChange={e=>setSectionImg(e.target.files[0])} 
+                />
+              </div>
+              <div className="sectionImgWrapper">
+                {sectionImg &&
+                <>
+                  <i class="sectionImgClose fa-solid fa-rectangle-xmark fa-lg" onClick={handleCloseImg}></i>
+                  <img src={URL.createObjectURL(sectionImg)} alt="" className="writeSectionImg" />
+                  <input 
+                    className="sectionInput"
+                    type="text" 
+                    placeholder="Image description" 
+                    onChange={e=>setSectionImgDesc(e.target.value)} 
+                  />
+                </>
+                }
+              </div>
+              <textarea 
+                id="textarea"
+                className="sectionInput"
+                type="text" 
+                placeholder="Section Text *" 
+                onChange={e=>setSectionText(e.target.value)}> 
+              </textarea>
+              <button 
+                className="writeSubmitSection" 
+                onClick={handleSubmitSection}>
+                  Add
+              </button>
+              <PostSectionWrite postSection={postSection} handleRemoveSection={handleRemoveSection} />
+            </div>
             <button className="writeSubmit" type="submit">Publish</button>
-        </form> 
-        POST SECTIONS:
-        <form>
-          <input type="text" placeholder="Header Title" onChange={e=>setSectionHeader(e.target.value)} />
-          <input 
-            style={{display:"none"}} 
-            id = "fileInput2"
-            type="file"
-            name="fileInput2"
-            accept=".jpeg, .jpg, .png" 
-            onChange={e=>setSectionImg(e.target.files[0])} 
-          />
-          <label htmlFor="fileInput2">
-            <i className="writeIcon fa-solid fa-image"></i>
-          </label>
-          {sectionImg &&
-            <img src={URL.createObjectURL(sectionImg)} alt="" className="writeSectionImg" />
-          }
-          <input type="text" placeholder="Image description" onChange={e=>setSectionImgDesc(e.target.value)} />
-          <input type="text" placeholder="Section Text" onChange={e=>setSectionText(e.target.value)} />
-          <button className="writeSubmitSection" onClick={handleSubmitSection}>Done</button>
-          <PostSectionWrite postSections={postSections} handleRemoveSection={handleRemoveSection} />
         </form>
     </div>
   )

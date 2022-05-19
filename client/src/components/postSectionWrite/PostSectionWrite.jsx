@@ -1,12 +1,12 @@
 import './postSectionWrite.css';
 
-export default function PostSectionWrite({postSections, handleRemoveSection}) {
+export default function PostSectionWrite({postSection, handleRemoveSection}) {
   const PF = "http://localhost:5000/images/";
 
   return (
     <div className="postSectionWrite">
         <>
-        {postSections.map((section, i) => (
+        {postSection.map((section, i) => (
             <>
             <div className="sectionWriteContainer" key={i}>
               <i className="postSectionIcon fa-solid fa-rectangle-xmark fa-lg" 

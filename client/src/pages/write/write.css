@@ -14,6 +14,7 @@
 
 .writeForm{
     position: relative;
+    margin-bottom: 50px;
 }
 
 .writeFormGroup{
@@ -53,14 +54,18 @@
 
 .writeInput{
     font-size: 30px;
+    margin-top: 10px;
     border: none;
+    border-bottom: 1px solid lightgray;
     padding: 20px;
     width: 70vw;
     font-family: 'Lora', 'serif';
     font-weight: bold;
 }
 
-.writeInput::placeholder{
+.writeInput::placeholder, 
+.sectionInput::placeholder,
+.sectionInputHeader::placeholder{
     color: #2d2d2d;
     font-family: 'Lora', 'serif';
 }
@@ -69,15 +74,23 @@
     outline: none;
 }
 
+#textarea{
+    border:none;
+}
+
 .writeLocationInput{
+    margin-top: 20px;
+    margin-bottom: 10px;
     font-size: 20px;
     outline: none;
     border: none;
     width: 200px;
-    margin: 10px;
+    margin-right: 10px;
     cursor: pointer;
     margin-right: 20px;
     font-family: 'Lora', 'serif';
+    color: gray;
+    font-style: oblique;
 }
 
 .writeText{
@@ -109,10 +122,96 @@
     background-color: rgb(75, 81, 167);
 }
 
+.sectionContainer{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    margin-left: 150px;
+}
+
+.sectionSpan{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(127, 127, 127);
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: 'Lora', 'serif';
+}
+
+.sectionTitleWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.sectionInputHeader{
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.sectionInput{
+    margin-top: 10px;
+    padding: 20px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.sectionInput:focus{
+    outline: none;
+}
+
+.sectionTitle{
+    font-size: 20px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+    font-family: 'Lora', 'serif';
+    font-weight: bold;
+}
+
+.sectionImgWrapper{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
 .writeSectionImg{
+    margin-top: 10px;
+    width: 500px;
     height: 300px;
-    width: 300px;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.sectionImgClose{
+    position: absolute;
+    cursor: pointer;
+    color: rgb(70, 70, 70);
+}
+
+.writeSubmitSection{
+    margin-top: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: rgb(65, 168, 139);
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 100px;
+}
+
+.writeSubmitSection:hover{
+    background-color: rgb(67, 171, 142);
 }
 

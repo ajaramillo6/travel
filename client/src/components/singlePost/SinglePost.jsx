@@ -17,7 +17,7 @@ export default function SinglePost() {
   const[updateMode, setUpdateMode] = useState(false);
   const[users, setUsers] = useState([]);
   const[showSidebar, setShowSidebar] = useState(true);
-
+  console.log(post)
   const { user } = useContext(Context);
 
   const PF = "http://localhost:5000/images/"
