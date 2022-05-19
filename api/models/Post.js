@@ -44,8 +44,9 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    categories: {
+    postSection: {
         type: Array,
+        default: [],
     },
 }, 
 { timestamps:true }

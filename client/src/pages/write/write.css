@@ -38,13 +38,6 @@
     color:rgb(86, 144, 199)
 }
 
-.writeImageText{
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-family: 'Lora', 'serif';
-}
-
 .writeIconImg{
     margin-right: 10px;
     color: rgb(58, 128, 193);
@@ -89,7 +82,6 @@
 
 .writeText{
     font-size: 20px;
-    height: 100vh;
     font-family: 'Lora', 'serif';
 }
 
@@ -115,5 +107,12 @@
 
 .writeSubmit:hover{
     background-color: rgb(75, 81, 167);
+}
+
+.writeSectionImg{
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 

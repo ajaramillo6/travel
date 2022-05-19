@@ -2,6 +2,7 @@ import "./write.css";
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../context/Context";
+import PostSectionWrite from "../../components/postSectionWrite/PostSectionWrite";
 import { countryListAllIsoData } from "../../countryListAllIsoData";
 import { usaStatesListAllData } from "../../usaStatesListAllData";
 
@@ -11,10 +12,50 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
-  const [file2, setFile2] = useState(null);
   const [loc, setLoc] = useState("");
   const [state, setState] = useState("");
 
+  const[sectionHeader, setSectionHeader] = useState("");
+  const [sectionImg, setSectionImg] = useState(null);
+  const[sectionImgDesc, setSectionImgDesc] = useState("");
+  const[sectionText, setSectionText] = useState("");
+
+
+const [postSections, setPostSections] = useState([]);
+
+function postSectionHistory(text) {
+  setPostSections((history) => [...history, text]);
+}
+
+  const handleSubmitSection = async(e) => {
+    e.preventDefault();
+    const newSection = {
+      sectionId: Date.now(),
+      sectionHeader,
+      sectionImg,
+      sectionImgDesc,
+      sectionText,
+    }
+    if(sectionImg){
+      const data = new FormData();
+      const filename = Date.now() + sectionImg.name;
+      data.append("name", filename)
+      data.append("file", sectionImg);
+      newSection.sectionImg = filename;
+      try{
+        await axios.post("/upload", data);
+      }catch(err){
+        console.log(err);
+      }
+    }
+    postSectionHistory(newSection);
+  }
+
+  const handleRemoveSection = (id) => {
+    const filteredSection = postSections.filter((section) => section.sectionId !== id);
+    setPostSections(filteredSection);
+  }
+ 
   const handleSubmit = async(e) => {
     e.preventDefault();
     const newPost = {
@@ -49,57 +90,6 @@ export default function Write() {
       console.log(err);
     }
   }
-
-  //ADD IMAGES COMBINED WITH TEXT IN TEXTAREA
-
-  // const postField = document.getElementById('textAreaContent');
-
-  // const addImage = (alt, imgPath) => {
-  //   let curPos = postField.selectionStart;
-  //   let priorText = postField.value.slice(0, curPos);
-  //   let textToInsert = `\r![${alt}](${imgPath})\r`;
-  //   postField.value = priorText + textToInsert;
-  //   setFile2(null);
-  // }
-
-  // const findTypes = (el, data) => {
-  //   const findHeader = data.split("\n").filter(item => item.length);
-  //   findHeader.forEach(item =>{
-  //     if(item[0] === '#'){
-  //       let hCount = 0;
-  //       let i = 0;
-  //       while(item[i] === '#'){
-  //         hCount++;
-  //         i++;
-  //       }
-  //       let tag = `h${hCount}`;
-  //       if(item.length > 0){
-  //         el.dangerouslySetInnerHTML += `<${tag}>${item.slice(hCount, item.length)}</${tag}>`;
-  //       }
-  //     }
-  //     else if(item[0] === "!" && item[1] === "["){
-  //       let separator;
-  //       for(let i = 0; i<=item.length; i++){
-  //         if(item[i]==="]" & item[i+1] == "(" && item[item.length - 1] === ")"){
-  //           separator = i;
-  //         }
-  //       }
-  //       let alt = item.slice(2,separator);
-  //       let src = item.slice(separator + 2, item.length - 1);
-  //       el.dangerouslySetInnerHTML += `<img className="textAreaImg" src="${src}" alt="${alt}" />`;
-  //     } else {
-  //       el.dangerouslySetInnerHTML += `<p>${item}</p>`;
-  //     } 
-  //   });
-  // }
-
-  // if(postField){
-  //   findTypes(postField, postField.value)
-  // }
-
-  // if(file2){
-  //   addImage(file2.name,"/img/"+file2.name);
-  // }
 
   return (
     <div className="write">
@@ -152,30 +142,39 @@ export default function Write() {
                   ))}
                 </select>
               }
-              <label htmlFor="fileInputImg">
-                <span className="writeImageText"><i className="writeIconImg fa-solid fa-images"></i> Add image to content</span>
-              </label>
-              <input 
-                style={{display:"none"}} 
-                id = "fileInputImg"
-                type="file"
-                name="fileInputImg"
-                accept=".jpeg, .jpg, .png"
-                onChange={e=>setFile2(e.target.files[0])} 
-              />
             </div>
             <div className="writeFormGroup">
               <textarea 
-                placeholder="Tell your story..." 
+                placeholder="Tell your story intro..." 
                 type="text" 
                 className="writeInput writeText"
-                id="textAreaContent"
-                onChange={e=>setDesc(e.target.value)}
-              >
+                onChange={e=>setDesc(e.target.value)}>
               </textarea>
             </div>
             <button className="writeSubmit" type="submit">Publish</button>
         </form> 
+        POST SECTIONS:
+        <form>
+          <input type="text" placeholder="Header Title" onChange={e=>setSectionHeader(e.target.value)} />
+          <input 
+            style={{display:"none"}} 
+            id = "fileInput2"
+            type="file"
+            name="fileInput2"
+            accept=".jpeg, .jpg, .png" 
+            onChange={e=>setSectionImg(e.target.files[0])} 
+          />
+          <label htmlFor="fileInput2">
+            <i className="writeIcon fa-solid fa-image"></i>
+          </label>
+          {sectionImg &&
+            <img src={URL.createObjectURL(sectionImg)} alt="" className="writeSectionImg" />
+          }
+          <input type="text" placeholder="Image description" onChange={e=>setSectionImgDesc(e.target.value)} />
+          <input type="text" placeholder="Section Text" onChange={e=>setSectionText(e.target.value)} />
+          <button className="writeSubmitSection" onClick={handleSubmitSection}>Done</button>
+          <PostSectionWrite postSections={postSections} handleRemoveSection={handleRemoveSection} />
+        </form>
     </div>
   )
 }

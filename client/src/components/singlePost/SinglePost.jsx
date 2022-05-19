@@ -5,6 +5,7 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
 import Sidebar from "../sidebar/Sidebar";
+import PostSection from "../postSection/PostSection";
 
 export default function SinglePost() {
 
@@ -177,6 +178,7 @@ export default function SinglePost() {
           :(
             <p className="singlePostDesc">{desc}</p>
           )}
+          <PostSection post={post} />
           {updateMode &&
           <div className="singlePostButtons">
             <button 

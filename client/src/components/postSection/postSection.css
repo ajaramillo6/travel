@@ -1,0 +1,48 @@
+.postSection{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 35px;
+    padding-right: 10px;
+}
+
+.postSectionContainer{
+    margin-top: 20px;
+}
+
+.postSectionHeader{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #667;
+    line-height: 25px;
+}
+
+.postSectionImgContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.postSectionImg{
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.postSectionImgDesc{
+    color: #667;
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.postSectionText{
+    color: #667;
+    font-size: 16px;
+    line-height: 25px;
+}
