@@ -22,7 +22,7 @@ export default function Write() {
   const[sectionText, setSectionText] = useState("");
   const[sectionListTitle, setSectionListTitle] = useState("");
   const[sectionListItems, setSectionListItems] = useState("");
-
+  const[addedNotification, setAddedNotification] = useState(false);
 
 function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
@@ -52,6 +52,22 @@ function postSectionHistory(text) {
       }
     }
     postSectionHistory(newSection);
+    clearFields();
+    handleAddedNotification();
+  }
+
+  const clearFields = () => {
+    setSectionHeader("");
+    setSectionImg(null);
+    setSectionImgDesc("");
+    setSectionText("");
+    setSectionListTitle("");
+    setSectionListItems("");
+  }
+
+  const handleAddedNotification = () => {
+    setAddedNotification(!addedNotification);
+    setTimeout(()=>{setAddedNotification(false)}, 2000);
   }
 
   const handleRemoveSection = (id) => {
@@ -167,12 +183,21 @@ function postSectionHistory(text) {
                 <label htmlFor="fileInput2">
                   <i className="writeIcon fa-solid fa-image"></i>
                 </label>
-                <input 
-                  className="sectionInputHeader"
-                  type="text" 
-                  placeholder="Header Title" 
-                  onChange={e=>setSectionHeader(e.target.value)} 
-                />
+                {sectionHeader ? 
+                  <input 
+                    className="sectionInputHeader"
+                    type="text" 
+                    placeholder="Header Title" 
+                    onChange={e=>setSectionHeader(e.target.value)} 
+                  />:
+                  <input 
+                    className="sectionInputHeader"
+                    type="text" 
+                    value={sectionHeader}
+                    placeholder="Header Title" 
+                    onChange={e=>setSectionHeader(e.target.value)} 
+                  /> 
+                }
                 <input 
                   style={{display:"none"}} 
                   id = "fileInput2"
@@ -187,39 +212,82 @@ function postSectionHistory(text) {
                 <>
                   <i class="sectionImgClose fa-solid fa-rectangle-xmark fa-lg" onClick={handleCloseImg}></i>
                   <img src={URL.createObjectURL(sectionImg)} alt="" className="writeSectionImg" />
-                  <input 
-                    className="sectionInput"
-                    type="text" 
-                    placeholder="Image description" 
-                    onChange={e=>setSectionImgDesc(e.target.value)} 
-                  />
+                  {sectionImgDesc ?
+                    <input 
+                      className="sectionInput"
+                      type="text" 
+                      placeholder="Image description" 
+                      onChange={e=>setSectionImgDesc(e.target.value)} 
+                    />:
+                    <input 
+                      className="sectionInput"
+                      type="text" 
+                      value={sectionImgDesc}
+                      placeholder="Image description" 
+                      onChange={e=>setSectionImgDesc(e.target.value)} 
+                    />
+                  }
                 </>
                 }
               </div>
-              <textarea 
-                id="textarea"
-                className="sectionInput"
-                type="text" 
-                placeholder="Section Text" 
-                onChange={e=>setSectionText(e.target.value)}> 
-              </textarea>
-              <input 
-                className="sectionInputListTitle"
-                type="text" 
-                placeholder="List Title" 
-                onChange={e=>setSectionListTitle(e.target.value)} 
-              />
-              <input 
-                className="sectionInputListItems"
-                type="text" 
-                placeholder="List items (split list by commas)" 
-                onChange={e=>setSectionListItems(e.target.value)} 
-              />
+              {sectionText ?
+                <textarea 
+                  id="textarea"
+                  className="sectionInput"
+                  type="text" 
+                  placeholder="Section Text" 
+                  onChange={e=>setSectionText(e.target.value)}> 
+                </textarea> :
+                <textarea 
+                  id="textarea"
+                  className="sectionInput"
+                  type="text" 
+                  value={sectionText}
+                  placeholder="Section Text" 
+                  onChange={e=>setSectionText(e.target.value)}> 
+                </textarea>
+              }
+              {sectionListTitle ?
+                <input 
+                  className="sectionInputListTitle"
+                  type="text" 
+                  placeholder="List Title" 
+                  onChange={e=>setSectionListTitle(e.target.value)} 
+                />:
+                <input 
+                  className="sectionInputListTitle"
+                  type="text" 
+                  value={sectionListTitle}
+                  placeholder="List Title" 
+                  onChange={e=>setSectionListTitle(e.target.value)} 
+                />
+              }
+              {sectionListItems ?
+                <input 
+                  className="sectionInputListItems"
+                  type="text" 
+                  placeholder="List items (split list by commas)" 
+                  onChange={e=>setSectionListItems(e.target.value)} 
+                />:
+                <input 
+                  className="sectionInputListItems"
+                  type="text" 
+                  value={sectionListItems}
+                  placeholder="List items (split list by commas)" 
+                  onChange={e=>setSectionListItems(e.target.value)} 
+                />
+              }
               <button 
                 className="writeSubmitSection" 
                 onClick={handleSubmitSection}>
                   Add
               </button>
+              {addedNotification &&
+                <div className="sectionAddedNotification">
+                  <i className="successIcon fa-solid fa-circle-check"></i>
+                  Added sucessfully.
+                </div>
+              }
               <PostSectionWrite postSection={postSection} handleRemoveSection={handleRemoveSection} />
             </div>
             <button className="writeSubmit" type="submit">Publish</button>

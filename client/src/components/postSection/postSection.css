@@ -38,10 +38,11 @@
     font-size: 14px;
     text-align: center;
     font-style: italic;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .postSectionText{
+    margin-top: 10px;
     color: #667;
     font-size: 16px;
     line-height: 25px;
