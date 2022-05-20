@@ -11,18 +11,28 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
             <div className="sectionWriteContainer" key={i}>
               <i className="postSectionIcon fa-solid fa-rectangle-xmark fa-lg" 
               onClick={()=>handleRemoveSection(section.sectionId)}></i>
-              <div className="sectionWriteHeader">{section.sectionHeader}</div>
-              <div className="sectionWriteImgWrapper">
-                <img className="sectionWriteImg" src={PF + section.sectionImg} />
-                <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
-              </div>
-              <div className="sectionWriteText">{section.sectionText}</div>
-              <div className="sectionWriteListTitle">{section.sectionListTitle}</div>
-              {section.sectionListItems.map((item, i) => (
-                <ul key={i}>
-                  <li className="sectionWriteListItem">{item}</li>
-                </ul>
-              ))}
+              {section.sectionHeader &&
+                <div className="sectionWriteHeader">{section.sectionHeader}</div>
+              }
+              {section.sectionImg &&
+                <div className="sectionWriteImgWrapper">
+                  <img className="sectionWriteImg" src={PF + section.sectionImg} />
+                  <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
+                </div>
+              }
+              {section.sectionText &&
+                <div className="sectionWriteText">{section.sectionText}</div>
+              }
+              {section.sectionListItems &&
+                <>
+                <div className="sectionWriteListTitle">{section.sectionListTitle}</div>
+                {section.sectionListItems.map((item, i) => (
+                  <ul key={i}>
+                    <li className="sectionWriteListItem">{item}</li>
+                  </ul>
+                ))}
+                </>
+              }
             </div>
             </>
         ))}

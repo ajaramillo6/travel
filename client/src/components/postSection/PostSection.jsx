@@ -15,18 +15,30 @@ export default function PostSection({post}) {
     <div className="postSection">
         {postSections.map((section, i)=>(
             <div className="postSectionContainer" key={i}>
-                <div className="postSectionHeader">{section.sectionHeader}</div>
-                <div className="postSectionImgContainer">
-                    <img className="postSectionImg" src={PF + section.sectionImg} alt="" />
-                </div>
-                <div className="postSectionImgDesc">{section.sectionImgDesc}</div>
-                <div className="postSectionText">{section.sectionText}</div>
-                <div className="postSectionListTitle">{section.sectionListTitle}</div>
-                {section.sectionListItems.map((item, i) => (
-                    <ul className="postSectionList" key={i}>
-                        <li className="postSectionListItem">{item}</li>
-                    </ul>
-                ))}
+                {section.sectionHeader &&
+                    <div className="postSectionHeader">{section.sectionHeader}</div>
+                }
+                {section.sectionImg &&
+                <>
+                    <div className="postSectionImgContainer">
+                        <img className="postSectionImg" src={PF + section.sectionImg} alt="" />
+                    </div>
+                    <div className="postSectionImgDesc">{section.sectionImgDesc}</div>
+                </>
+                }
+                {section.sectionText &&
+                    <div className="postSectionText">{section.sectionText}</div>
+                }
+                {section.sectionListItems &&
+                <>
+                    <div className="postSectionListTitle">{section.sectionListTitle}</div>
+                    {section.sectionListItems.map((item, i) => (
+                        <ul className="postSectionList" key={i}>
+                            <li className="postSectionListItem">{item}</li>
+                        </ul>
+                    ))}
+                </>
+                }
             </div>
         ))}
     </div>
