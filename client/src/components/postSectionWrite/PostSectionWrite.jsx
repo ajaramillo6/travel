@@ -28,7 +28,7 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
                 <div className="sectionWriteListTitle">{section.sectionListTitle}</div>
                 {section.sectionListItems.map((item, i) => (
                   <ul key={i}>
-                    <li className="sectionWriteListItem">{item}</li>
+                    <li className={item ? "sectionWriteListItem": "sectionWriteListItemHide"}>{item}</li>
                   </ul>
                 ))}
                 </>

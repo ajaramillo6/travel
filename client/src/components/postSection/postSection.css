@@ -66,3 +66,9 @@
     color: #667;
     line-height: 25px;
 }
+
+.postSectionListItemHide{
+    margin:0;
+    padding:0;
+    list-style: none;
+}

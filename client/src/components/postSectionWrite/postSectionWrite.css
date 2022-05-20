@@ -71,3 +71,9 @@
     font-size: 16px;
     line-height: 25px;
 }
+
+.sectionWriteListItemHide{
+    margin:0;
+    padding:0;
+    list-style: none;
+}

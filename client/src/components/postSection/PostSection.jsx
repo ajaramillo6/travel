@@ -34,7 +34,7 @@ export default function PostSection({post}) {
                     <div className="postSectionListTitle">{section.sectionListTitle}</div>
                     {section.sectionListItems.map((item, i) => (
                         <ul className="postSectionList" key={i}>
-                            <li className="postSectionListItem">{item}</li>
+                            <li className={item ? "postSectionListItem":"postSectionListItemHide"}>{item}</li>
                         </ul>
                     ))}
                 </>

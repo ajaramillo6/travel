@@ -162,7 +162,7 @@ function postSectionHistory(text) {
               </textarea>
             </div>
             <div className="sectionContainer">
-              <span className="sectionSpan">Add New Section</span>
+              <span className="sectionSpan">{"Add New Section (all below are optional)"}</span>
               <div className="sectionTitleWrapper">
                 <label htmlFor="fileInput2">
                   <i className="writeIcon fa-solid fa-image"></i>
