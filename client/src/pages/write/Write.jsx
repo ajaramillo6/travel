@@ -20,6 +20,9 @@ export default function Write() {
   const [sectionImg, setSectionImg] = useState(null);
   const[sectionImgDesc, setSectionImgDesc] = useState("");
   const[sectionText, setSectionText] = useState("");
+  const[sectionListTitle, setSectionListTitle] = useState("");
+  const[sectionListItems, setSectionListItems] = useState("");
+
 
 function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
@@ -33,6 +36,8 @@ function postSectionHistory(text) {
       sectionImg,
       sectionImgDesc,
       sectionText,
+      sectionListTitle,
+      sectionListItems: sectionListItems.split(/[, ]+/),
     }
     if(sectionImg){
       const data = new FormData();
@@ -195,9 +200,21 @@ function postSectionHistory(text) {
                 id="textarea"
                 className="sectionInput"
                 type="text" 
-                placeholder="Section Text *" 
+                placeholder="Section Text" 
                 onChange={e=>setSectionText(e.target.value)}> 
               </textarea>
+              <input 
+                className="sectionInputListTitle"
+                type="text" 
+                placeholder="List Title" 
+                onChange={e=>setSectionListTitle(e.target.value)} 
+              />
+              <input 
+                className="sectionInputListItems"
+                type="text" 
+                placeholder="List items (split list by commas)" 
+                onChange={e=>setSectionListItems(e.target.value)} 
+              />
               <button 
                 className="writeSubmitSection" 
                 onClick={handleSubmitSection}>

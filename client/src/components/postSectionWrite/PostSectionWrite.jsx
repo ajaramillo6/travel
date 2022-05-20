@@ -17,6 +17,12 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
                 <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
               </div>
               <div className="sectionWriteText">{section.sectionText}</div>
+              <div className="sectionWriteListTitle">{section.sectionListTitle}</div>
+              {section.sectionListItems.map((item, i) => (
+                <ul key={i}>
+                  <li className="sectionWriteListItem">{item}</li>
+                </ul>
+              ))}
             </div>
             </>
         ))}

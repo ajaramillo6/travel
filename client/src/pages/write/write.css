@@ -63,9 +63,7 @@
     font-weight: bold;
 }
 
-.writeInput::placeholder, 
-.sectionInput::placeholder,
-.sectionInputHeader::placeholder{
+input::placeholder, textarea::placeholder{
     color: #2d2d2d;
     font-family: 'Lora', 'serif';
 }
@@ -195,6 +193,28 @@
     position: absolute;
     cursor: pointer;
     color: rgb(70, 70, 70);
+}
+
+.sectionInputListTitle{
+    font-family: 'Lora', 'serif';
+    margin-top: 10px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    outline: none;
+}
+
+.sectionInputListItems{
+    font-family: 'Lora', 'serif';
+    margin-top: 10px;
+    padding: 20px;
+    font-size: 18px;
+    font-style: italic;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    outline: none;
 }
 
 .writeSubmitSection{

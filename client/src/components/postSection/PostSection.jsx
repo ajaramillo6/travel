@@ -21,6 +21,12 @@ export default function PostSection({post}) {
                 </div>
                 <div className="postSectionImgDesc">{section.sectionImgDesc}</div>
                 <div className="postSectionText">{section.sectionText}</div>
+                <div className="postSectionListTitle">{section.sectionListTitle}</div>
+                {section.sectionListItems.map((item, i) => (
+                    <ul className="postSectionList" key={i}>
+                        <li className="postSectionListItem">{item}</li>
+                    </ul>
+                ))}
             </div>
         ))}
     </div>
