@@ -22,7 +22,9 @@
 }
 
 .sectionWriteHeader{
-    text-align: center;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Josefin Sans', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
     color: #667;
@@ -62,9 +64,10 @@
 .sectionWriteListTitle{
     margin-top: 20px;
     color: #667;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 25px;
     font-weight: bold;
+    font-family: 'Josefin Sans', 'sans-serif';
 }
 
 .sectionWriteListItem{

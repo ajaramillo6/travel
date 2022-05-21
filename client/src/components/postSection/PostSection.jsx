@@ -18,6 +18,9 @@ export default function PostSection({post}) {
                 {section.sectionHeader &&
                     <div className="postSectionHeader">{section.sectionHeader}</div>
                 }
+                {section.sectionText &&
+                    <div className="postSectionText">{section.sectionText}</div>
+                }
                 {section.sectionImg &&
                 <>
                     <div className="postSectionImgContainer">
@@ -25,9 +28,6 @@ export default function PostSection({post}) {
                     </div>
                     <div className="postSectionImgDesc">{section.sectionImgDesc}</div>
                 </>
-                }
-                {section.sectionText &&
-                    <div className="postSectionText">{section.sectionText}</div>
                 }
                 {section.sectionListItems &&
                 <>

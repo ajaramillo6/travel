@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 35px;
+    padding-left: 20px;
     padding-right: 10px;
 }
 
@@ -12,7 +12,8 @@
 }
 
 .postSectionHeader{
-    text-align: center;
+    text-align: left;
+    font-family: 'Josefin Sans', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
     color: #667;
@@ -50,8 +51,9 @@
 
 .postSectionListTitle{
     margin: 20px 0px 10px 0px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    font-family: 'Josefin Sans', 'sans-serif';
     color: #667;
     line-height: 25px;
 }

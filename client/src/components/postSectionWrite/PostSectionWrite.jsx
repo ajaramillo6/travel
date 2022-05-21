@@ -14,14 +14,14 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
               {section.sectionHeader &&
                 <div className="sectionWriteHeader">{section.sectionHeader}</div>
               }
+              {section.sectionText &&
+                <div className="sectionWriteText">{section.sectionText}</div>
+              }
               {section.sectionImg &&
                 <div className="sectionWriteImgWrapper">
                   <img className="sectionWriteImg" src={PF + section.sectionImg} />
                   <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
                 </div>
-              }
-              {section.sectionText &&
-                <div className="sectionWriteText">{section.sectionText}</div>
               }
               {section.sectionListItems &&
                 <>

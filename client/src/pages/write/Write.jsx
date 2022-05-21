@@ -23,6 +23,7 @@ export default function Write() {
   const[sectionListTitle, setSectionListTitle] = useState("");
   const[sectionListItems, setSectionListItems] = useState("");
   const[addedNotification, setAddedNotification] = useState(false);
+  const[errorNotification, setErrorNotification] = useState(false);
 
 function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
@@ -51,9 +52,19 @@ function postSectionHistory(text) {
         console.log(err);
       }
     }
-    postSectionHistory(newSection);
-    clearFields();
-    handleAddedNotification();
+    console.log(newSection.sectionListItems.length)
+    if(newSection.sectionHeader === "" && 
+    newSection.sectionText === "" && 
+    newSection.sectionImg === null &&
+    newSection.sectionImgDesc === "" &&
+    newSection.sectionListTitle === "" &&
+    newSection.sectionListItems.length === 1){
+      handleErrorNotification();
+    } else {
+      postSectionHistory(newSection);
+      clearFields();
+      handleAddedNotification();
+    }
   }
 
   const clearFields = () => {
@@ -67,7 +78,12 @@ function postSectionHistory(text) {
 
   const handleAddedNotification = () => {
     setAddedNotification(!addedNotification);
-    setTimeout(()=>{setAddedNotification(false)}, 2000);
+    setTimeout(()=>{setAddedNotification(false)}, 3000);
+  }
+
+  const handleErrorNotification = () => {
+    setErrorNotification(!errorNotification);
+    setTimeout(()=>{setErrorNotification(false)}, 3000);
   }
 
   const handleRemoveSection = (id) => {
@@ -194,7 +210,7 @@ function postSectionHistory(text) {
                     className="sectionInputHeader"
                     type="text" 
                     value={sectionHeader}
-                    placeholder="Header Title" 
+                    placeholder="Section Title" 
                     onChange={e=>setSectionHeader(e.target.value)} 
                   /> 
                 }
@@ -237,7 +253,7 @@ function postSectionHistory(text) {
                   type="text" 
                   placeholder="Section Text" 
                   onChange={e=>setSectionText(e.target.value)}> 
-                </textarea> :
+                </textarea>:
                 <textarea 
                   id="textarea"
                   className="sectionInput"
@@ -286,6 +302,12 @@ function postSectionHistory(text) {
                 <div className="sectionAddedNotification">
                   <i className="successIcon fa-solid fa-circle-check"></i>
                   Added sucessfully.
+                </div>
+              }
+              {errorNotification &&
+                <div className="sectionErrorNotification">
+                  <i className="errorIcon fa-solid fa-circle-exclamation"></i>
+                  Section is empty. Try again.
                 </div>
               }
               <PostSectionWrite postSection={postSection} handleRemoveSection={handleRemoveSection} />
