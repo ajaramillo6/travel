@@ -261,3 +261,29 @@ input::placeholder, textarea::placeholder{
     font-weight: 800;
 }
 
+.sectionUrls{
+    margin-top: 20px;
+    font-family: 'Lora', 'serif';
+    font-size: 18px;
+}
+
+.sectionUrlTitle{
+    font-size: 18px;
+    color:grey;
+    margin-bottom: 10px;
+}
+
+.sectionUrlInstructions{
+    font-size: 12px;
+    font-style: oblique;
+    color:rgb(133, 150, 187);
+}
+
+.urlContainer{
+    margin-top: 5px;
+    color:rgb(163, 173, 181);
+}
+
+.urlContainer:hover{
+    color:rgb(143, 152, 160);
+}

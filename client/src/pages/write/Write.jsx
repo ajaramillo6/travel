@@ -36,7 +36,7 @@ function postSectionHistory(text) {
       sectionHeader,
       sectionImg,
       sectionImgDesc,
-      sectionText,
+      newSectionWords,
       sectionListTitle,
       sectionListItems: sectionListItems.split(/[, ]+/),
     }
@@ -52,9 +52,8 @@ function postSectionHistory(text) {
         console.log(err);
       }
     }
-    console.log(newSection.sectionListItems.length)
     if(newSection.sectionHeader === "" && 
-    newSection.sectionText === "" && 
+    newSection.sectionWords === "" && 
     newSection.sectionImg === null &&
     newSection.sectionImgDesc === "" &&
     newSection.sectionListTitle === "" &&
@@ -132,6 +131,51 @@ function postSectionHistory(text) {
     setSectionImg(null);
   }
 
+  const findUrls = [];
+  const findIndex = [];
+  const newSectionWords = [];
+  const createLinks = [];
+  const sectionLinks = [];
+
+  const sectionWords = sectionText.split(" ");
+
+  for(let i = 0; i < sectionWords.length; i++){
+    if(sectionWords[i][0] === "["){
+      findUrls.push(sectionWords[i]);
+      findIndex.push(i);
+    }
+  }
+
+  for(let j = 0; j < findUrls.length; j++){
+    if(findUrls[j].includes("@")){
+      createLinks.push(<a className="sectionLink" href={findUrls[j].split("@")[1].slice(0,-1)}>
+        {(findUrls[j].split("@")[0].substring(1)).split("-").join(" ")}</a>);
+    }
+  }
+
+  for(let x = 0; x < createLinks.length; x++){
+    sectionLinks.push([findIndex[x], createLinks[x]]);
+  }
+
+  //Insert link objects as replacement for square bracket content
+  const newSectionText=[];
+  for (let w = 0; w < sectionLinks.length; w++){
+    newSectionText.push(sectionWords[sectionLinks[w][0]] = sectionLinks[w][1]);
+  }
+
+  //Create space between words, except if they're objects.
+  for(let x = 0; x < sectionWords.length; x++){
+    if (typeof sectionWords[x-1] === 'object'){
+      newSectionWords.push(" " + sectionWords[x] + " ");
+    } else if (typeof sectionWords[x] === 'object'){
+      newSectionWords.push(sectionWords[x]);
+    } else {
+      newSectionWords.push(sectionWords[x] + " ");
+    }
+  }
+
+  console.log(newSectionWords)
+  
   return (
     <div className="write">
       {file &&
@@ -292,6 +336,17 @@ function postSectionHistory(text) {
                   placeholder="List items (split list by commas)" 
                   onChange={e=>setSectionListItems(e.target.value)} 
                 />
+              }
+              {createLinks &&
+              <div className="sectionUrls">
+              <span className="sectionUrlTitle">Links Created</span>
+              <div className="sectionUrlInstructions">{"How to create links: Use square brackets '[' in 'Section Text' area to enclose a new link. Use dashes when naming the link '-' if more than one word. Then use @ symbol to assign url address."}</div>
+                {createLinks.map((url, i)=>(
+                  <div className="urlContainer" key={i}>
+                      {url}
+                  </div>
+                ))}
+              </div>
               }
               <button 
                 className="writeSubmitSection" 

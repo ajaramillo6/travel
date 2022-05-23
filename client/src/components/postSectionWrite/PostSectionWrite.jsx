@@ -14,8 +14,8 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
               {section.sectionHeader &&
                 <div className="sectionWriteHeader">{section.sectionHeader}</div>
               }
-              {section.sectionText &&
-                <div className="sectionWriteText">{section.sectionText}</div>
+              {section.newSectionWords &&
+                <div className="sectionWriteText">{section.newSectionWords}</div>
               }
               {section.sectionImg &&
                 <div className="sectionWriteImgWrapper">
