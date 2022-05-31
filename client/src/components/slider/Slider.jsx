@@ -6,11 +6,11 @@ export default function Slider() {
     const [index, setIndex] = useState(0);
 
     const images = [
-        "/img/travel15.jpg",
-        "/img/travel11.jpg",
-        "/img/travel9.jpg",
-        "/img/travel13.jpg",
-        "/img/travel16.jpg",
+        "/img/colorado1.jpg",
+        "/img/paris5.jpg",
+        "/img/japan1.jpg",
+        "/img/hawaii4.jpg",
+        "/img/newyork5.jpg",
     ];
 
     const handleArrow = (direction) => {

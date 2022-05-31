@@ -25,7 +25,7 @@ export default function PostSection({post}) {
 
     if(postSection){
         for(let i = 0; i < postSection.length; i++){
-            sectionWords[i] = postSection[i].newSectionWords
+            sectionWords[i] = postSection[i].newSectionWords;
         }
         
         for(let i = 0; i < sectionWords.length; i++){
@@ -33,8 +33,8 @@ export default function PostSection({post}) {
             for(let j = 0; j < sectionWordsLength; j++){
                 if(sectionWords[i][j][0]==='['){
                     findURLs.push(sectionWords[i][j]);
-                    findSection.push(i)
-                    findIndex.push(j)
+                    findSection.push(i);
+                    findIndex.push(j);
                 }
             }
         }
@@ -61,11 +61,11 @@ export default function PostSection({post}) {
             for(let n = 0; n < sectionWords[m].length; n++){
                 if((typeof sectionWords[m][n-1] === 'object') && (typeof sectionWords[m][n] === 'string') &&
                 (sectionWords[m][n][0].toUpperCase() === sectionWords[m][n][0])){
-                    postWords.push(". " + sectionWords[m][n])  
+                    postWords.push(". " + sectionWords[m][n])  ;
                 } else if (typeof sectionWords[m][n-1] === 'object' && typeof sectionWords[m][n] === 'string'){
-                    postWords.push(" " + sectionWords[m][n] + " ")
+                    postWords.push(" " + sectionWords[m][n] + " ");
                 } else {
-                    postWords.push(sectionWords[m][n])
+                    postWords.push(sectionWords[m][n]);
                 }
                 if((n+1) === sectionWords[m].length){
                     postWords.push("^");
@@ -86,10 +86,10 @@ export default function PostSection({post}) {
 
     for(let a = 0; a < correctIndex.length; a++){
         if(a === 0){
-            indexSummedy.push(correctIndex[a]) 
+            indexSummedy.push(correctIndex[a]);
         }
         else if(a > 0){
-            indexSummedy.push(correctIndex[a] += (correctIndex[a-1]+1))
+            indexSummedy.push(correctIndex[a] += (correctIndex[a-1]+1));
         }
     }
 
