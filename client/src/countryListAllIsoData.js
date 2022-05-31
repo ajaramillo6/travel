@@ -235,7 +235,6 @@ export const countryListAllIsoData = [
 		{"code": "UA", "code3": "UKR", "name": "Ukraine", "number": "804"},
 		{"code": "AE", "code3": "ARE", "name": "United Arab Emirates", "number": "784"},
 		{"code": "GB", "code3": "GBR", "name": "United Kingdom", "number": "826"},
-		{"code": "UM", "code3": "UMI", "name": "United States Minor Outlying Islands", "number": "581"},
 		{"code": "US", "code3": "USA", "name": "United States", "number": "840"},
 		{"code": "UY", "code3": "URY", "name": "Uruguay", "number": "858"},
 		{"code": "UZ", "code3": "UZB", "name": "Uzbekistan", "number": "860"},

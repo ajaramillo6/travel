@@ -177,7 +177,6 @@
     margin-left: 20px;
     font-size: 18px;
     font-weight: 600;
-    color: rgb(75, 108, 135);
 }
 
 .singlePostDescInput{
@@ -239,4 +238,13 @@
     display: flex;
     padding: 2px;
     cursor: pointer;
+}
+
+.postLink{
+    color: inherit;
+    font-weight: bold;
+}
+
+.postLink:hover{
+    color: rgb(98, 145, 203);
 }

@@ -20,9 +20,9 @@ export default function Post({ post }) {
                 <span className="postDate">{format(post.createdAt)}</span>
               </div>
           </div>
-          <p className="postDesc">
-            {post.desc}
-          </p>
+          <div className="postDesc">
+            {post.newDescWords}
+          </div>
         </div>
       </Link>
     </div>

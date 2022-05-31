@@ -6,8 +6,9 @@ const PostSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    desc: {
-        type: String,
+    newDescWords: {
+        type: Array,
+        default:[],
         required: true,
     },
     loc: {

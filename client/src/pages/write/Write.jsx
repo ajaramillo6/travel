@@ -38,7 +38,7 @@ function postSectionHistory(text) {
       sectionImgDesc,
       newSectionWords,
       sectionListTitle,
-      sectionListItems: sectionListItems.split(/[, ]+/),
+      listWords,
     }
     if(sectionImg){
       const data = new FormData();
@@ -53,11 +53,11 @@ function postSectionHistory(text) {
       }
     }
     if(newSection.sectionHeader === "" && 
-    newSection.sectionWords === "" && 
-    newSection.sectionImg === null &&
-    newSection.sectionImgDesc === "" &&
-    newSection.sectionListTitle === "" &&
-    newSection.sectionListItems.length === 1){
+      newSection.newSectionWords === "" && 
+      newSection.sectionImg === null &&
+      newSection.sectionImgDesc === "" &&
+      newSection.sectionListTitle === "" &&
+      newSection.listWords.length === 1){
       handleErrorNotification();
     } else {
       postSectionHistory(newSection);
@@ -90,6 +90,8 @@ function postSectionHistory(text) {
     setPostSection(filteredSection);
   }
 
+  //******************/
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     if(postSection !== []){
@@ -101,7 +103,7 @@ function postSectionHistory(text) {
         instagram: user.instagram,
         facebook: user.facebook,
         title,
-        desc,
+        newDescWords,
         loc,
         state,
         postSection,
@@ -118,6 +120,7 @@ function postSectionHistory(text) {
           console.log(err);
         }
       }
+      console.log(newPost);
       try{
         const res = await axios.post("/posts", newPost);
         window.location.replace("/post/"+res.data._id);
@@ -131,50 +134,124 @@ function postSectionHistory(text) {
     setSectionImg(null);
   }
 
-  const findUrls = [];
-  const findIndex = [];
+  //******************/DESC TEXT AREA
+
+  //Links in Desc text area
+  const findDescUrls = [];
+  const findDescIndex = [];
+  const newDescWords = [];
+  const createDescLinks = [];
+  const descLinks = [];
+  const newDescText=[];
+
+  const descWords = desc.split(" ");
+
+  for(let i = 0; i < descWords.length; i++){
+    if(descWords[i][0] === "[" && descWords[i].slice(-1) !== "."){
+      findDescUrls.push(descWords[i]);
+      findDescIndex.push(i);
+    } else if(descWords[i][0] === "[" && descWords[i].slice(-1) === "."){
+      findDescUrls.push(descWords[i].slice(0,-1));
+      findDescIndex.push(i);
+    }
+  }
+
+  for(let j = 0; j < findDescUrls.length; j++){
+    if(findDescUrls[j].includes("@")){
+      createDescLinks.push(
+        `[${findDescUrls[j].split("@")[1].slice(0,-1)},${(findDescUrls[j].split("@")[0].substring(1)).split("-").join(" ")}]`);
+    }
+  }
+
+  for(let x = 0; x < createDescLinks.length; x++){
+    descLinks.push([findDescIndex[x], createDescLinks[x]]);
+  }
+
+  //Insert link objects as replacement for square bracket content
+  for (let w = 0; w < descLinks.length; w++){
+    newDescText.push(descWords[descLinks[w][0]] = descLinks[w][1]);
+  }
+
+  //Create space between words, except if they're objects.
+  for(let x = 0; x < descWords.length; x++){
+      newDescWords.push(descWords[x] + " ");
+  }
+
+  //******************/SECTION TEXT AREA
+
+  //Links in Section text area
+  const findSectionUrls = [];
+  const findSectionIndex = [];
   const newSectionWords = [];
-  const createLinks = [];
+  const createSectionLinks = [];
   const sectionLinks = [];
+  const newSectionText=[];
 
   const sectionWords = sectionText.split(" ");
 
   for(let i = 0; i < sectionWords.length; i++){
-    if(sectionWords[i][0] === "["){
-      findUrls.push(sectionWords[i]);
-      findIndex.push(i);
+    if(sectionWords[i][0] === "[" && sectionWords[i].slice(-1) !== "."){
+      findSectionUrls.push(sectionWords[i]);
+      findSectionIndex.push(i);
+    } else if(sectionWords[i][0] === "[" && sectionWords[i].slice(-1) === "."){
+      findSectionUrls.push(sectionWords[i].slice(0,-1));
+      findSectionIndex.push(i);
     }
   }
 
-  for(let j = 0; j < findUrls.length; j++){
-    if(findUrls[j].includes("@")){
-      createLinks.push(<a className="sectionLink" href={findUrls[j].split("@")[1].slice(0,-1)}>
-        {(findUrls[j].split("@")[0].substring(1)).split("-").join(" ")}</a>);
+  for(let j = 0; j < findSectionUrls.length; j++){
+    if(findSectionUrls[j].includes("@")){
+      createSectionLinks.push(
+        `[${findSectionUrls[j].split("@")[1].slice(0,-1)},${(findSectionUrls[j].split("@")[0].substring(1)).split("-").join(" ")}]`);
     }
   }
 
-  for(let x = 0; x < createLinks.length; x++){
-    sectionLinks.push([findIndex[x], createLinks[x]]);
+  for(let x = 0; x < createSectionLinks.length; x++){
+    sectionLinks.push([findSectionIndex[x], createSectionLinks[x]]);
   }
 
   //Insert link objects as replacement for square bracket content
-  const newSectionText=[];
   for (let w = 0; w < sectionLinks.length; w++){
     newSectionText.push(sectionWords[sectionLinks[w][0]] = sectionLinks[w][1]);
   }
 
   //Create space between words, except if they're objects.
   for(let x = 0; x < sectionWords.length; x++){
-    if (typeof sectionWords[x-1] === 'object'){
-      newSectionWords.push(" " + sectionWords[x] + " ");
-    } else if (typeof sectionWords[x] === 'object'){
-      newSectionWords.push(sectionWords[x]);
-    } else {
       newSectionWords.push(sectionWords[x] + " ");
+  }
+
+  //******************/
+
+  //Links in Section list
+  const findListUrls = [];
+  const findListIndex = [];
+  const createListLinks = [];
+  const listLinks = [];
+  const newListText=[];
+
+  const listWords = sectionListItems.split(", ");
+
+  for(let i = 0; i < listWords.length; i++){
+    if(listWords[i][0] === "["){
+      findListUrls.push(listWords[i]);
+      findListIndex.push(i);
     }
   }
 
-  console.log(newSectionWords)
+  for(let j = 0; j < findListUrls.length; j++){
+    if(findListUrls[j].includes("@")){
+      createListLinks.push(`<a className="sectionLink" href=${findListUrls[j].split("@")[1].slice(0,-1)}>${(findListUrls[j].split("@")[0].substring(1)).split("-").join(" ")}</a>`);
+    }
+  }
+
+  for(let x = 0; x < createListLinks.length; x++){
+    listLinks.push([findListIndex[x], createListLinks[x]]);
+  }
+
+  //Insert link objects as replacement for square bracket content
+  for (let w = 0; w < listLinks.length; w++){
+    newListText.push(listWords[listLinks[w][0]] = listLinks[w][1]);
+  }
   
   return (
     <div className="write">
@@ -270,7 +347,7 @@ function postSectionHistory(text) {
               <div className="sectionImgWrapper">
                 {sectionImg &&
                 <>
-                  <i class="sectionImgClose fa-solid fa-rectangle-xmark fa-lg" onClick={handleCloseImg}></i>
+                  <i className="sectionImgClose fa-solid fa-rectangle-xmark fa-lg" onClick={handleCloseImg}></i>
                   <img src={URL.createObjectURL(sectionImg)} alt="" className="writeSectionImg" />
                   {sectionImgDesc ?
                     <input 
@@ -337,15 +414,25 @@ function postSectionHistory(text) {
                   onChange={e=>setSectionListItems(e.target.value)} 
                 />
               }
-              {createLinks &&
+              {(createDescLinks || createSectionLinks || createListLinks) &&
               <div className="sectionUrls">
               <span className="sectionUrlTitle">Links Created</span>
               <div className="sectionUrlInstructions">{"How to create links: Use square brackets '[' in 'Section Text' area to enclose a new link. Use dashes when naming the link '-' if more than one word. Then use @ symbol to assign url address."}</div>
-                {createLinks.map((url, i)=>(
-                  <div className="urlContainer" key={i}>
-                      {url}
-                  </div>
-                ))}
+              {createDescLinks.map((url, i)=>(
+                <div className="urlContainer" key={i}>
+                  <a className="urlLink" href={url.split(",")[0].substring(1)}>{url.split(",")[1].slice(0,-1)}</a>
+                </div>
+              ))}
+              {createSectionLinks.map((url, i)=>(
+                <div className="urlContainer" key={i}>
+                  <a className="urlLink" href={url.split(",")[0].substring(1)}>{url.split(",")[1].slice(0,-1)}</a>
+                </div>
+              ))}
+              {createListLinks.map((url, i)=>(
+                <div className="urlContainer" key={i}>
+                  {url}
+                </div>
+              ))}
               </div>
               }
               <button 

@@ -23,10 +23,10 @@ export default function PostSectionWrite({postSection, handleRemoveSection}) {
                   <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
                 </div>
               }
-              {section.sectionListItems &&
+              {section.listWords &&
                 <>
                 <div className="sectionWriteListTitle">{section.sectionListTitle}</div>
-                {section.sectionListItems.map((item, i) => (
+                {section.listWords.map((item, i) => (
                   <ul key={i}>
                     <li className={item ? "sectionWriteListItem": "sectionWriteListItemHide"}>{item}</li>
                   </ul>

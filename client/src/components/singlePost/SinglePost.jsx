@@ -11,13 +11,12 @@ export default function SinglePost() {
 
   const[post, setPost] = useState({});
   const[title, setTitle] = useState("");
-  const[desc, setDesc] = useState("");
+  const[newDescWords, setNewDescWords] = useState("");
   const[loc, setLoc] = useState("");
   const[state, setState] = useState("");
   const[updateMode, setUpdateMode] = useState(false);
   const[users, setUsers] = useState([]);
   const[showSidebar, setShowSidebar] = useState(true);
-  console.log(post)
   const { user } = useContext(Context);
 
   const PF = "http://localhost:5000/images/"
@@ -30,7 +29,7 @@ export default function SinglePost() {
       const res = await axios.get("/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
-      setDesc(res.data.desc);
+      setNewDescWords(res.data.newDescWords);
       setLoc(res.data.loc);
       setState(res.data.state);
     }
@@ -55,7 +54,7 @@ export default function SinglePost() {
       await axios.put(`/posts/${post._id}`, {
         username: user.username,
         title,
-        desc,
+        newDescWords,
         loc,
         state,
       });
@@ -99,6 +98,51 @@ export default function SinglePost() {
 
   const handleOpenSidebar = () => {
     setShowSidebar(!showSidebar);
+  }
+
+  //************/CREATE LINKS IN DESC AREA
+
+  const findUrls = [];
+  const findIndex = [];
+  const createLinks = [];
+  const postLinks = [];
+  const newPostText = [];
+  const newPostWords = [];
+
+  //Find URLS in newDescWords
+  for(let i = 0; i < newDescWords.length; i++){
+    if(newDescWords[i][0] === "["){
+      findUrls.push(newDescWords[i]);
+      findIndex.push(i);
+    }
+  }
+
+  for(let j = 0; j < findUrls.length; j++){
+    if(findUrls[j].includes(",")){
+      createLinks.push(<a className="postLink" href={findUrls[j].split(",")[0].substring(1).slice(0,-1)}>
+        {(findUrls[j].split(",")[1].slice(0,-1).slice(0,-1)).split("-").join(" ")}</a>);
+    }
+  }
+
+  for(let x = 0; x < createLinks.length; x++){
+    postLinks.push([findIndex[x], createLinks[x]]);
+  }
+
+  //Insert link objects as replacement for square bracket content
+  for (let w = 0; w < postLinks.length; w++){
+    newPostText.push(newDescWords[postLinks[w][0]] = postLinks[w][1]);
+  }
+
+  //Create space between words, except if they're objects. Add period if object at end of sentence
+  for(let x = 0; x < newDescWords.length; x++){
+    if(typeof newDescWords[x-1] === 'object' && typeof newDescWords[x] !== 'object' && 
+    (newDescWords[x][0].toUpperCase() === newDescWords[x][0])){
+      newPostWords.push(". " + newDescWords[x]);
+    } else if (typeof newDescWords[x-1] === 'object'){
+      newPostWords.push(" " + newDescWords[x]);
+    } else {
+      newPostWords.push(newDescWords[x]);
+    }
   }
 
   return (
@@ -172,11 +216,16 @@ export default function SinglePost() {
           {updateMode ? 
             <textarea 
               className="singlePostDescInput" 
-              value={desc}
-              onChange={(e)=>setDesc(e.target.value)}
+              value={newDescWords}
+              onChange={(e)=>setNewDescWords(e.target.value)}
             /> 
           :(
-            <p className="singlePostDesc">{desc}</p>
+            <>
+            {newPostWords ?
+              <div className="singlePostDesc">{newPostWords}</div>:
+              <div className="singlePostDesc">{newDescWords}</div>
+            }
+            </>
           )}
           <PostSection post={post} />
           {updateMode &&
