@@ -31,9 +31,11 @@ export default function Login() {
           placeholder="Enter your password..."
           ref={passwordRef}
         />
-        <button className="loginButton" type="submit" disabled={isFetching}>
-          { isFetching ? <i className="spinner fa-solid fa-spinner"></i> : "Login" }
-        </button>
+        <div className="loginSubmit" type="submit" disabled={isFetching}>
+          { isFetching ? (<div className="lds-grid"><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div></div>):
+          <button className="loginButton">Login</button>}
+        </div>
       </form>
     </div>
   );

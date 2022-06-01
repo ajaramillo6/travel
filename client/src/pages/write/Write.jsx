@@ -222,36 +222,8 @@ function postSectionHistory(text) {
 
   //******************/
 
-  //Links in Section list
-  const findListUrls = [];
-  const findListIndex = [];
-  const createListLinks = [];
-  const listLinks = [];
-  const newListText=[];
 
   const listWords = sectionListItems.split(", ");
-
-  for(let i = 0; i < listWords.length; i++){
-    if(listWords[i][0] === "["){
-      findListUrls.push(listWords[i]);
-      findListIndex.push(i);
-    }
-  }
-
-  for(let j = 0; j < findListUrls.length; j++){
-    if(findListUrls[j].includes("@")){
-      createListLinks.push(`<a className="sectionLink" href=${findListUrls[j].split("@")[1].slice(0,-1)}>${(findListUrls[j].split("@")[0].substring(1)).split("-").join(" ")}</a>`);
-    }
-  }
-
-  for(let x = 0; x < createListLinks.length; x++){
-    listLinks.push([findListIndex[x], createListLinks[x]]);
-  }
-
-  //Insert link objects as replacement for square bracket content
-  for (let w = 0; w < listLinks.length; w++){
-    newListText.push(listWords[listLinks[w][0]] = listLinks[w][1]);
-  }
   
   return (
     <div className="write">
@@ -414,7 +386,7 @@ function postSectionHistory(text) {
                   onChange={e=>setSectionListItems(e.target.value)} 
                 />
               }
-              {(createDescLinks || createSectionLinks || createListLinks) &&
+              {(createDescLinks || createSectionLinks) &&
               <div className="sectionUrls">
               <span className="sectionUrlTitle">Links Created</span>
               <div className="sectionUrlInstructions">{"How to create links: Use square brackets '[' in 'Section Text' area to enclose a new link. Use dashes when naming the link '-' if more than one word. Then use @ symbol to assign url address."}</div>
@@ -426,11 +398,6 @@ function postSectionHistory(text) {
               {createSectionLinks.map((url, i)=>(
                 <div className="urlContainer" key={i}>
                   <a className="urlLink" href={url.split(",")[0].substring(1)}>{url.split(",")[1].slice(0,-1)}</a>
-                </div>
-              ))}
-              {createListLinks.map((url, i)=>(
-                <div className="urlContainer" key={i}>
-                  {url}
                 </div>
               ))}
               </div>
