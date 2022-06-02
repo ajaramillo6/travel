@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Settings() {
 
+  const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/";
   const [file, setFile] = useState(null);
@@ -76,10 +77,11 @@ export default function Settings() {
         const filename = Date.now() + file.name;
         data.append("name", filename)
         data.append("file", file);
-        updatedUser.profilePic = filename;
-
+        data.append("upload_preset", "uploads");
         try{
-          await axios.post("/upload", data);
+          const uploadRes = await axios.post(cloud, data);
+          const {url} = uploadRes.data;
+          updatedUser.profilePic = url;
         }catch(err){
           console.log(err);
         }
@@ -127,7 +129,7 @@ export default function Settings() {
             (
               <div className="settingsPP">
                 {user.profilePic ? 
-                  <img src={file ? URL.createObjectURL(file) : PF + user.profilePic} alt="" /> 
+                  <img src={file ? URL.createObjectURL(file) : user.profilePic} alt="" /> 
                 :
                   <img src={file ? URL.createObjectURL(file) : PF + "blank_avatar.jpg"} alt="" />  
                 }
@@ -144,7 +146,7 @@ export default function Settings() {
             ) : (
               <div className="settingsPPSavedContainer">
                 {user.profilePic ?
-                  <img src={PF + user.profilePic} alt="" className="settingsPPSaved" /> :
+                  <img src={user.profilePic} alt="" className="settingsPPSaved" /> :
                   <img src={PF + "blank_avatar.jpg"} alt="" className="settingsPPSaved" />
                 }
               </div>

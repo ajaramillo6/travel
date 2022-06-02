@@ -31,7 +31,7 @@ export default function Rightbar({handleAdmin, user}) {
                             onClick={handleAdmin}>
                             <img 
                                 className="rightbarImg" 
-                                src={user.profilePic ? PF + user.profilePic : PF + "blank_avatar.jpg"} 
+                                src={user.profilePic ? user.profilePic : PF + "blank_avatar.jpg"} 
                                 alt="" 
                             />
                         </Link> 

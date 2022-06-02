@@ -7,6 +7,8 @@ import { countryListAllIsoData } from "../../countryListAllIsoData";
 import { usaStatesListAllData } from "../../usaStatesListAllData";
 
 export default function Write() {
+
+  const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
   
   const { user } = useContext(Context);
   const PF = "http://localhost:5000/images/"
@@ -46,9 +48,9 @@ const handleSubmitSection = async(e) => {
     const filename = Date.now() + sectionImg.name;
     data.append("name", filename)
     data.append("file", sectionImg);
-    data.append("upload_preset", "uploads")
+    data.append("upload_preset", "uploads");
     try{
-      const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/alvjo/image/upload", data);
+      const uploadRes = await axios.post(cloud, data);
       const {url} = uploadRes.data;
       newSection.sectionImg = url;
     }catch(err){
@@ -116,9 +118,11 @@ const handleSubmitSection = async(e) => {
         const filename = Date.now() + file.name;
         data.append("name", filename)
         data.append("file", file);
-        newPost.photo = filename;
+        data.append("upload_preset", "uploads");
         try{
-          await axios.post("/upload", data);
+          const uploadRes = await axios.post(cloud, data);
+          const {url} = uploadRes.data;
+          newPost.photo = url;
         }catch(err){
           console.log(err);
         }

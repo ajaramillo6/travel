@@ -150,7 +150,7 @@ export default function SinglePost() {
     <div className="singlePost">
         <div className={showSidebar ? "singlePostWrapper":"singlePostWrapperFill"}>
           {post.photo &&
-            <img className="singlePostImg" src={PF+post.photo} alt="" />
+            <img className="singlePostImg" src={post.photo} alt="" />
           }
           {
             updateMode ? 
@@ -207,7 +207,7 @@ export default function SinglePost() {
           <div className="singlePostInfo">
           <Link className="link" to={`/travel/?user=${post.username}`}>
             <div className="singlePostAuthor">
-                <img className="singlePostProfile" src={PF + compareProfile} alt="" />
+                <img className="singlePostProfile" src={compareProfile} alt="" />
                 <b>Author: {post.username}</b>
             </div>
           </Link>

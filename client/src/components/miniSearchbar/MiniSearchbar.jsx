@@ -33,7 +33,7 @@ export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch}
                       <Link className="link" to={`/post/${post._id}`} onClick={handleSearch}>
                           <div className="miniSearchPostsWrapper">
                             <div className="miniSearchPostPicContainer">
-                              <img className="miniSearchPostPic" src={PF + post.photo} alt="" />
+                              <img className="miniSearchPostPic" src={post.photo} alt="" />
                             </div>
                             <div className="miniSearchPostContainer">
                               <div className="miniSearchPostTitle">{post.title}</div>

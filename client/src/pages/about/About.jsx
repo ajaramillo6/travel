@@ -35,7 +35,7 @@ export default function About() {
                 <Link className="link" to={`/travel/?user=${a.username}`}>
                     <div className="aboutAuthorWrapper" key={i}>
                         <div className="aboutAuthorPPWrapper">
-                            <img className="aboutAuthorPP" src={PF + a.profilePic} alt="" />
+                            <img className="aboutAuthorPP" src={a.profilePic} alt="" />
                         </div>
                         <span className="aboutAuthorUsername">{a.username}</span>
                         <span className="aboutAuthorBio">{a.bio}</span>
