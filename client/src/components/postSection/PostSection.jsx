@@ -123,7 +123,7 @@ export default function PostSection({post}) {
                 {section.sectionImg &&
                 <>
                     <div className="postSectionImgContainer">
-                        <img className="postSectionImg" src={PF + section.sectionImg} alt="" />
+                        <img className="postSectionImg" src={section.sectionImg} alt="" />
                     </div>
                     <div className="postSectionImgDesc">{section.sectionImgDesc}</div>
                 </>

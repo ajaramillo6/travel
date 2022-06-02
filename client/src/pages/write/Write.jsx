@@ -7,6 +7,7 @@ import { countryListAllIsoData } from "../../countryListAllIsoData";
 import { usaStatesListAllData } from "../../usaStatesListAllData";
 
 export default function Write() {
+  
   const { user } = useContext(Context);
   const PF = "http://localhost:5000/images/"
   const [title, setTitle] = useState("");
@@ -29,42 +30,44 @@ function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
 }
 
-  const handleSubmitSection = async(e) => {
-    e.preventDefault();
-    const newSection = {
-      sectionId: Date.now(),
-      sectionHeader,
-      sectionImg,
-      sectionImgDesc,
-      newSectionWords,
-      sectionListTitle,
-      listWords,
-    }
-    if(sectionImg){
-      const data = new FormData();
-      const filename = Date.now() + sectionImg.name;
-      data.append("name", filename)
-      data.append("file", sectionImg);
-      newSection.sectionImg = filename;
-      try{
-        await axios.post("/upload", data);
-      }catch(err){
-        console.log(err);
-      }
-    }
-    if(newSection.sectionHeader === "" && 
-      newSection.newSectionWords === "" && 
-      newSection.sectionImg === null &&
-      newSection.sectionImgDesc === "" &&
-      newSection.sectionListTitle === "" &&
-      newSection.listWords.length === 1){
-      handleErrorNotification();
-    } else {
-      postSectionHistory(newSection);
-      clearFields();
-      handleAddedNotification();
+const handleSubmitSection = async(e) => {
+  e.preventDefault();
+  const newSection = {
+    sectionId: Date.now(),
+    sectionHeader,
+    sectionImg,
+    sectionImgDesc,
+    newSectionWords,
+    sectionListTitle,
+    listWords,
+  }
+  if(sectionImg){
+    const data = new FormData();
+    const filename = Date.now() + sectionImg.name;
+    data.append("name", filename)
+    data.append("file", sectionImg);
+    data.append("upload_preset", "uploads")
+    try{
+      const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/alvjo/image/upload", data);
+      const {url} = uploadRes.data;
+      newSection.sectionImg = url;
+    }catch(err){
+      console.log(err);
     }
   }
+  if(newSection.sectionHeader === "" && 
+    newSection.newSectionWords === "" && 
+    newSection.sectionImg === null &&
+    newSection.sectionImgDesc === "" &&
+    newSection.sectionListTitle === "" &&
+    newSection.listWords.length === 1){
+    handleErrorNotification();
+  } else {
+    postSectionHistory(newSection);
+    clearFields();
+    handleAddedNotification();
+  }
+}
 
   const clearFields = () => {
     setSectionHeader("");
@@ -120,7 +123,6 @@ function postSectionHistory(text) {
           console.log(err);
         }
       }
-      console.log(newPost);
       try{
         const res = await axios.post("/posts", newPost);
         window.location.replace("/post/"+res.data._id);
@@ -221,8 +223,6 @@ function postSectionHistory(text) {
   }
 
   //******************/
-
-
   const listWords = sectionListItems.split(", ");
   
   return (
