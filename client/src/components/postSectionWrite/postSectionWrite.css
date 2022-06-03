@@ -59,6 +59,7 @@
     color: #667;
     font-size: 16px;
     line-height: 25px;
+    white-space: pre-wrap;
 }
 
 .sectionWriteListTitle{
