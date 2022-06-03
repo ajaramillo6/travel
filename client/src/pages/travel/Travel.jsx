@@ -41,8 +41,6 @@ export default function Travel() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [goingUp]);
 
-  const PF = "http://localhost:5000/images/";
-
   const {search} = useLocation();
   const location = useLocation();
   const author = location.search.split("=")[1];

@@ -1,7 +1,6 @@
 import "./postSection.css";
 
 export default function PostSection({post}) {
-    const PF = "http://localhost:5000/images/";
     let postSection = post.postSection;
     let postSections = [];
 

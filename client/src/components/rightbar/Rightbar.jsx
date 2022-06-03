@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 export default function Rightbar({handleAdmin, user}) {
 
     const { dispatch } = useContext(Context);
-    const PF = "http://localhost:5000/images/";
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -31,7 +30,7 @@ export default function Rightbar({handleAdmin, user}) {
                             onClick={handleAdmin}>
                             <img 
                                 className="rightbarImg" 
-                                src={user.profilePic ? user.profilePic : PF + "blank_avatar.jpg"} 
+                                src={user.profilePic ? user.profilePic : "https://res.cloudinary.com/alvjo/image/upload/v1654190156/uploads/blank_avatar_v4pcno.jpg"} 
                                 alt="" 
                             />
                         </Link> 

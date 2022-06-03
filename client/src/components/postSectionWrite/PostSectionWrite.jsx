@@ -1,7 +1,6 @@
 import './postSectionWrite.css';
 
 export default function PostSectionWrite({postSection, handleRemoveSection}) {
-  const PF = "http://localhost:5000/images/";
 
   // // START LOOKING FOR URLS
   // const sectionWriteWords = [];

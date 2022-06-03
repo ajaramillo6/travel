@@ -6,8 +6,6 @@ import { format } from 'timeago.js';
 
 export default function Sidebar({author, compareProfile, post}) {
 
-  const PF = "http://localhost:5000/images/";
-
     //FIND LOCATIONS BY USER
 
     const[posts, setPosts] = useState([]);
@@ -88,7 +86,7 @@ export default function Sidebar({author, compareProfile, post}) {
       <div className="sidebarItemProfile">
         <Link className="link" to={`/travel/?user=${author}`}>
           <div className="sidebarProfileWrapper">
-            <img className="sidebarProfilePic" src={PF + compareProfile} alt="" />
+            <img className="sidebarProfilePic" src={compareProfile} alt="" />
           </div>
         </Link>
           <div className="sidebarProfileInfoContainer">
@@ -115,7 +113,7 @@ export default function Sidebar({author, compareProfile, post}) {
                 <Link className="link" to={`/post/${post._id}`}>
                     <div className="sidebarPostsWrapper">
                       <div className="sidebarPostPicContainer">
-                        <img className="sidebarPostPic" src={PF + post.photo} alt="" />
+                        <img className="sidebarPostPic" src={post.photo} alt="" />
                       </div>
                       <div className="sidebarPostContainer">
                         <div className="sidebarPostTitle">{post.title}</div>
@@ -138,7 +136,7 @@ export default function Sidebar({author, compareProfile, post}) {
                 <Link className="link" to={`/post/${post._id}`}>
                     <div className="sidebarPostsWrapper">
                       <div className="sidebarPostPicContainer">
-                        <img className="sidebarPostPic" src={PF + post.photo} alt="" />
+                        <img className="sidebarPostPic" src={post.photo} alt="" />
                       </div>
                       <div className="sidebarPostContainer">
                         <div className="sidebarPostTitle">{post.title}</div>

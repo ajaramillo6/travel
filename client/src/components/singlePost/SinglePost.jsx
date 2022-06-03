@@ -19,8 +19,6 @@ export default function SinglePost() {
   const[showSidebar, setShowSidebar] = useState(true);
   const { user } = useContext(Context);
 
-  const PF = "http://localhost:5000/images/"
-
   const location = useLocation()
   const path = location.pathname.split("/")[2];
 

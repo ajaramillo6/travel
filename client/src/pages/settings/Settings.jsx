@@ -7,7 +7,6 @@ export default function Settings() {
 
   const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
   const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -131,7 +130,7 @@ export default function Settings() {
                 {user.profilePic ? 
                   <img src={file ? URL.createObjectURL(file) : user.profilePic} alt="" /> 
                 :
-                  <img src={file ? URL.createObjectURL(file) : PF + "blank_avatar.jpg"} alt="" />  
+                  <img src={file ? URL.createObjectURL(file) : "https://res.cloudinary.com/alvjo/image/upload/v1654190156/uploads/blank_avatar_v4pcno.jpg"} alt="" />  
                 }
                 <label htmlFor="fileInput">
                   <i className="settingsPPIcon fa-solid fa-circle-user"></i>
@@ -147,7 +146,7 @@ export default function Settings() {
               <div className="settingsPPSavedContainer">
                 {user.profilePic ?
                   <img src={user.profilePic} alt="" className="settingsPPSaved" /> :
-                  <img src={PF + "blank_avatar.jpg"} alt="" className="settingsPPSaved" />
+                  <img src={"https://res.cloudinary.com/alvjo/image/upload/v1654190156/uploads/blank_avatar_v4pcno.jpg"} alt="" className="settingsPPSaved" />
                 }
               </div>
             )

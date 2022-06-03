@@ -11,7 +11,6 @@ export default function Write() {
   const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
   
   const { user } = useContext(Context);
-  const PF = "http://localhost:5000/images/"
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
@@ -102,7 +101,7 @@ const handleSubmitSection = async(e) => {
     if(postSection !== []){
       const newPost = {
         username: user.username,
-        profilePic: PF + user.profilePic,
+        profilePic: user.profilePic,
         bio: user.bio,
         pinterest: user.pinterest,
         instagram: user.instagram,

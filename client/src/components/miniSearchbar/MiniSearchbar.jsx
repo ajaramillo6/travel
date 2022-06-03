@@ -4,8 +4,6 @@ import { format } from 'timeago.js';
 
 export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch}) {
 
-    const PF = "http://localhost:5000/images/";
-
     const handleSearch = () => {
       setQuery("");
       handleMiniSearch();

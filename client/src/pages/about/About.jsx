@@ -5,8 +5,6 @@ import { Link } from "react-router-dom"
 
 export default function About() {
 
-    const PF = "http://localhost:5000/images/"
-
     const[users, setUsers] = useState([]);
     const[readMore, setReadMore] = useState("");
     const[openReadMore, setOpenReadMore] = useState(false);
@@ -72,7 +70,7 @@ export default function About() {
                 <i className="aboutBioClose fa-solid fa-circle-xmark fa-xl" onClick={()=>setOpenReadMore(false)}></i>
                 <div className="aboutBioText">
                     <div className="aboutBioPPContainer">
-                        <img className="aboutBioPP" src={PF + readMore[1]} alt="" />
+                        <img className="aboutBioPP" src={readMore[1]} alt="" />
                         <div className="aboutBioUsernameContainer">
                             <span className="aboutBioUsername">{readMore[2]}</span>
                             <div className="aboutBioSocialContainer">

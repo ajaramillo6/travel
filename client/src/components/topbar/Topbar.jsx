@@ -10,15 +10,12 @@ import MiniSearchbar from "../miniSearchbar/MiniSearchbar";
 
 export default function Topbar() {
 
-    const[openAdmin, setOpenAdmin] = useState(false); 
-    const[showMiniSearch, setShowMiniSearch] = useState(false);
-    const[posts, setPosts] = useState([]);
-    const [query, setQuery] = useState("");
+  const[openAdmin, setOpenAdmin] = useState(false); 
+  const[showMiniSearch, setShowMiniSearch] = useState(false);
+  const[posts, setPosts] = useState([]);
+  const [query, setQuery] = useState("");
 
-    const { user } = useContext(Context);
-    const PF = "http://localhost:5000/images/";
-
-    
+  const { user } = useContext(Context);
   const {search} = useLocation();
 
   useEffect(()=> {
@@ -80,7 +77,7 @@ export default function Topbar() {
           <i className="topAdminIcon fa-solid fa-gear" onClick={handleAdmin}></i>
         </div>
         {openAdmin &&
-          <Rightbar handleAdmin={handleAdmin} user={user} PF={PF} />
+          <Rightbar handleAdmin={handleAdmin} user={user} />
         }
       </div>
     </div>
