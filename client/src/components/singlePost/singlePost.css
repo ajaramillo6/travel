@@ -168,7 +168,7 @@
 }
 
 .singlePostDesc{
-    color: #667;
+    /* color: #667; */
     font-size: 16px;
     line-height: 25px;
     white-space: pre-wrap;
@@ -242,10 +242,11 @@
 }
 
 .postLink{
-    color: inherit;
+    color: rgb(88, 140, 203);
     font-weight: bold;
+    text-decoration: none;
 }
 
 .postLink:hover{
-    color: rgb(98, 145, 203);
+    text-decoration: underline;
 }

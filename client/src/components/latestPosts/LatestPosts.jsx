@@ -12,11 +12,13 @@ export default function LatestPosts({ post }) {
           <img className="latestPostImg" src={post.photo} alt="" />
         )}
           <div className="lastestPostInfo">
+            <div className="lastestPostInfoWrapper">
               <span className="latestPostTitle">{post.title}</span>
               <div className='latestPostUserDate'>
                 <span className="latestPostUser">{post.username}</span>
                 <span className="latestPostDate">{format(post.createdAt)}</span>
               </div>
+            </div>
           </div>
         </div>
       </Link>

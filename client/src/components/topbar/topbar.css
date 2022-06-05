@@ -12,10 +12,6 @@
     animation: fade-slide-up 0.4s 0.4s ease-out forwards;
 }
 
-.top.active{
-    box-shadow: 0 0 11px rgba(104, 104, 104, 0.2);
-}
-
 .topLeft{
     display: none;
 }
@@ -45,10 +41,22 @@
     align-items: center;
 }
 
-.topListLogo{
-    width: 80px;
-    object-fit: cover;
+.topLogoWrapper{
+    width: 120px;
+    height: 35px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    color: rgb(66, 130, 209);
+    margin: 0;
+    padding: 0;
+}
+
+.topListLogo{
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .topListItem{

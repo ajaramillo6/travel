@@ -36,11 +36,18 @@ export default function Topbar() {
       setShowMiniSearch(!showMiniSearch);
     }
 
-    const keys = ["title", "desc", "loc", "username"];
     const Search = (posts) => {
-        return posts.filter((post)=>
-            keys.some((key)=>post[key].toLowerCase().includes(query) || 
-            post[key].includes(query)))
+      return posts.filter((post)=>
+        post.newDescWords.join().toLowerCase().includes(query) || 
+        post.newDescWords.join().includes(query) || 
+        post.title.toLowerCase().includes(query) || 
+        post.loc.toLowerCase().includes(query) || 
+        post.state.toLowerCase().includes(query) || 
+        post.username.toLowerCase().includes(query) || 
+        post.title.includes(query) || 
+        post.loc.includes(query) || 
+        post.state.includes(query) || 
+        post.username.includes(query))
     }
 
   return (
@@ -50,10 +57,14 @@ export default function Topbar() {
         <SideNavbar />
       </div>
       <div className="topCenter">
-        <img className="topListLogo" src="/img/logo.png" alt="" />
+        <div className="topLogoWrapper">
+          <span className="topListLogo">Backpack</span>
+        </div>
       </div>
       <div className="topCenterLogo">
-        <img className="topListLogo" src="/img/logo.png" alt="" />
+        <div className="topLogoWrapper">
+          <span className="topListLogo">Backpack</span>
+        </div>
       </div>
       <div className="topRight">
         <ul className="topList">
