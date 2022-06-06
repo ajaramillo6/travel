@@ -47,7 +47,9 @@ export default function Topbar() {
         post.title.includes(query) || 
         post.loc.includes(query) || 
         post.state.includes(query) || 
-        post.username.includes(query))
+        post.username.includes(query) ||
+        post.postSection.map((section)=> section.newSectionWords).join().toLowerCase().includes(query) ||
+        post.postSection.map((section)=> section.newSectionWords).join().includes(query))
     }
 
   return (
