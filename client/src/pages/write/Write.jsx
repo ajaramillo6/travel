@@ -305,7 +305,7 @@ const handleSubmitSection = async(e) => {
                 <span className="sectionSpan">{"Add New Section (all below are optional)"}</span>
               </div>
               {showSectionInstructions &&
-                <div className="sectionUrlInstructions">
+                <div className="sectionInstructions">
                   <div>What is this?</div>
                   <div>By creating sections you can add multiple images. Each section only contains 1 image.</div>
                 </div>
@@ -413,7 +413,7 @@ const handleSubmitSection = async(e) => {
                 <i className="sectionUrlsQuestion fa-solid fa-circle-question" onClick={handleInstructions}></i>
                 <span className="sectionUrlTitle">Links Created</span>
                 {showInstructions &&
-                <div className="sectionUrlInstructions">
+                <div className="sectionInstructions">
                   <div>How to create links:</div>
                   <div>1. Use square brackets ( [...] ) to enclose a new link.</div>
                   <div>2. Use dashes ( - ) when naming the link if more than one word.</div>
