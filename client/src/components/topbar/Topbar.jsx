@@ -49,9 +49,16 @@ export default function Topbar() {
         post.state.includes(query) || 
         post.username.includes(query) ||
         post.postSection.map((section)=> section.newSectionWords).join().toLowerCase().includes(query) ||
-        post.postSection.map((section)=> section.newSectionWords).join().includes(query))
+        post.postSection.map((section)=> section.newSectionWords).join().includes(query) ||
+        post.postSection.map((section)=> section.sectionHeader).join().toLowerCase().includes(query) ||
+        post.postSection.map((section)=> section.sectionHeader).join().includes(query) ||
+        post.postSection.map((section)=> section.sectionListTitle).join().toLowerCase().includes(query) ||
+        post.postSection.map((section)=> section.sectionListTitle).join().includes(query) ||
+        post.postSection.map((section)=> section.listWords).join().toLowerCase().includes(query) ||
+        post.postSection.map((section)=> section.listWords).join().includes(query))
     }
 
+    console.log(posts[2])
   return (
     <>
     <div className="top">
