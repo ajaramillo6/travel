@@ -26,6 +26,8 @@ export default function Write() {
   const[sectionListItems, setSectionListItems] = useState("");
   const[addedNotification, setAddedNotification] = useState(false);
   const[errorNotification, setErrorNotification] = useState(false);
+  const[showInstructions, setShowInstructions] = useState(false);
+  const[showSectionInstructions, setShowSectionInstructions] = useState(false);
 
 function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
@@ -137,6 +139,14 @@ const handleSubmitSection = async(e) => {
 
   const handleCloseImg = () => {
     setSectionImg(null);
+  }
+
+  const handleInstructions = () => {
+    setShowInstructions(!showInstructions);
+  }
+
+  const handleSectionInstructions = () => {
+    setShowSectionInstructions(!showSectionInstructions);
   }
 
   //******************/DESC TEXT AREA
@@ -290,7 +300,16 @@ const handleSubmitSection = async(e) => {
               </textarea>
             </div>
             <div className="sectionContainer">
-              <span className="sectionSpan">{"Add New Section (all below are optional)"}</span>
+              <div className="sectionSpanContainer">
+                <i className="sectionQuestion fa-solid fa-circle-question" onClick={handleSectionInstructions}></i>
+                <span className="sectionSpan">{"Add New Section (all below are optional)"}</span>
+              </div>
+              {showSectionInstructions &&
+                <div className="sectionUrlInstructions">
+                  <div>What is this?</div>
+                  <div>By creating sections you can add multiple images. Each section only contains 1 image.</div>
+                </div>
+                }
               <div className="sectionTitleWrapper">
                 <label htmlFor="fileInput2">
                   <i className="writeIcon fa-solid fa-image"></i>
@@ -391,25 +410,35 @@ const handleSubmitSection = async(e) => {
               }
               {(createDescLinks || createSectionLinks) &&
               <div className="sectionUrls">
-              <span className="sectionUrlTitle">Links Created</span>
-              <div className="sectionUrlInstructions">{"How to create links: Use square brackets '[' in 'Section Text' area to enclose a new link. Use dashes when naming the link '-' if more than one word. Then use @ symbol to assign url address."}</div>
-              {createDescLinks.map((url, i)=>(
+                <i className="sectionUrlsQuestion fa-solid fa-circle-question" onClick={handleInstructions}></i>
+                <span className="sectionUrlTitle">Links Created</span>
+                {showInstructions &&
+                <div className="sectionUrlInstructions">
+                  <div>How to create links:</div>
+                  <div>1. Use square brackets ( [...] ) to enclose a new link.</div>
+                  <div>2. Use dashes ( - ) when naming the link if more than one word.</div>
+                  <div>3. Then use @ symbol to assign url address.</div>
+                </div>
+                }
+                {createDescLinks.map((url, i)=>(
                 <div className="urlContainer" key={i}>
                   <a className="urlLink" href={url.split(",")[0].substring(1)}>{url.split(",")[1].slice(0,-1)}</a>
                 </div>
-              ))}
-              {createSectionLinks.map((url, i)=>(
+                ))}
+                {createSectionLinks.map((url, i)=>(
                 <div className="urlContainer" key={i}>
                   <a className="urlLink" href={url.split(",")[0].substring(1)}>{url.split(",")[1].slice(0,-1)}</a>
                 </div>
-              ))}
+                ))}
               </div>
               }
+              {!addedNotification &&
               <button 
                 className="writeSubmitSection" 
                 onClick={handleSubmitSection}>
                   Add
               </button>
+              }
               {addedNotification &&
                 <div className="sectionAddedNotification">
                   <i className="successIcon fa-solid fa-circle-check"></i>

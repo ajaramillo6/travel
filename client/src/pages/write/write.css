@@ -2,6 +2,7 @@
     padding-top: 15px;
     margin-top: 40px;
     color: #2d2d2d;
+    position: relative;
 }
 
 .writeImg{
@@ -129,13 +130,26 @@ input::placeholder, textarea::placeholder{
     margin-left: 150px;
 }
 
+.sectionSpanContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.sectionQuestion{
+    cursor: pointer;
+    color:rgb(93, 93, 93);
+    font-size: 20px;
+    margin-right: 10px;
+}
+
 .sectionSpan{
     font-size: 20px;
     font-weight: bold;
     color: rgb(127, 127, 127);
-    text-align: center;
+    text-align: left;
     margin-bottom: 15px;
     font-family: 'Lora', 'serif';
+    width: 400px;
 }
 
 .sectionTitleWrapper{
@@ -268,6 +282,13 @@ input::placeholder, textarea::placeholder{
     font-size: 18px;
 }
 
+.sectionUrlsQuestion{
+    margin-right: 10px;
+    cursor: pointer;
+    color:rgb(93, 93, 93);
+    font-size: 20px;
+}
+
 .sectionUrlTitle{
     font-size: 18px;
     color:grey;
@@ -276,9 +297,10 @@ input::placeholder, textarea::placeholder{
 
 .sectionUrlInstructions{
     font-size: 12px;
-    font-style: oblique;
     color:rgb(133, 150, 187);
     margin-bottom: 5px;
+    margin-top: 5px;
+    font-weight: 800;
 }
 
 .urlContainer{
