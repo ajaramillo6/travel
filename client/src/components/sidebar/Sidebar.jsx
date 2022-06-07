@@ -130,7 +130,7 @@ export default function Sidebar({author, compareProfile, post}) {
         <div className="sidebarList">
           <div className="sidebarTitle">Related Posts</div>
           <hr />
-          {relatedPosts.map((post, i)=>(
+          {relatedPosts.slice(0,10).map((post, i)=>(
               <div>
                 <div key={i}>
                 <Link className="link" to={`/post/${post._id}`}>

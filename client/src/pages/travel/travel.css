@@ -99,18 +99,12 @@ transform: none;
     margin-top: 30px;
 }
 
-.travelUserFavorites{
+.travelUserContactText{
     font-family: 'Varela Round', 'sans-serif';
     font-size: 15px;
     color: #5694be;
     margin-top: 15px;
-}
-
-.travelUserContactText{
-    font-family: 'Varela Round', 'sans-serif';
-    font-size: 15px;
-    color: #5664be;
-    margin-top: 15px;
+    cursor: pointer;
 }
 
 .travelSocialContainer{

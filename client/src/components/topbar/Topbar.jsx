@@ -66,13 +66,16 @@ export default function Topbar() {
       </div>
       <div className="topCenter">
         <div className="topLogoWrapper">
-          <span className="topListLogo">Backpack</span>
+          <Link className="topListLogo" to="/">
+            <span>Backpack</span>
+          </Link>
         </div>
       </div>
       <div className="topCenterLogo">
         <div className="topLogoWrapper">
-          <i className="fa-solid fa-backpack"></i>
-          <span className="topListLogo">Backpack</span>
+          <Link className="topListLogo" to="/">
+            <span className="topListLogo">Backpack</span>
+          </Link>
         </div>
       </div>
       <div className="topRight">

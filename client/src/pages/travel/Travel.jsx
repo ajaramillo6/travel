@@ -94,7 +94,6 @@ export default function Travel() {
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
             <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
-            <span className="travelUserFavorites">Favorites</span>
             <span className="travelUserContactText">
               Contact Me
             </span>

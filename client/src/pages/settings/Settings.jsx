@@ -110,13 +110,23 @@ export default function Settings() {
               <i className="settingsDelete fa-solid fa-trash" onClick={handleDeleteConfirm}></i>
               {deleteAccount &&
                 <div className="settingsDeleteAccount">
-                  <h2 className="settingsDeleteTitle">Delete Account</h2>
-                  <span className="settingsDeleteText">
-                    Are you sure you want to delete your account and all posts?
-                  </span>
+                  <div className="settingsDeleteTextTitle">
+                     ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT?
+                  </div>
+                  <div className="settingsDeleteTextWrapper">
+                    <div><i className="settingsDeleteIcon fa-solid fa-triangle-exclamation"></i></div>
+                    <div className="settingsDeleteTextContainer">
+                      <div className="settingsDeleteText">
+                        You are about to delete your account.
+                      </div>
+                      <div className="settingsDeleteText">
+                        This action cannot be undone. Are you sure you want to continue?
+                      </div>
+                    </div>
+                  </div>
                   <div className="settingsDeleteOptions">
                     <div className="settingsDeleteOption" onClick={handleDeleteConfirm}>Cancel</div>
-                    <div className="settingsDeleteOption" onClick={handleDelete}>Yes</div>
+                    <div className="settingsDeleteOption" onClick={handleDelete}>Continue</div>
                   </div>
                 </div>
               }
