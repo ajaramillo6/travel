@@ -1,6 +1,7 @@
 .home{
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%) */
 }
 
@@ -9,7 +10,7 @@
     font-size: 20px;
     font-family: 'Lora', 'serif';
     color: rgb(123, 123, 123);
-    margin: 20px 0px 10px 0px;
+    margin: 40px 0px 10px 0px;
 }
 
 .homePostsContainer{
@@ -28,4 +29,34 @@
   .homePostsContainer {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+  }
+
+  .homeReadMore{
+    color: rgb(96, 125, 151);
+    font-family: 'Lora', 'serif';
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 10px;
+    width: 100px;
+  }
+
+  .homeReadMoreHide{
+    color: rgb(96, 125, 151);
+    font-family: 'Lora', 'serif';
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 10px;
+    width: 100px;
+  }
+
+  .homePlane{
+      margin-left: 5px;
   }

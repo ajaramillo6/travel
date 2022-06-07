@@ -58,7 +58,6 @@ export default function Topbar() {
         post.postSection.map((section)=> section.listWords).join().includes(query))
     }
 
-    console.log(posts[2])
   return (
     <>
     <div className="top">
@@ -72,6 +71,7 @@ export default function Topbar() {
       </div>
       <div className="topCenterLogo">
         <div className="topLogoWrapper">
+          <i className="fa-solid fa-backpack"></i>
           <span className="topListLogo">Backpack</span>
         </div>
       </div>
