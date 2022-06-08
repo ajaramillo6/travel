@@ -40,10 +40,12 @@ export default function Home() {
             ))}
         </div>
         <div onMouseOver={handleButton} onMouseLeave={handleButtonLeave}>
-          {!buttonHover ?
-            <Link className="homeReadMore" to="/travel">Read More Posts</Link>:
-            <Link className="homeReadMoreHide" to="/travel">Read More Posts <i className="homePlane fa-solid fa-plane"></i></Link>
-          }
+            <Link className="link" to="/travel">
+              <div className="homeReadMore"> 
+                Read More Posts 
+                <i className={buttonHover ? "homePlane fa-solid fa-plane":"homePlaneHide fa-solid fa-plane"}></i>
+              </div>
+            </Link>
         </div>
       </div>
     </>

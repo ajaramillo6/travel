@@ -4,12 +4,14 @@ import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Posts from "../../components/posts/Posts";
+import emailjs from 'emailjs-com';
 
 export default function Travel() {
   const[posts, setPosts] = useState([]);
   const[user, setUser] = useState("");
   const[showDropdown, setShowDropdown] = useState(false);
   const [goingUp, setGoingUp] = useState(true);
+  const [showEmail, setShowEmail] = useState(false);
 
   const handleDropdown = (cat) => {
     if(cat === "United States"){
@@ -84,6 +86,23 @@ export default function Travel() {
 
   const states = setStates.filter(onlyUnique).sort();
 
+  const handleEmailShow = () => {
+    setShowEmail(!showEmail)
+  }
+
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('service_aagbgqd', 'template_c406s8l', e.target, 'user_KBdCFErbshzn0SBde49T7')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset()
+      window.location.replace("/travel/?user=" + user.username)
+  }
+
   return (
     <>
       <div className="travel">
@@ -94,7 +113,7 @@ export default function Travel() {
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
             <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
-            <span className="travelUserContactText">
+            <span className="travelUserContactText" onClick={handleEmailShow}>
               Contact Me
             </span>
             <div className="travelSocialContainer">
@@ -137,6 +156,23 @@ export default function Travel() {
           <Posts posts={posts} />
         </div> 
       </div>
+      {showEmail &&
+            <div className="travelContactMe">
+              <div className="travelContactMeWrapper">
+                <i className="travelContactMeClose fa-solid fa-circle-xmark fa-xl" onClick={()=>setShowEmail(false)}></i>
+                <span className="travelContactMeHeader">Send message to <span className="travelContactMeHeaderUser">{user.username}</span></span>
+                  <form className="travelContactForm" onSubmit={sendEmail}>
+                    <div><input className="travelContactFormSubject" type="text" placeholder="Your Name" name="subject" required minLength="3" maxLength="30" /></div>
+                    <br></br>
+                    <div><input className="travelContactFormEmail" type="text" placeholder="Your Email" name="email" /></div>
+                    <br></br>
+                    <div><textarea className="travelContactFormMessage" name="message" cols="30" rows="5" placeholder="Your Message" /></div>
+                    <br></br>
+                    <div><input className="travelContactFormSubmit" type="submit" value="SEND" /></div>
+                  </form>
+              </div>
+            </div>
+      }
     </>
   )
 }
