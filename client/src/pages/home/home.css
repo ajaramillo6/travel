@@ -3,6 +3,9 @@
     flex-direction: column;
     align-items: center;
     /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%) */
+    position: relative;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 .homeText{
@@ -17,8 +20,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
     overflow-x: scroll;
+    transition: all 0.5s ease-in-out;
+    width: 160vw;
+    left: 0;
+    right: 0;
+    top: 70px;
+    position: absolute;
 }
 
 .homePostsContainer::-webkit-scrollbar {
@@ -61,4 +69,25 @@
 
   .homePlaneHide{
     display: none;
+  }
+
+  .homePostsArrowLeft, .homePostsArrowRight{
+    background-color: rgb(61, 80, 176);
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 200px;
+    z-index: 1000;
+    margin: 30px;
+  }
+
+  .homePostsArrowLeft:hover, .homePostsArrowRight:hover{
+    background-color: rgb(77, 94, 179);
   }
