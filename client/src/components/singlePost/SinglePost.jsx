@@ -143,6 +143,15 @@ export default function SinglePost() {
     }
   }
 
+  const tableOfContents = [];
+  if(post.postSection){
+    for(let x = 0; x < post.postSection.length; x++){
+      if(post.postSection[x].sectionHeader !== ''){
+        tableOfContents.push(post.postSection[x].sectionHeader);
+      }
+    }
+  }
+
   return (
     <>
     <div className="singlePost">
@@ -225,7 +234,7 @@ export default function SinglePost() {
             }
             </>
           )}
-          <PostSection post={post} />
+          <PostSection post={post} tableOfContents={tableOfContents} />
           {updateMode &&
           <div className="singlePostButtons">
             <button 

@@ -1,6 +1,6 @@
 import "./postSection.css";
 
-export default function PostSection({post}) {
+export default function PostSection({post, tableOfContents}) {
     let postSection = post.postSection;
     let postSections = [];
 
@@ -71,8 +71,7 @@ export default function PostSection({post}) {
                     findPost.push(m);
                     findCharIndex.push(n);
                 }
-            }
-            
+            }  
         }
     }
 
@@ -109,12 +108,34 @@ export default function PostSection({post}) {
         postSection[i].newSectionWords.splice(0, postSection[i].newSectionWords.length, newPostWords[i]);
     }
 
+    const scrollToHeader = (idx) => {
+        const header = document.getElementById(`header${idx}`);
+        header.scrollIntoView();
+    }
+
   return (
     <div className="postSection">
+        {tableOfContents && (postSection.length === tableOfContents.length) &&
+        <div className="postSectionTableOfContentsContainer">
+            <div className="postSectionTableOfContentsTitle">
+                Table of Contents
+            </div>
+            {tableOfContents.map((header, i) => (
+            <div className="postSectionTableOfContentsWrapper" onClick={()=>scrollToHeader(i)} key={i}>
+                <span className="postSectionContent">
+                    <span style={{marginRight:"5px"}}>
+                        {i+1}.
+                    </span>
+                    {header}
+                </span>
+            </div>
+            ))}
+        </div>
+        }
         {postSections.map((section, i)=>(
             <div className="postSectionContainer" key={i}>
                 {section.sectionHeader &&
-                    <div className="postSectionHeader">{section.sectionHeader}</div>
+                    <div className="postSectionHeader" id={`header${i}`}>{section.sectionHeader}</div>
                 }
                 {section.newSectionWords &&
                     <div className="postSectionText">{section.newSectionWords}</div>
