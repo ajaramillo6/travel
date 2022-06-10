@@ -250,3 +250,26 @@
 .postLink:hover{
     text-decoration: underline;
 }
+
+.backToTop{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: rgb(96, 125, 151);
+    font-family: 'Lora', 'serif';
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    width: 100px;
+    transition: all 0.25s linear;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .backToTop:hover {
+    background-color: rgb(228, 228, 228);
+  }

@@ -110,7 +110,7 @@ export default function PostSection({post, tableOfContents}) {
 
     const scrollToHeader = (idx) => {
         const header = document.getElementById(`header${idx}`);
-        header.scrollIntoView();
+        header.scrollIntoView({behavior: "smooth"});
     }
 
   return (

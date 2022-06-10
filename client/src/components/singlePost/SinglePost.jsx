@@ -249,6 +249,7 @@ export default function SinglePost() {
             </button>
           </div>
           }
+          <div className="backToTop" onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>Go Back Up</div>
         </div>
         <div className="sidebar">
           {showSidebar ? (
