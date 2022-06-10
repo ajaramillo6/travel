@@ -3,6 +3,9 @@
     height: 175px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .sliderArrow {
@@ -21,18 +24,22 @@
   .sliderArrow:hover{
     color: rgb(242, 242, 242);
   }
-  
+ 
   .sliderImgWrapper {
-    width: 500vw;
     height: 100%;
     display: flex;
-    transition: all 1.5s ease-in;
   }
-  
-  .sliderImgContainer {
+   
+  .slide {
+    opacity: 0;
+    transition-duration: 0.5s ease;
+  }
+
+  .slide.active {
     width: 100vw;
-    height: 100%;
-    position: relative;
+    opacity: 1;
+    transition-duration: 0.5s;
+    transform: scale(1.08);
   }
 
   .sliderImg{
@@ -40,5 +47,45 @@
         width: 100%;
         height: 100%;
   }
+
+  .sliderThumbnailsContainer{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+    top: 185px;
+  }
+
+  .thumbnailsWrapper{
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sliderThumbnail{
+    color: transparent;
+    background-color: rgb(255, 255, 255);
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+
+  .sliderThumbnail:hover{
+    background-color: rgb(207, 212, 219);
+  }
+
+  .sliderThumbnailPicked{
+    color: transparent;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+    background-color: rgb(154, 190, 233);
+  }
+  
+
 
   

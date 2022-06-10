@@ -6,37 +6,37 @@ export default function Slider() {
     const [index, setIndex] = useState(0);
 
     const images = [
-        "/img/colorado1.jpg",
-        "/img/paris5.jpg",
-        "/img/japan1.jpg",
-        "/img/hawaii4.jpg",
-        "/img/newyork5.jpg",
+        "/img/slider1.jpg",
+        "/img/slider2.jpg",
+        "/img/slider3.jpg",
     ];
 
-    const handleArrow = (direction) => {
-        if(direction === "l") {
-            setIndex(index !== 0 ? index-1 : 4)
-        }
-        if(direction === "r") {
-            setIndex(index !== 4 ? index+1 : 0)
-        }
+    const thumbChange = (i) => {
+        const thumb = images[i];
+        setIndex(i)
+        document.getElementById("mainImg").src = thumb;
     }
 
   return (
-    <div className="slider">
-            <div className="sliderArrow" style={{left: 0}} onClick = {()=>handleArrow("l")} >
-                <i className="fa-solid fa-angle-left"></i>
+    <>
+    <section className="slider">
+        <div className="sliderImgWrapper">
+        {images.map((slide, i)=>(
+            <div className={i === index ? 'slide active' : 'slide'} key={i}>
+            {i === index && (
+                <img className="sliderImg" id="mainImg" src={slide} alt="" />
+            )}
             </div>
-            <div className="sliderImgWrapper" style={{transform:`translateX(${-100*index}vw)`}}>
-                {images.map((img, i)=>(
-                    <div className="sliderImgContainer" key={i}>
-                        <img className="sliderImg" src={img} alt="" />
-                    </div>
-                ))}
+        ))}
+        </div>
+        <div className="sliderThumbnailsContainer">
+            {images.map((slide, i)=>(
+            <div className="thumbnailsWrapper" key={i}>
+                <div className={index === i ? "sliderThumbnailPicked":"sliderThumbnail"} onClick={()=>thumbChange(i)}>{slide}</div>
             </div>
-            <div className="sliderArrow" style={{right: 0}} onClick = {()=>handleArrow("r")}>
-            <i className="fa-solid fa-angle-right"></i>
-            </div>
-    </div>
+            ))}
+        </div>
+    </section>
+    </>
   )
 }

@@ -76,6 +76,8 @@ input::placeholder, textarea::placeholder{
 #textarea{
     border:none;
     height: 200px;
+    background-color: rgb(249, 249, 249);
+    border-radius: 15px;
 }
 
 .writeLocationInput{
@@ -128,6 +130,9 @@ input::placeholder, textarea::placeholder{
     flex-direction: column;
     width: 70vw;
     margin-left: 150px;
+    border: 1px dashed rgb(123, 136, 144);
+    border-radius: 15px;
+    padding: 20px;
 }
 
 .sectionSpanContainer{
