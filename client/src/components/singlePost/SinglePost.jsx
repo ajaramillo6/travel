@@ -6,6 +6,7 @@ import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
 import Sidebar from "../sidebar/Sidebar";
 import PostSection from "../postSection/PostSection";
+import Subscribe from "../subscribe/Subscribe";
 
 export default function SinglePost() {
 
@@ -249,7 +250,12 @@ export default function SinglePost() {
             </button>
           </div>
           }
-          <div className="backToTop" onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>Go Back Up</div>
+          <div 
+            className="backToTop" 
+            onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
+              Go Back Up
+          </div>
+          <Subscribe post={post}/>
         </div>
         <div className="sidebar">
           {showSidebar ? (

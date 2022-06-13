@@ -1,0 +1,153 @@
+.subscribe{
+    border-top: 1px solid rgb(224, 224, 224);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.subscribeHeader{
+    font-family: 'Josefin Sans', 'sans-serif';
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subscribeForm{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
+
+.subscribeInput{
+    border-radius: 7px;
+    text-align: center;
+    padding: 10px 50px;
+    display: inline-block;
+    border: none;
+    background-color: rgb(245, 245, 245);
+    outline: none;
+    margin-right: 10px;
+}
+
+.subscribeSubmit{
+    height: 35px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 150px;
+    background-color: rgb(65, 168, 139);
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.subscribeSubmit:hover{
+    background-color:rgb(67, 171, 142);
+}
+
+.reply{
+    margin-top: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.replyHeader{
+    font-family: 'Josefin Sans', 'sans-serif';
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.replyForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.replyInput{
+    border-radius: 7px;
+    padding: 10px 50px;
+    display: inline-block;
+    border: none;
+    background-color: rgb(245, 245, 245);
+    outline: none;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.replyText{
+    border-radius: 7px;
+    height: 100px;
+    padding: 10px 50px;
+    display: inline-block;
+    border: none;
+    background-color: rgb(245, 245, 245);
+    outline: none;
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.replySubmit{
+    height: 35px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100px;
+    background-color: rgb(65, 72, 168);
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.comment{
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 600px;
+}
+
+.commentHeader{
+    font-family: 'Josefin Sans', 'sans-serif';
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.commentWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-bottom: 30px;
+}
+
+.commentInfo{
+    display: flex;
+    margin: 10px 0px;
+}
+
+.commentUser{
+margin-right: 15px;
+font-weight: bold;
+}
+
+.commentDate{
+    color: #b39656;
+}
+
+.commentMessage{
+
+}

@@ -18,16 +18,16 @@ export default function Write() {
   const [state, setState] = useState("");
 
   const [postSection, setPostSection] = useState([]);
-  const[sectionHeader, setSectionHeader] = useState("");
+  const [sectionHeader, setSectionHeader] = useState("");
   const [sectionImg, setSectionImg] = useState(null);
-  const[sectionImgDesc, setSectionImgDesc] = useState("");
-  const[sectionText, setSectionText] = useState("");
-  const[sectionListTitle, setSectionListTitle] = useState("");
-  const[sectionListItems, setSectionListItems] = useState("");
-  const[addedNotification, setAddedNotification] = useState(false);
-  const[errorNotification, setErrorNotification] = useState(false);
-  const[showInstructions, setShowInstructions] = useState(false);
-  const[showSectionInstructions, setShowSectionInstructions] = useState(false);
+  const [sectionImgDesc, setSectionImgDesc] = useState("");
+  const [sectionText, setSectionText] = useState("");
+  const [sectionListTitle, setSectionListTitle] = useState("");
+  const [sectionListItems, setSectionListItems] = useState("");
+  const [addedNotification, setAddedNotification] = useState(false);
+  const [errorNotification, setErrorNotification] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [showSectionInstructions, setShowSectionInstructions] = useState(false);
 
 function postSectionHistory(text) {
   setPostSection((history) => [...history, text]);
