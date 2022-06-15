@@ -10,11 +10,10 @@ export default function Subscribe({post}) {
     const[subscriberComment, setSubscriberComment] = useState("");
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
-    // const[comments, setComments] = useState([...postCommentList]);
     const[comments, setComments] = useState([]);
     const[showSubscribe, setShowSubscribe] = useState(false);
     const[showComment, setShowComment] = useState(false);
-
+    const[showMoreComments, setShowMoreComments] = useState(false);
 
     const handleSubmitComment = async(e) => {
         e.preventDefault();
@@ -48,7 +47,11 @@ export default function Subscribe({post}) {
       }
 
       const handleCommentBox = () => {
-        setShowComment(!showComment)
+        setShowComment(!showComment);
+      }
+
+      const handleShowMoreComments = () => {
+        setShowMoreComments(!showMoreComments);
       }
 
   return (
@@ -126,25 +129,71 @@ export default function Subscribe({post}) {
             }
         </div>
     </div>
-    <div className="comment">
-        {comments.filter((c)=> c.commentForPost === post._id).length > 0 &&
-        <div className="commentHeader">
-            {comments.filter((c)=> c.commentForPost === post._id).length > 1 ? 
-            comments.filter((c)=> c.commentForPost === post._id).length + " COMMENTS" : 
-            comments.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
+    {postCommentList &&
+    <>
+    <div className="commentPrev">
+        {postCommentList.filter((c)=> c.commentForPost === post._id).length > 0 &&
+        <div className="commentPrevHeader">
+            {postCommentList.filter((c)=> c.commentForPost === post._id).length > 1 ? 
+            (postCommentList.filter((c)=> c.commentForPost === post._id).length +
+            comments.filter((c)=> c.commentForPost === post._id).length) + " COMMENTS" : 
+            postCommentList.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
         </div>
         }
+        <>
+        {!showMoreComments ?
+        <>
+            {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+            <div className="commentPrevWrapper" key={i}>
+                <div className="commentPrevInfo">
+                    <div className="commentPrevUser">
+                        {comment.subscriberCommentEmail}
+                    </div>
+                    <div className="commentPrevDate">
+                        {comment.commentCreatedAt}
+                    </div>
+                </div>
+                <div className="commentPrevMessage">
+                    {comment.subscriberComment}
+                </div>
+            </div>
+            ))}
+        </>:<>
+            {postCommentList.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+            <div className="commentPrevWrapper" key={i}>
+                <div className="commentPrevInfo">
+                    <div className="commentPrevUser">
+                        {comment.subscriberCommentEmail}
+                    </div>
+                    <div className="commentPrevDate">
+                        {comment.commentCreatedAt}
+                    </div>
+                </div>
+                <div className="commentPrevMessage">
+                    {comment.subscriberComment}
+                </div>
+            </div>
+            ))}
+        </>
+        }
+        <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 && comments.length === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
+        <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments && comments.length === 0) && "Show less"}</span>
+        </>
+    </div>
+    </>
+    }
+    <div className="commentAdded">
         {comments.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-        <div className="commentWrapper" key={i}>
-            <div className="commentInfo">
-                <div className="commentUser">
+        <div className="commentAddedWrapper" key={i}>
+            <div className="commentAddedInfo">
+                <div className="commentAddedUser">
                     {comment.subscriberCommentEmail}
                 </div>
-                <div className="commentDate">
+                <div className="commentAddedDate">
                     {comment.commentCreatedAt}
                 </div>
             </div>
-            <div className="commentMessage">
+            <div className="commentAddedMessage">
                 {comment.subscriberComment}
             </div>
         </div>

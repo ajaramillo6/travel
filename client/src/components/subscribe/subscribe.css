@@ -90,12 +90,12 @@
 
 .replyInput{
     border-radius: 7px;
-    padding: 10px 50px;
+    padding: 10px 30px;
     display: inline-block;
     border: none;
     background-color: rgb(245, 245, 245);
     outline: none;
-    width: 100px;
+    width: 150px;
     margin-bottom: 10px;
 }
 
@@ -136,48 +136,52 @@
     border-radius: 10px;
 }
 
-.comment{
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0px;
+.commentPrev, .commentAdded{
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 600px;
 }
 
-.commentHeader{
+.commentPrevHeader{
     font-family: 'Josefin Sans', 'sans-serif';
     text-align: left;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.commentWrapper{
+.commentPrevWrapper, .commentAddedWrapper{
     display: flex;
     flex-direction: column;
     width: 70%;
-    margin-bottom: 30px;
 }
 
-.commentInfo{
+.commentPrevInfo, .commentAddedInfo{
     display: flex;
-    margin: 10px 0px;
+    margin-top: 15px;
     align-items: center;
 }
 
-.commentUser{
-margin-right: 15px;
-font-weight: bold;
+.commentPrevUser, .commentAddedUser{
+    margin-right: 15px;
+    font-weight: bold;
 }
 
-.commentDate{
+.commentPrevDate, .commentAddedDate{
     color: #b39656;
     font-style: italic;
     font-size: 14px;
 }
 
-.commentMessage{
+.commentPrevMessage, .commentAddedMessage{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 
+.commentsShowMoreText{
+    font-size: 14px;
+    color: rgb(97, 97, 97);
+    cursor: pointer;
 }

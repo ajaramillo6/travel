@@ -44,7 +44,7 @@ export default function Home() {
       <div className="home">
         <span className="homeText">Latest Posts</span>
         <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto', 'marginBottom': '380px'}}></hr>
-        <div className="homePostsContainer" style={{transform:`translateX(${-18.5*index}vw)`}}>
+        <div className="homePostsContainer" style={{transform:`translateX(${-14*index}vw)`}}>
             {posts.slice(0,8).map((post) => (
               <LatestPosts post={post} />
             ))}
