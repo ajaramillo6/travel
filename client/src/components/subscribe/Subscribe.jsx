@@ -1,31 +1,41 @@
 import './subscribe.css';
 import { useState } from "react";
+import axios from 'axios';
 
 export default function Subscribe({post}) {
+
+    const postCommentList = post.postComments;
     
     const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
     const[subscriberComment, setSubscriberComment] = useState("");
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
+    // const[comments, setComments] = useState([...postCommentList]);
     const[comments, setComments] = useState([]);
+    const[showSubscribe, setShowSubscribe] = useState(false);
+    const[showComment, setShowComment] = useState(false);
 
-    function postCommentHistory(text) {
-        setComments((history) => [...history, text]);
-    }
 
-    const handleSubmitComment = (e) => {
+    const handleSubmitComment = async(e) => {
         e.preventDefault();
         const newComment = {
-        //   commentId: Date.now(),
           subscriberCommentEmail,
           subscriberComment,
-          commentsForPost: post._id,
-        //   commentTimePosted: new Date().toLocaleDateString(
-        //     'en-us', {year:"numeric", month:"short", day:"numeric"}
-        //     ),
+          commentForPost: post._id,
+          commentCreatedAt: new Date().toLocaleDateString("en-US", 
+            {year: 'numeric', month: 'short', day: 'numeric'}
+            ),
         }
-        postCommentHistory(newComment);
-        clearFields();
+        if(subscriberCommentEmail !== "" && subscriberComment !== ""){
+            try{
+            await axios.put("/posts/" + post._id + "/comment", newComment);
+            setComments((prevComments) => [...prevComments, newComment])
+            }catch(err){
+                console.log(err);   
+            }
+            clearFields();
+            handleCommentBox();
+        }   
       }
 
       const clearFields = () => {
@@ -33,15 +43,22 @@ export default function Subscribe({post}) {
         setSubscriberComment("");
       }
 
-      for (let i = 0; i < comments.length; i++){
-            post.postComments = comments;
+      const handleSubscribeBox = () => {
+        setShowSubscribe(!showSubscribe);
+      }
+
+      const handleCommentBox = () => {
+        setShowComment(!showComment)
       }
 
   return (
     <>
     <div className="subscribe">
-        <div className="subscribeHeader">SUBSCRIBE FOR UPDATES</div>
-        <form className="subscribeForm">
+        <div className="subscribeHeader">NOT YET A SUBSCRIBED MEMBER? 
+            <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> CLICK HERE.</span>
+        </div>
+        {showSubscribe &&
+        <div className="subscribeForm">
             <input 
                 type="text" 
                 placeholder="Name" 
@@ -57,11 +74,15 @@ export default function Subscribe({post}) {
             <button className="subscribeSubmit">
                 Subscribe
             </button>
-        </form>
+            <div className="subscribeSubmitCancel" onClick={handleSubscribeBox}>
+                No Thanks
+            </div>
+        </div>
+        }
     </div>
     <div className="reply">
-        <div className="replyHeader">LEAVE A COMMENT (ONLY FOR SUBSCRIBED USERS)</div>
-        <form className="replyForm">
+        <div className="replyHeader">LEAVE A COMMENT AND SOME LOVE (ONLY FOR SUBSCRIBED USERS)</div>
+        <div className="replyForm">
             {subscriberCommentEmail ?
             <input 
                 type="email" 
@@ -77,6 +98,12 @@ export default function Subscribe({post}) {
                 onChange={e=>setSubscriberCommentEmail(e.target.value)}
             />
             }
+            <div className="subscriberIconsContainer">
+                <i className="subscriberIconLove fa-regular fa-heart"></i>
+                <i className="subscriberIconComment fa-regular fa-comment-dots" onClick={handleCommentBox}></i>
+            </div>
+            {showComment &&
+            <>
             {subscriberComment ?
              <textarea 
                 className="replyText"
@@ -95,19 +122,27 @@ export default function Subscribe({post}) {
             <button className="replySubmit" onClick={handleSubmitComment}>
                 Share
             </button>
-        </form>
+            </>
+            }
+        </div>
     </div>
     <div className="comment">
-        <div className="commentHeader">COMMENTS</div>
-        {comments.filter((c)=> c.commentsForPost ===  post._id).map((comment, i)=>(
+        {comments.filter((c)=> c.commentForPost === post._id).length > 0 &&
+        <div className="commentHeader">
+            {comments.filter((c)=> c.commentForPost === post._id).length > 1 ? 
+            comments.filter((c)=> c.commentForPost === post._id).length + " COMMENTS" : 
+            comments.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
+        </div>
+        }
+        {comments.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
         <div className="commentWrapper" key={i}>
             <div className="commentInfo">
                 <div className="commentUser">
                     {comment.subscriberCommentEmail}
                 </div>
-                {/* <div className="commentDate">
-                    {comment.commentTimePosted}
-                </div> */}
+                <div className="commentDate">
+                    {comment.commentCreatedAt}
+                </div>
             </div>
             <div className="commentMessage">
                 {comment.subscriberComment}

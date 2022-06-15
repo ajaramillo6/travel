@@ -12,9 +12,14 @@
 
 .subscribeHeader{
     font-family: 'Josefin Sans', 'sans-serif';
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.subscribeHeaderClick{
+    color: #be9656;
+    cursor: pointer;
 }
 
 .subscribeForm{
@@ -39,7 +44,7 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
-    width: 150px;
+    width: 130px;
     background-color: rgb(65, 168, 139);
     border: none;
     text-decoration: none;
@@ -48,12 +53,22 @@
     margin-left: 10px;
 }
 
+.subscribeSubmitCancel{
+    font-weight: bold;
+    color: rgb(79, 79, 79);
+    cursor: pointer;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 12px;
+}
+
 .subscribeSubmit:hover{
     background-color:rgb(67, 171, 142);
 }
 
 .reply{
-    margin-top: 10px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -82,6 +97,18 @@
     outline: none;
     width: 100px;
     margin-bottom: 10px;
+}
+
+
+.subscriberIconsContainer{
+    display: flex;
+    font-size: 25px;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+.subscriberIconComment{
+    margin-left: 20px;
 }
 
 .replyText{
@@ -137,6 +164,7 @@
 .commentInfo{
     display: flex;
     margin: 10px 0px;
+    align-items: center;
 }
 
 .commentUser{
@@ -146,6 +174,8 @@ font-weight: bold;
 
 .commentDate{
     color: #b39656;
+    font-style: italic;
+    font-size: 14px;
 }
 
 .commentMessage{
