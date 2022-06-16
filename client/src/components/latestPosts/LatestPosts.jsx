@@ -18,6 +18,15 @@ export default function LatestPosts({ post }) {
                 <span className="latestPostUser">{post.username}</span>
                 <span className="latestPostDate">{format(post.createdAt)}</span>
               </div>
+              <div>
+                {post.postLikes.length > 0 && 
+                <div className="latestLikesContainer">
+                  <i className="latestLikeIcon fa-regular fa-thumbs-up"></i> 
+                  <span className="latestLikeCount">{post.postLikes.length}
+                  {post.postLikes.length === 1 ? " like": " likes"}</span>
+                </div>
+                }
+              </div>
             </div>
           </div>
         </div>

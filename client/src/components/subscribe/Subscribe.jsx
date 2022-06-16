@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function Subscribe({post}) {
 
     const postCommentList = post.postComments;
+    const postLikesList = post.postLikes;
     
     const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
     const[subscriberComment, setSubscriberComment] = useState("");
@@ -14,6 +15,7 @@ export default function Subscribe({post}) {
     const[showSubscribe, setShowSubscribe] = useState(false);
     const[showComment, setShowComment] = useState(false);
     const[showMoreComments, setShowMoreComments] = useState(false);
+    const[likes, setLikes] = useState([]);
 
     const handleSubmitComment = async(e) => {
         e.preventDefault();
@@ -27,8 +29,8 @@ export default function Subscribe({post}) {
         }
         if(subscriberCommentEmail !== "" && subscriberComment !== ""){
             try{
-            await axios.put("/posts/" + post._id + "/comment", newComment);
-            setComments((prevComments) => [...prevComments, newComment])
+                await axios.put("/posts/" + post._id + "/comment", newComment);
+                setComments((prevComments) => [...prevComments, newComment])
             }catch(err){
                 console.log(err);   
             }
@@ -53,6 +55,22 @@ export default function Subscribe({post}) {
       const handleShowMoreComments = () => {
         setShowMoreComments(!showMoreComments);
       }
+
+    const handleLike = async(e) => {
+        e.preventDefault();
+        const newLike = {
+            subscriberCommentEmail,
+            likeForPost: post._id,
+        }
+        if(subscriberCommentEmail !== ""){
+            try{
+                await axios.put("/posts/" + post._id + "/like", newLike);
+                setLikes((prevLike) => [...prevLike, newLike])
+            }catch(err){
+                console.log(err);   
+            }
+        }
+    }
 
   return (
     <>
@@ -84,26 +102,35 @@ export default function Subscribe({post}) {
         }
     </div>
     <div className="reply">
-        <div className="replyHeader">LEAVE A COMMENT AND SOME LOVE (ONLY FOR SUBSCRIBED USERS)</div>
+        <div className="replyHeader">LEAVE A COMMENT AND A LIKE BELOW (ONLY FOR SUBSCRIBED USERS)</div>
         <div className="replyForm">
             {subscriberCommentEmail ?
             <input 
                 type="email" 
-                placeholder="Email" 
+                placeholder="Confirm Subscribed Email" 
                 className="replyInput" 
                 onChange={e=>setSubscriberCommentEmail(e.target.value)}
             /> : 
             <input 
                 type="email" 
-                placeholder="Email" 
+                placeholder="Confirm Subscribed Email" 
                 value={subscriberCommentEmail}
                 className="replyInput" 
                 onChange={e=>setSubscriberCommentEmail(e.target.value)}
             />
             }
             <div className="subscriberIconsContainer">
-                <i className="subscriberIconLove fa-regular fa-heart"></i>
                 <i className="subscriberIconComment fa-regular fa-comment-dots" onClick={handleCommentBox}></i>
+                {postLikesList &&
+                    <>
+                    <div>
+                        <i className="subscriberIconLike fa-regular fa-thumbs-up" onClick={handleLike}></i>
+                        {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
+                            <span className="subscriberLikesCount">{likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length}
+                            {(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) === 1 ? " like" : " likes"}</span>}
+                    </div>
+                    </>
+                }
             </div>
             {showComment &&
             <>
@@ -129,75 +156,77 @@ export default function Subscribe({post}) {
             }
         </div>
     </div>
-    {postCommentList &&
-    <>
-    <div className="commentPrev">
-        {postCommentList.filter((c)=> c.commentForPost === post._id).length > 0 &&
-        <div className="commentPrevHeader">
-            {postCommentList.filter((c)=> c.commentForPost === post._id).length > 1 ? 
-            (postCommentList.filter((c)=> c.commentForPost === post._id).length +
-            comments.filter((c)=> c.commentForPost === post._id).length) + " COMMENTS" : 
-            postCommentList.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
+    <div className="postCommentContainer">
+        {postCommentList &&
+        <>
+        <div className="commentPrev">
+            {postCommentList.filter((c)=> c.commentForPost === post._id).length > 0 &&
+            <div className="commentPrevHeader">
+                {postCommentList.filter((c)=> c.commentForPost === post._id).length > 1 ? 
+                (postCommentList.filter((c)=> c.commentForPost === post._id).length +
+                comments.filter((c)=> c.commentForPost === post._id).length) + " COMMENTS" : 
+                postCommentList.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
+            </div>
+            }
+            <>
+            {!showMoreComments ?
+            <>
+                {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+                <div className="commentPrevWrapper" key={i}>
+                    <div className="commentPrevInfo">
+                        <div className="commentPrevUser">
+                            {comment.subscriberCommentEmail}
+                        </div>
+                        <div className="commentPrevDate">
+                            {comment.commentCreatedAt}
+                        </div>
+                    </div>
+                    <div className="commentPrevMessage">
+                        {comment.subscriberComment}
+                    </div>
+                </div>
+                ))}
+            </>:<>
+                {postCommentList.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+                <div className="commentPrevWrapper" key={i}>
+                    <div className="commentPrevInfo">
+                        <div className="commentPrevUser">
+                            {comment.subscriberCommentEmail}
+                        </div>
+                        <div className="commentPrevDate">
+                            {comment.commentCreatedAt}
+                        </div>
+                    </div>
+                    <div className="commentPrevMessage">
+                        {comment.subscriberComment}
+                    </div>
+                </div>
+                ))}
+            </>
+            }
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 && comments.length === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments && comments.length === 0) && "Show less"}</span>
+            </>
         </div>
+        </>
         }
-        <>
-        {!showMoreComments ?
-        <>
-            {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-            <div className="commentPrevWrapper" key={i}>
-                <div className="commentPrevInfo">
-                    <div className="commentPrevUser">
+        <div className="commentAdded">
+            {comments.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+            <div className="commentAddedWrapper" key={i}>
+                <div className="commentAddedInfo">
+                    <div className="commentAddedUser">
                         {comment.subscriberCommentEmail}
                     </div>
-                    <div className="commentPrevDate">
+                    <div className="commentAddedDate">
                         {comment.commentCreatedAt}
                     </div>
                 </div>
-                <div className="commentPrevMessage">
+                <div className="commentAddedMessage">
                     {comment.subscriberComment}
                 </div>
             </div>
             ))}
-        </>:<>
-            {postCommentList.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-            <div className="commentPrevWrapper" key={i}>
-                <div className="commentPrevInfo">
-                    <div className="commentPrevUser">
-                        {comment.subscriberCommentEmail}
-                    </div>
-                    <div className="commentPrevDate">
-                        {comment.commentCreatedAt}
-                    </div>
-                </div>
-                <div className="commentPrevMessage">
-                    {comment.subscriberComment}
-                </div>
-            </div>
-            ))}
-        </>
-        }
-        <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 && comments.length === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
-        <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments && comments.length === 0) && "Show less"}</span>
-        </>
-    </div>
-    </>
-    }
-    <div className="commentAdded">
-        {comments.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-        <div className="commentAddedWrapper" key={i}>
-            <div className="commentAddedInfo">
-                <div className="commentAddedUser">
-                    {comment.subscriberCommentEmail}
-                </div>
-                <div className="commentAddedDate">
-                    {comment.commentCreatedAt}
-                </div>
-            </div>
-            <div className="commentAddedMessage">
-                {comment.subscriberComment}
-            </div>
         </div>
-        ))}
     </div>
     </>
   )

@@ -37,13 +37,24 @@ router.put("/:id", async(req, res) => {
 //ADD A COMMENT
 router.put("/:id/comment", async(req, res)=>{
     try{
-        const comment = await Post.findById(req.params.id);
-        await comment.update({$push:{ postComments: req.body}});
-        res.status(200).json(comment)
+        const post = await Post.findById(req.params.id);
+        await post.update({$push:{ postComments: req.body}});
+        res.status(200).json(post)
     }catch(err){
         res.status(500).json(err);
     }
-})
+});
+
+//LIKE A POST
+router.put("/:id/like", async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+            await post.update({$push:{ postLikes: req.body}});
+            res.status(200).json("Liked.")
+    }catch(err){
+        res.status(500).json(err);
+    }
+});
 
 //DELETE POST
 router.delete("/:id", async(req, res) => {
