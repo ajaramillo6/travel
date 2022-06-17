@@ -115,7 +115,7 @@ export default function PostSection({post, tableOfContents}) {
 
   return (
     <div className="postSection">
-        {tableOfContents && (postSection?.length === tableOfContents?.length) &&
+        {tableOfContents && (postSection?.length === tableOfContents?.length) && (tableOfContents?.length !== 0) &&
         <div className="postSectionTableOfContentsContainer">
             <div className="postSectionTableOfContentsTitle">
                 Table of Contents

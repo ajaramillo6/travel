@@ -106,13 +106,15 @@
     cursor: pointer;
     margin: 10px 0px;
     align-items: center;
+    text-align: center;
 }
 
 .subscriberIconLike{
+    font-size: 20px;
 }
 
 .subscriberIconLike:hover{
-    color:rgb(57, 57, 57);
+    color: rgb(176, 73, 73);
 }
 
 .subscriberLikesCount{
@@ -123,10 +125,29 @@
 
 .subscriberIconComment{
     margin-right: 15px;
+    font-size: 22px;
 }
 
 .subscriberIconComment:hover{
-    color:rgb(57, 57, 57);
+    color:rgb(71, 90, 185);
+}
+
+.notificationSubscriberError{
+    background-color: rgb(207, 140, 81);
+    color:white;
+    width: 220px;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.notificationIcon{
+    margin-right: 10px;
+    font-size: 16px;
 }
 
 .replyText{

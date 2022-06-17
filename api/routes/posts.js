@@ -49,8 +49,19 @@ router.put("/:id/comment", async(req, res)=>{
 router.put("/:id/like", async(req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
-            await post.update({$push:{ postLikes: req.body}});
-            res.status(200).json("Liked.")
+        await post.update({$push:{ postLikes: req.body}});
+        res.status(200).json("Liked.")
+    }catch(err){
+        res.status(500).json(err);
+    }
+});
+
+//ADD A SUBSCRIBER
+router.put("/:id/subscriber", async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+        await post.update({$push:{ subscribers: req.body}});
+        res.status(200).json("Added subscriber.")
     }catch(err){
         res.status(500).json(err);
     }

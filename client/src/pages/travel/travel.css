@@ -99,6 +99,13 @@ transform: none;
     margin-top: 30px;
 }
 
+.travelUserPostsLikes{
+    font-family: 'Varela Round', 'sans-serif';
+    font-size: 15px;
+    color: #999999;
+    margin-top: 10px;
+}
+
 .travelUserContactText{
     font-family: 'Varela Round', 'sans-serif';
     font-size: 15px;

@@ -113,6 +113,8 @@ export default function Travel() {
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
             <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
+            <span className="travelUserPostsLikes">Likes count: {posts.map(a=>a.postLikes.length)
+              .reduce((partialSum, a) => partialSum + a, 0)}</span>
             <span className="travelUserContactText" onClick={handleEmailShow}>
               Contact Me
             </span>

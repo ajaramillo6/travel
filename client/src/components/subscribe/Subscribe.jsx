@@ -5,18 +5,22 @@ import axios from 'axios';
 export default function Subscribe({post}) {
 
     const postCommentList = post.postComments;
+    const subscribersList = post.subscribers; //CHANGE TO CONTEXT
     const postLikesList = post.postLikes;
     
-    const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
-    const[subscriberComment, setSubscriberComment] = useState("");
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
-    const[comments, setComments] = useState([]);
+    const[subscribers, setSubscribers] = useState([]);
     const[showSubscribe, setShowSubscribe] = useState(false);
+    const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
+    const[subscriberComment, setSubscriberComment] = useState("");
+    const[comments, setComments] = useState([]);
     const[showComment, setShowComment] = useState(false);
-    const[showMoreComments, setShowMoreComments] = useState(false);
+    const[subscriberError, setSubscriberError]=useState(false);
     const[likes, setLikes] = useState([]);
+    const[showMoreComments, setShowMoreComments] = useState(false);
 
+    //HANDLES ADDED COMMENTS
     const handleSubmitComment = async(e) => {
         e.preventDefault();
         const newComment = {
@@ -27,25 +31,60 @@ export default function Subscribe({post}) {
             {year: 'numeric', month: 'short', day: 'numeric'}
             ),
         }
-        if(subscriberCommentEmail !== "" && subscriberComment !== ""){
+        if(subscriberCommentEmail !== "" && subscriberComment !== "" && 
+        subscribersEmails.includes(subscriberCommentEmail)){
             try{
                 await axios.put("/posts/" + post._id + "/comment", newComment);
-                setComments((prevComments) => [...prevComments, newComment])
+                setComments((prevComments) => [...prevComments, newComment]);
             }catch(err){
                 console.log(err);   
             }
             clearFields();
             handleCommentBox();
-        }   
+        }   else {
+            handleSubscriberError();
+        }
       }
 
-      const clearFields = () => {
-        setSubscriberCommentEmail("");
-        setSubscriberComment("");
-      }
+    //HANDLES LIKE ADDED TO POST
+    const handleLike = async(e) => {
+        e.preventDefault();
+        const newLike = {
+            subscriberCommentEmail,
+            likeForPost: post._id,
+        }
+        if(subscriberCommentEmail !== ""){
+            try{
+                await axios.put("/posts/" + post._id + "/like", newLike);
+                setLikes((prevLike) => [...prevLike, newLike]);
+            }catch(err){
+                console.log(err);   
+            }
+        }
+    }
 
-      const handleSubscribeBox = () => {
-        setShowSubscribe(!showSubscribe);
+    //**********CHANGE TO CONTEXT ****************/
+
+    //HANDLES ADDED SUBSCRIBERS
+    const handleSubscribeSubmit = async(e) => {
+        e.preventDefault();
+        const newSubscriber = {
+            subscriberName,
+            subscriberEmail,
+        }
+        if(subscriberEmail !== "" && subscriberName !== ""){
+            try{
+                await axios.put("/posts/" + post._id + "/subscriber", newSubscriber);
+                setSubscribers((prevSubscribers) => [...prevSubscribers, newSubscriber]);
+            }catch(err){
+                console.log(err);   
+            }
+            setShowSubscribe(false); 
+        }  
+    }
+
+      const handleSubscribeBox = async(e) => {
+        setShowSubscribe(!showSubscribe); 
       }
 
       const handleCommentBox = () => {
@@ -56,20 +95,41 @@ export default function Subscribe({post}) {
         setShowMoreComments(!showMoreComments);
       }
 
-    const handleLike = async(e) => {
-        e.preventDefault();
-        const newLike = {
-            subscriberCommentEmail,
-            likeForPost: post._id,
-        }
-        if(subscriberCommentEmail !== ""){
-            try{
-                await axios.put("/posts/" + post._id + "/like", newLike);
-                setLikes((prevLike) => [...prevLike, newLike])
-            }catch(err){
-                console.log(err);   
+      const handleSubscriberError = () => {
+        setSubscriberError(!subscriberError);
+        setTimeout(()=>{setSubscriberError(false)}, 3000);
+      }
+
+      const clearFields = () => {
+        setSubscriberCommentEmail("");
+        setSubscriberComment("");
+      }
+
+    // MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
+
+    if(subscribersList){
+        for(let s=0; s<subscribersList.length; s++){
+            for(let c=0; c<postCommentList.length; c++){
+                if(subscribersList[s].subscriberEmail === postCommentList[c].subscriberCommentEmail)
+                    postCommentList[c].subscriberCommentEmail = subscribersList[s].subscriberName;
             }
         }
+    }
+
+    // MATCH NAMES WITH EMAILS FOR COMMENTS JUST ENTERED
+    
+    for(let s=0; s<subscribers.length; s++){
+        for(let c=0; c<comments.length; c++){
+            if(subscribers[s].subscriberEmail === comments[c].subscriberCommentEmail)
+                comments[c].subscriberCommentEmail = subscribers[s].subscriberName;
+        }
+    }
+
+    //LIST OF SUBSCRIBERS FOR VERIFICATION BEFORE COMMENTING OR LIKING POST
+    const subscribersEmails = [];
+
+    for(let s=0; s<subscribers.length; s++){
+        subscribersEmails.push(subscribers[s].subscriberEmail)
     }
 
   return (
@@ -82,17 +142,17 @@ export default function Subscribe({post}) {
         <div className="subscribeForm">
             <input 
                 type="text" 
-                placeholder="Name" 
+                placeholder="Name *" 
                 className="subscribeInput" 
                 onChange={e=>setSubscriberName(e.target.value)}
             />
             <input 
                 type="email" 
-                placeholder="Email" 
+                placeholder="Email *" 
                 className="subscribeInput" 
                 onChange={e=>setSubscriberEmail(e.target.value)}
             />
-            <button className="subscribeSubmit">
+            <button className="subscribeSubmit" onClick={handleSubscribeSubmit}>
                 Subscribe
             </button>
             <div className="subscribeSubmitCancel" onClick={handleSubscribeBox}>
@@ -113,7 +173,7 @@ export default function Subscribe({post}) {
             /> : 
             <input 
                 type="email" 
-                placeholder="Confirm Subscribed Email" 
+                placeholder="Confirm subscribed email *" 
                 value={subscriberCommentEmail}
                 className="replyInput" 
                 onChange={e=>setSubscriberCommentEmail(e.target.value)}
@@ -124,7 +184,7 @@ export default function Subscribe({post}) {
                 {postLikesList &&
                     <>
                     <div>
-                        <i className="subscriberIconLike fa-regular fa-thumbs-up" onClick={handleLike}></i>
+                        <i className="subscriberIconLike fa-regular fa-heart" onClick={handleLike}></i>
                         {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
                             <span className="subscriberLikesCount">{likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length}
                             {(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) === 1 ? " like" : " likes"}</span>}
@@ -152,6 +212,12 @@ export default function Subscribe({post}) {
             <button className="replySubmit" onClick={handleSubmitComment}>
                 Share
             </button>
+            {subscriberError && 
+                <div className="notificationSubscriberError">
+                    <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
+                    Sorry. Only for subscribed members.
+                </div>
+            }
             </>
             }
         </div>

@@ -21,7 +21,7 @@ export default function LatestPosts({ post }) {
               <div>
                 {post.postLikes.length > 0 && 
                 <div className="latestLikesContainer">
-                  <i className="latestLikeIcon fa-regular fa-thumbs-up"></i> 
+                  <i className="latestLikeIcon fa-solid fa-heart"></i> 
                   <span className="latestLikeCount">{post.postLikes.length}
                   {post.postLikes.length === 1 ? " like": " likes"}</span>
                 </div>

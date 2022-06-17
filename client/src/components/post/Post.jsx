@@ -61,7 +61,7 @@ const postWords = post.newDescWords;
         <div>
           {post.postLikes.length > 0 && 
           <div className="postLikesContainer">
-            <i className="postLikeIcon fa-regular fa-thumbs-up"></i> 
+            <i className="postLikeIcon fa-solid fa-heart"></i> 
             <span className="postLikeCount">{post.postLikes.length}
             {post.postLikes.length === 1 ? " like": " likes"}</span>
           </div>
