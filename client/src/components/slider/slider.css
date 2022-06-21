@@ -1,7 +1,7 @@
 .slider {
-  height: 570px;
+  height: 565px;
   width: 100%;
-  overflow-x:hidden;
+  overflow:hidden;
   display: flex;
   align-items: center;
   justify-content: center;

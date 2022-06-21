@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%) */
+    /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%); */
     position: relative;
-    width: 100vw;
-    overflow-x: hidden;
+    width: 100%;
+    overflow: hidden;
 }
 
 .homeText{
@@ -25,7 +25,7 @@
     width: 160vw;
     left: 0;
     right: 0;
-    top: 70px;
+    top: 470px;
     position: absolute;
 }
 
@@ -83,7 +83,7 @@
     color: white;
     cursor: pointer;
     position: absolute;
-    top: 200px;
+    top: 600px;
     z-index: 1000;
     margin: 30px;
   }

@@ -35,55 +35,55 @@ const handleSubscriberSuccess = () => {
 
   return (
     <div className="header">
-        <Slider />
-        <div className="headerTitles">
-            <span className="headerTitleLg">Top Places to Travel in {new Date().getFullYear()}</span>
-            <div className="headerSubscriber">
+      <Slider />
+      <div className="headerTitles">
+        <span className="headerTitleLg">Top Places to Travel in {new Date().getFullYear()}</span>
+        <div className="headerSubscriber">
           <div className="headerSubscriberTitle">WANT TO BECOME A MEMBER? SIGN UP FOR FREE</div>
           <div className="homeSubscribeForm">
             {subscriberName ?
-            <input 
-              type="text" 
-              placeholder="Name *" 
-              className="homeSubscribeInput" 
-              onChange={e=>setSubscriberName(e.target.value)}
-            />:
-            <input 
-              type="text" 
-              placeholder="Name *" 
-              value={subscriberName}
-              className="homeSubscribeInput" 
-              onChange={e=>setSubscriberName(e.target.value)}
-            />
+              <input 
+                type="text" 
+                placeholder="Name *" 
+                className="homeSubscribeInput" 
+                onChange={e=>setSubscriberName(e.target.value)}
+              />:
+              <input 
+                type="text" 
+                placeholder="Name *" 
+                value={subscriberName}
+                className="homeSubscribeInput" 
+                onChange={e=>setSubscriberName(e.target.value)}
+              />
             }
             {subscriberEmail ?
-            <input 
-              type="email" 
-              placeholder="Email *" 
-              className="homeSubscribeInput" 
-              onChange={e=>setSubscriberEmail(e.target.value)}
-            />:
-            <input 
-              type="email" 
-              placeholder="Email *" 
-              value={subscriberEmail}
-              className="homeSubscribeInput" 
-              onChange={e=>setSubscriberEmail(e.target.value)}
-            />
+              <input 
+                type="email" 
+                placeholder="Email *" 
+                className="homeSubscribeInput" 
+                onChange={e=>setSubscriberEmail(e.target.value)}
+              />:
+              <input 
+                type="email" 
+                placeholder="Email *" 
+                value={subscriberEmail}
+                className="homeSubscribeInput" 
+                onChange={e=>setSubscriberEmail(e.target.value)}
+              />
             }
             {!subscriberSuccess ?
-            <button className="homeSubscribeSubmit" onClick={handleSubscribeSubmit}>
-              Subscribe
-            </button>
-             :
-            <div className="homeSubscriberSuccess">
-                <i className="notificationIcon fa-solid fa-circle-check"></i>
-                Subscription was successful!
-            </div>
-          }
+              <button className="homeSubscribeSubmit" onClick={handleSubscribeSubmit}>
+                Subscribe
+              </button>
+              :
+              <div className="homeSubscriberSuccess">
+                  <i className="notificationIcon fa-solid fa-circle-check"></i>
+                  Subscription was successful!
+              </div>
+            }
           </div>
         </div>
-        </div>
+      </div>
     </div>
   )
 }

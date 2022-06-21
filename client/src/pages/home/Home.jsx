@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import LatestPosts from "../../components/latestPosts/LatestPosts";
-import Subscribe from "../../components/subscribe/Subscribe";
+import HomeAbout from "../../components/homeAbout/HomeAbout";
 
 export default function Home() {
   const[posts, setPosts] = useState([]);
@@ -43,8 +43,9 @@ export default function Home() {
     <>
       <Header />
       <div className="home">
+        <HomeAbout />
         <span className="homeText">Latest Posts</span>
-        <hr style={{width:'50%', 'textAlign':'center', 'marginLeft':'auto', 'marginRight':'auto', 'marginBottom': '380px'}}></hr>
+        <hr style={{width:'50%', 'textAlign':'center', 'marginBottom': '380px'}}></hr>
         <div className="homePostsContainer" style={{transform:`translateX(${-14*index}vw)`}}>
             {posts.slice(0,8).map((post) => (
               <LatestPosts post={post} />

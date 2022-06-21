@@ -1,0 +1,120 @@
+.homeAbout{
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    background-color: rgb(222, 227, 230);
+    border-radius: 20px;
+    width: 90%;
+}
+
+.homeAboutLeft{
+    display: flex;
+    flex-direction: row;
+    flex: 3;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.homeAuthorContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.homeAuthorWrapper{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-right: -50px;
+}
+
+.homeAuthorPPWrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.homeAuthorContainer:hover .homeAuthorPPWrapper{
+    background-color: #749fbc;
+}
+
+.homeAuthorPP{
+    display: flex;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.homeAboutReadMore{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Lora', 'serif';
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: rgb(124, 141, 155);
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    width: 140px;
+    transition: all 0.25s linear;
+    border-radius: 10px;
+    margin-top: 25px;
+  }
+
+  .homeAboutBook{
+    margin-left: 10px;
+  }
+
+  .homeAboutReadMore:hover {
+    background-color: rgb(112, 128, 142);
+    width: 150px;
+  }
+
+  .homeAboutBookHide{
+    display: none;
+  }
+
+.homeAboutRight{
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+}
+
+.homeAboutTextContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.homeAboutTitle{
+    align-self: left;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: 'Lora', 'serif';
+    color: rgb(123, 123, 123);
+}
+
+.homeAboutText{
+    align-items: center;
+    font-family: 'Lora', 'serif';
+    color: rgb(73, 73, 73);
+    font-size: 18px;
+}
