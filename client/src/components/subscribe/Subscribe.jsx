@@ -1,11 +1,10 @@
 import './subscribe.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export default function Subscribe({post}) {
 
     const postCommentList = post.postComments;
-    const subscribersList = post.subscribers; //CHANGE TO CONTEXT
     const postLikesList = post.postLikes;
     
     const[subscriberEmail, setSubscriberEmail] = useState("");
@@ -16,9 +15,21 @@ export default function Subscribe({post}) {
     const[subscriberComment, setSubscriberComment] = useState("");
     const[comments, setComments] = useState([]);
     const[showComment, setShowComment] = useState(false);
+    const[subscriberSuccess, setSubscriberSuccess] = useState(false);
     const[subscriberError, setSubscriberError]=useState(false);
     const[likes, setLikes] = useState([]);
     const[showMoreComments, setShowMoreComments] = useState(false);
+    const[subscribersList, setSubscribersList] = useState([]);
+
+    useEffect(()=> {
+        const fetchSubscribers = async() => {
+          const res = await axios.get("/subscribers");
+          setSubscribersList(res.data.sort((a,b)=>
+          a.subscriberName.localeCompare(b.subscriberName)
+        ));
+        }
+        fetchSubscribers();
+      },[])
 
     //HANDLES ADDED COMMENTS
     const handleSubmitComment = async(e) => {
@@ -32,7 +43,7 @@ export default function Subscribe({post}) {
             ),
         }
         if(subscriberCommentEmail !== "" && subscriberComment !== "" && 
-        subscribersEmails.includes(subscriberCommentEmail)){
+        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
             try{
                 await axios.put("/posts/" + post._id + "/comment", newComment);
                 setComments((prevComments) => [...prevComments, newComment]);
@@ -53,17 +64,18 @@ export default function Subscribe({post}) {
             subscriberCommentEmail,
             likeForPost: post._id,
         }
-        if(subscriberCommentEmail !== ""){
+        if(subscriberCommentEmail !== "" && 
+        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
             try{
                 await axios.put("/posts/" + post._id + "/like", newLike);
                 setLikes((prevLike) => [...prevLike, newLike]);
             }catch(err){
                 console.log(err);   
             }
+        } else {
+            handleSubscriberError();
         }
     }
-
-    //**********CHANGE TO CONTEXT ****************/
 
     //HANDLES ADDED SUBSCRIBERS
     const handleSubscribeSubmit = async(e) => {
@@ -74,8 +86,9 @@ export default function Subscribe({post}) {
         }
         if(subscriberEmail !== "" && subscriberName !== ""){
             try{
-                await axios.put("/posts/" + post._id + "/subscriber", newSubscriber);
+                await axios.post("/subscribers", newSubscriber);
                 setSubscribers((prevSubscribers) => [...prevSubscribers, newSubscriber]);
+                handleSubscriberSuccess();
             }catch(err){
                 console.log(err);   
             }
@@ -95,6 +108,11 @@ export default function Subscribe({post}) {
         setShowMoreComments(!showMoreComments);
       }
 
+      const handleSubscriberSuccess = () => {
+        setSubscriberSuccess(!subscriberSuccess);
+        setTimeout(()=>{setSubscriberSuccess(false)}, 3000);
+      }
+
       const handleSubscriberError = () => {
         setSubscriberError(!subscriberError);
         setTimeout(()=>{setSubscriberError(false)}, 3000);
@@ -105,9 +123,9 @@ export default function Subscribe({post}) {
         setSubscriberComment("");
       }
 
-    // MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
+    //MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
 
-    if(subscribersList){
+    if(subscribersList && postCommentList){
         for(let s=0; s<subscribersList.length; s++){
             for(let c=0; c<postCommentList.length; c++){
                 if(subscribersList[s].subscriberEmail === postCommentList[c].subscriberCommentEmail)
@@ -117,19 +135,34 @@ export default function Subscribe({post}) {
     }
 
     // MATCH NAMES WITH EMAILS FOR COMMENTS JUST ENTERED
-    
-    for(let s=0; s<subscribers.length; s++){
-        for(let c=0; c<comments.length; c++){
-            if(subscribers[s].subscriberEmail === comments[c].subscriberCommentEmail)
-                comments[c].subscriberCommentEmail = subscribers[s].subscriberName;
+    if(subscribers & comments){
+        for(let s=0; s<subscribers.length; s++){
+            for(let c=0; c<comments.length; c++){
+                if(subscribers[s].subscriberEmail === comments[c].subscriberCommentEmail)
+                    comments[c].subscriberCommentEmail = subscribers[s].subscriberName;
+            }
         }
     }
 
     //LIST OF SUBSCRIBERS FOR VERIFICATION BEFORE COMMENTING OR LIKING POST
     const subscribersEmails = [];
 
-    for(let s=0; s<subscribers.length; s++){
-        subscribersEmails.push(subscribers[s].subscriberEmail)
+    if(subscribers){
+        for(let s=0; s<subscribers.length; s++){
+            subscribersEmails.push(subscribers[s].subscriberEmail)
+        }
+    }
+
+    const subscribersEmailsDB = [];
+    if(subscribersList){
+        for(let s=0; s<subscribersList.length; s++){
+            subscribersEmailsDB.push(subscribersList[s].subscriberEmail)
+        }
+    }
+
+    //Number formatting on likes
+    function numberFormat(num) {
+        return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
     }
 
   return (
@@ -160,6 +193,12 @@ export default function Subscribe({post}) {
             </div>
         </div>
         }
+        {subscriberSuccess && 
+            <div className="notificationSubscriberSuccess">
+                <i className="notificationIcon fa-solid fa-circle-check"></i>
+                Subscription was successful!
+            </div>
+        }
     </div>
     <div className="reply">
         <div className="replyHeader">LEAVE A COMMENT AND A LIKE BELOW (ONLY FOR SUBSCRIBED USERS)</div>
@@ -186,10 +225,16 @@ export default function Subscribe({post}) {
                     <div>
                         <i className="subscriberIconLike fa-regular fa-heart" onClick={handleLike}></i>
                         {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
-                            <span className="subscriberLikesCount">{likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length}
+                            <span className="subscriberLikesCount">{numberFormat(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length)}
                             {(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) === 1 ? " like" : " likes"}</span>}
                     </div>
                     </>
+                }
+                {subscriberError && 
+                <div className="notificationSubscriberError">
+                    <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
+                    Sorry. Only for subscribed members.
+                </div>
                 }
             </div>
             {showComment &&
@@ -212,12 +257,6 @@ export default function Subscribe({post}) {
             <button className="replySubmit" onClick={handleSubmitComment}>
                 Share
             </button>
-            {subscriberError && 
-                <div className="notificationSubscriberError">
-                    <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
-                    Sorry. Only for subscribed members.
-                </div>
-            }
             </>
             }
         </div>

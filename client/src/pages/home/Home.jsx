@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import LatestPosts from "../../components/latestPosts/LatestPosts";
+import Subscribe from "../../components/subscribe/Subscribe";
 
 export default function Home() {
   const[posts, setPosts] = useState([]);

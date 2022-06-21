@@ -55,18 +55,18 @@ const postWords = post.newDescWords;
     <div className="post">
       <Link to={`/post/${post._id}`}  className="link">
         <div>
-        {post.photo && (
-          <img className="postImg" src={post.photo} alt="" />
-        )}
-        <div>
+          {post.photo && (
+            <img className="postImg" src={post.photo} alt="" />
+          )}
           {post.postLikes.length > 0 && 
           <div className="postLikesContainer">
             <i className="postLikeIcon fa-solid fa-heart"></i> 
-            <span className="postLikeCount">{post.postLikes.length}
-            {post.postLikes.length === 1 ? " like": " likes"}</span>
-          </div>
+            <span className="postLikeCount">
+              {post.postLikes.length}
+              {post.postLikes.length === 1 ? " like": " likes"}
+            </span>
+            </div>
           }
-        </div>
           <div className="postInfo">
               <span className="postTitle">{post.title}</span>
               <div className='postUserDate'>

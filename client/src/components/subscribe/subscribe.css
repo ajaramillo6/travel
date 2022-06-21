@@ -136,13 +136,25 @@
     background-color: rgb(207, 140, 81);
     color:white;
     width: 220px;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+.notificationSubscriberSuccess{
+    background-color: rgb(80, 173, 128);
+    color:white;
+    width: 200px;
     padding: 10px;
     font-size: 12px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     font-weight: 800;
-    margin-top: 10px;
 }
 
 .notificationIcon{
@@ -177,6 +189,7 @@
 
 .postCommentContainer{
     margin-bottom: 20px;
+    padding-top: 20px;
 }
 
 .commentPrev, .commentAdded{

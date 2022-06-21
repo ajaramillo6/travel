@@ -256,13 +256,12 @@ input::placeholder, textarea::placeholder{
 }
 
 .sectionAddedNotification{
-    margin-top: 10px;
-    background-color: rgb(190, 220, 214);
-    width: 120px;
+    background-color: rgb(80, 173, 128);
+    color:white;
+    width: 200px;
     padding: 10px;
     font-size: 12px;
     border-radius: 10px;
-    align-self: flex-start;
     display: flex;
     align-items: center;
     font-weight: 800;

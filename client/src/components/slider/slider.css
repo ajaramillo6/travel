@@ -1,90 +1,71 @@
 .slider {
-    margin-top: 40px;
-    height: 175px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sliderArrow {
-    position: absolute;
-    font-size: 40px;
-    height: 7%;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    padding: 50px;
-    cursor: pointer;
-    z-index: 2;
-    color: white;
-  }
+  height: 570px;
+  width: 100%;
+  overflow-x:hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-  .sliderArrow:hover{
-    color: rgb(242, 242, 242);
-  }
+.sliderImgWrapper {
+  height: 100%;
+  display: flex;
+}
  
-  .sliderImgWrapper {
-    height: 100%;
-    display: flex;
-  }
-   
-  .slide {
-    opacity: 0;
-    transition-duration: 0.5s ease;
-  }
+.slide {
+  opacity: 0;
+  transition-duration: 0.5s ease;
+}
 
-  .slide.active {
-    width: 100vw;
-    opacity: 1;
-    transition-duration: 0.5s;
-    transform: scale(1.08);
-  }
+.slide.active {
+  opacity: 1;
+  transition-duration: 0.5s;
+  transform: scale(1.08);
+}
 
-  .sliderImg{
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-  }
+.sliderImg{
+      object-fit: cover;
+      width: 100vw;
+      height: 100%;
+}
 
-  .sliderThumbnailsContainer{
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 500;
-    top: 185px;
-  }
+.sliderThumbnailsContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  z-index: 500;
+}
 
-  .thumbnailsWrapper{
-    align-items: center;
-    justify-content: center;
-  }
+.thumbnailsWrapper{
+  align-items: center;
+  justify-content: center;
+}
 
-  .sliderThumbnail{
-    color: transparent;
-    background-color: rgb(255, 255, 255);
-    height: 7px;
-    width: 7px;
-    border-radius: 50%;
-    margin-right: 15px;
-    cursor: pointer;
-  }
+.sliderThumbnail{
+  color: transparent;
+  background-color: rgb(255, 255, 255);
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+}
 
-  .sliderThumbnail:hover{
-    background-color: rgb(207, 212, 219);
-  }
+.sliderThumbnail:hover{
+  background-color: rgb(207, 212, 219);
+}
 
-  .sliderThumbnailPicked{
-    color: transparent;
-    height: 7px;
-    width: 7px;
-    border-radius: 50%;
-    margin-right: 15px;
-    cursor: pointer;
-    background-color: rgb(154, 190, 233);
-  }
+.sliderThumbnailPicked{
+  color: transparent;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+  background-color: rgb(154, 190, 233);
+}
   
 
 

@@ -65,11 +65,9 @@
 .latestLikesContainer{
     display: flex;
     flex-direction: row;
-    width: 70px;
-    height: 20px;
     border-radius: 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     color:  white;
     margin-top: 15px;
     font-family: 'Varela Round', 'sans-serif';

@@ -56,17 +56,6 @@ router.put("/:id/like", async(req, res)=>{
     }
 });
 
-//ADD A SUBSCRIBER
-router.put("/:id/subscriber", async(req, res)=>{
-    try{
-        const post = await Post.findById(req.params.id);
-        await post.update({$push:{ subscribers: req.body}});
-        res.status(200).json("Added subscriber.")
-    }catch(err){
-        res.status(500).json(err);
-    }
-});
-
 //DELETE POST
 router.delete("/:id", async(req, res) => {
     try{

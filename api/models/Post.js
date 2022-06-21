@@ -57,10 +57,6 @@ const PostSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    subscribers: {
-        type: Array,
-        default: [],
-    }
 }, 
 { timestamps:true }
 );
