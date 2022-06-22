@@ -9,6 +9,7 @@ export default function Slider() {
         "/img/slider1.jpg",
         "/img/slider2.jpg",
         "/img/slider3.jpg",
+        "/img/slider4.jpg",
     ];
 
     const thumbChange = (i) => {
@@ -30,11 +31,16 @@ export default function Slider() {
         ))}
         </div>
         <div className="sliderThumbnailsContainer">
+            <div className="thumbnailsWrapper">
             {images.map((slide, i)=>(
-            <div className="thumbnailsWrapper" key={i}>
-                <div className={index === i ? "sliderThumbnailPicked":"sliderThumbnail"} onClick={()=>thumbChange(i)}>{slide}</div>
+                <div key={i}>
+                    <div className={index === i ? "sliderThumbnailPicked":"sliderThumbnail"} onClick={()=>thumbChange(i)}>{slide}</div>
+                </div>
+                ))}
             </div>
-            ))}
+            <div className="sliderDown" onClick={()=>window.scrollTo({top:690, left: 0, behavior: 'smooth'})}>
+                <i className="fa-solid fa-angle-down"></i>
+            </div>
         </div>
     </section>
     </>

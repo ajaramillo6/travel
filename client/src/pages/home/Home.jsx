@@ -43,7 +43,6 @@ export default function Home() {
     <>
       <Header />
       <div className="home">
-        <HomeAbout />
         <span className="homeText">Latest Posts</span>
         <hr style={{width:'50%', 'textAlign':'center', 'marginBottom': '380px'}}></hr>
         <div className="homePostsContainer" style={{transform:`translateX(${-14*index}vw)`}}>
@@ -69,6 +68,7 @@ export default function Home() {
           <i className="fa-solid fa-angle-right"></i>
         </div>
         }
+        <HomeAbout />
       </div>
     </>
   )

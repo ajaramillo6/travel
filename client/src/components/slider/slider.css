@@ -1,15 +1,16 @@
 .slider {
-  height: 565px;
+  height: 695px;
   width: 100%;
   overflow:hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 }
 
 .sliderImgWrapper {
-  height: 100%;
+  height: 767px;
   display: flex;
 }
  
@@ -32,15 +33,21 @@
 
 .sliderThumbnailsContainer{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 30px;
   z-index: 500;
+  position: absolute;
+  top: 610px;
 }
 
 .thumbnailsWrapper{
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  width: 80px;
+  justify-content: space-between;
 }
 
 .sliderThumbnail{
@@ -49,7 +56,7 @@
   height: 7px;
   width: 7px;
   border-radius: 50%;
-  margin-right: 15px;
+  margin-right: 0px;
   cursor: pointer;
 }
 
@@ -62,9 +69,21 @@
   height: 7px;
   width: 7px;
   border-radius: 50%;
-  margin-right: 15px;
+  margin-right: 0px;
   cursor: pointer;
   background-color: rgb(154, 190, 233);
+}
+
+.sliderDown{
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: all 0.25s linear;
+}
+
+.sliderDown:hover{
+  transform: scale(1.08);
 }
   
 

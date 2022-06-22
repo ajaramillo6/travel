@@ -25,7 +25,7 @@
     width: 160vw;
     left: 0;
     right: 0;
-    top: 470px;
+    top: 70px;
     position: absolute;
 }
 
@@ -83,7 +83,7 @@
     color: white;
     cursor: pointer;
     position: absolute;
-    top: 600px;
+    top: 200px;
     z-index: 1000;
     margin: 30px;
   }
