@@ -32,8 +32,14 @@ export default function Login() {
           ref={passwordRef}
         />
         <div className="loginSubmit" type="submit" disabled={isFetching}>
-          { isFetching ? (<div className="lds-grid"><div></div><div></div><div></div><div></div><div></div>
-          <div></div><div></div><div></div><div></div></div>):
+          { !isFetching ? (
+          <div className="loginLoaders">
+            <div className="lds-dual-ring"></div>
+            <div className="lds-heart">
+              <div><i className="fa-solid fa-plane"></i></div>
+            </div>
+          </div>
+          ):
           <button className="loginButton">Login</button>}
         </div>
       </form>

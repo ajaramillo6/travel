@@ -69,6 +69,29 @@ export default function Home() {
         </div>
         }
         <HomeAbout />
+        <div className="homeSubscriberContainer">
+          <div className="homeText">
+            What benefits come with becoming a member?
+          </div>
+          <div className="homeSubscriberWrapper">
+            <table className="homeSubscriberTable">
+              <tr className="homeSubscriberRow">
+                <td>
+                  <i className="homeSubscriberIcon fa-solid fa-circle-check"></i>
+                  <span className="homeSubscriptionText">Notifications via email on new posts</span>
+                </td>
+                <td>
+                  <i className="homeSubscriberIcon fa-solid fa-circle-check"></i>
+                  <span className="homeSubscriptionText">Members only access to comments and likes</span>
+                </td>
+                <td>
+                  <i className="homeSubscriberIcon fa-solid fa-circle-check"></i>
+                  <span className="homeSubscriptionText">Members only access to message authors</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   )

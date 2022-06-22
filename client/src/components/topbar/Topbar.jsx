@@ -97,7 +97,7 @@ export default function Topbar() {
             </div>
           }
           <i class="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>
-          <i className="topAdminIcon fa-solid fa-gear" onClick={handleAdmin}></i>
+          <Link className="link" to="#" onClick={handleAdmin}><i className="topAdminIcon fa-solid fa-gear" ></i></Link>
         </div>
         {openAdmin &&
           <Rightbar handleAdmin={handleAdmin} user={user} />

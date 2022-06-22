@@ -13,7 +13,7 @@
     font-size: 20px;
     font-family: 'Lora', 'serif';
     color: rgb(123, 123, 123);
-    margin: 25px 0px 10px 0px;
+    margin: 50px 0px 10px 0px;
 }
 
 .homePostsContainer{
@@ -25,7 +25,7 @@
     width: 160vw;
     left: 0;
     right: 0;
-    top: 70px;
+    top: 100px;
     position: absolute;
 }
 
@@ -53,9 +53,8 @@
     text-decoration: none;
     font-size: 14px;
     width: 140px;
-    transition: all 0.25s linear;
+    transition: all 0.5s linear;
     border-radius: 10px;
-    margin-bottom: 20px;
   }
 
   .homePlane{
@@ -90,4 +89,32 @@
 
   .homePostsArrowLeft:hover, .homePostsArrowRight:hover{
     background-color: rgb(77, 94, 179);
+  }
+
+  .homeSubscriberContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  .homeSubscriberWrapper{
+    padding: 20px;
+  }
+
+  .homeSubscriberTable{
+    border-collapse: separate;
+    border-spacing: 50px 0;
+  }
+
+  .homeSubscriberIcon{
+    font-size: 18px;
+    color: rgb(97, 97, 97);
+    margin-right: 10px;
+  }
+
+  .homeSubscriptionText{
+    font-size: 18px;
+    color: rgb(97, 97, 97);
   }
