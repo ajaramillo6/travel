@@ -168,8 +168,8 @@ export default function Subscribe({post}) {
   return (
     <>
     <div className="subscribe">
-        <div className="subscribeHeader">NOT YET A SUBSCRIBED MEMBER? 
-            <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> CLICK HERE.</span>
+        <div className="subscribeHeader">Not yet a subscribed member? 
+            <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> Click here.</span>
         </div>
         {showSubscribe &&
         <div className="subscribeForm">
@@ -201,7 +201,7 @@ export default function Subscribe({post}) {
         }
     </div>
     <div className="reply">
-        <div className="replyHeader">LEAVE A COMMENT AND A LIKE BELOW (ONLY FOR SUBSCRIBED USERS)</div>
+        <div className="replyHeader">Leave a comment and a like below (Only for subscribed members)</div>
         <div className="replyForm">
             {subscriberCommentEmail ?
             <input 

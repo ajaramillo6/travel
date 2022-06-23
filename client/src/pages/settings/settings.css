@@ -229,6 +229,7 @@
     font-size: 16px;
     border-radius: 10px;
     margin-top: 20px;
+    font-family: 'Lora', 'serif';
 }
 
 .settingsSubmit:hover{
@@ -238,7 +239,7 @@
 .notification{
     background-color: rgb(80, 173, 128);
     color:white;
-    width: 200px;
+    width: 220px;
     padding: 10px;
     font-size: 12px;
     border-radius: 10px;
@@ -246,6 +247,7 @@
     display: flex;
     align-items: center;
     font-weight: 800;
+    font-family: 'Lora', 'serif';
 }
 
 .successIcon{
@@ -264,6 +266,7 @@
     display: flex;
     align-items: center;
     font-weight: 800;
+    font-family: 'Lora', 'serif';
 }
 
 .notificationPassword{
@@ -277,6 +280,7 @@
     display: flex;
     align-items: center;
     font-weight: 800;
+    font-family: 'Lora', 'serif';
 }
 
 .errorIcon{

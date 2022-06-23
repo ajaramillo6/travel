@@ -72,6 +72,7 @@
     font-size: 16px;
     border-radius: 10px;
     margin-left: 10px;
+    font-family: 'Lora', 'serif';
 }
 
 .homeSubscriberSuccess{
@@ -84,4 +85,34 @@
   display: flex;
   align-items: center;
   font-weight: 800;
+  font-family: 'Lora', 'serif';
+}
+
+.subscribeBenefitsContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.subscribeBenefitsTitle{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.subscribeBenefits{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.subscribeBenefitsIcon{
+  margin-right: 10px;
+  color: rgb(174, 218, 205);
+}
+
+.subscribeBenefitsText{
+  font-size: 15px;
 }

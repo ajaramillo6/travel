@@ -69,7 +69,7 @@ export default function Home() {
         </div>
         }
         <HomeAbout />
-        <div className="homeSubscriberContainer">
+        {/* <div className="homeSubscriberContainer">
           <div className="homeText">
             What benefits come with becoming a member?
           </div>
@@ -91,7 +91,7 @@ export default function Home() {
               </tr>
             </table>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

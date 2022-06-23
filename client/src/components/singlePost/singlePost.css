@@ -172,6 +172,7 @@
     font-size: 16px;
     line-height: 25px;
     white-space: pre-wrap;
+    font-family: 'Lora', 'serif';
 }
 
 .singlePostDesc::first-letter{
@@ -268,6 +269,7 @@
     transition: all 0.25s linear;
     border-radius: 10px;
     margin-bottom: 20px;
+    font-family: 'Lora', 'serif';
   }
 
   .backToTop:hover {

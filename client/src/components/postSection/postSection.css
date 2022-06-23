@@ -48,6 +48,7 @@
     font-size: 16px;
     line-height: 25px;
     white-space: pre-wrap;
+    font-family: 'Lora', 'serif';
 }
 
 .postSectionListTitle{
@@ -86,7 +87,6 @@
 
 .postSectionTableOfContentsTitle{
     font-family: 'Josefin Sans', 'sans-serif';
-    font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -94,6 +94,8 @@
 .postSectionTableOfContentsWrapper{
     display: flex;
     align-items: center;
+    font-family: 'Lora', 'serif';
+    font-size: 16px;
 }
 
 .postSectionContent{

@@ -83,6 +83,21 @@ const handleSubscriberSuccess = () => {
             }
           </div>
         </div>
+        <div className="subscribeBenefitsContainer">
+          <span className="subscribeBenefitsTitle">Membership Benefits</span>
+          <div className="subscribeBenefits">
+            <i className="subscribeBenefitsIcon fa-solid fa-circle-check"></i>
+            <span className="subscribeBenefitsText">Email notifications on new content</span>
+          </div>
+          <div className="subscribeBenefits">
+            <i className="subscribeBenefitsIcon fa-solid fa-circle-check"></i>
+            <span className="subscribeBenefitsText">Access to comments and likes</span>
+          </div>
+          <div className="subscribeBenefits">
+            <i className="subscribeBenefitsIcon fa-solid fa-circle-check"></i>
+            <span className="subscribeBenefitsText">Access to message authors</span>
+          </div>
+        </div>
       </div>
     </div>
   )

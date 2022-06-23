@@ -88,6 +88,7 @@
     border-radius: 5px;
     color: white;
     padding: 5px;
+    background-color: rgba(68, 68, 68, 0.357);
 }
 
 .postLikeIcon{
