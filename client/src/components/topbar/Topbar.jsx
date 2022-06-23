@@ -10,7 +10,6 @@ import MiniSearchbar from "../miniSearchbar/MiniSearchbar";
 
 export default function Topbar() {
 
-  const[openAdmin, setOpenAdmin] = useState(false); 
   const[showMiniSearch, setShowMiniSearch] = useState(false);
   const[posts, setPosts] = useState([]);
   const [query, setQuery] = useState("");
@@ -28,9 +27,7 @@ export default function Topbar() {
     fetchPosts();
   },[search])
       
-    const handleAdmin = () => {
-        setOpenAdmin(!openAdmin);
-    }
+
 
     const handleMiniSearch = () => {
       setShowMiniSearch(!showMiniSearch);
@@ -97,11 +94,9 @@ export default function Topbar() {
             </div>
           }
           <i class="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>
-          <Link className="link" to="#" onClick={handleAdmin}><i className="topAdminIcon fa-solid fa-gear" ></i></Link>
+         
         </div>
-        {openAdmin &&
-          <Rightbar handleAdmin={handleAdmin} user={user} />
-        }
+        <Rightbar user={user} />
       </div>
     </div>
     </>

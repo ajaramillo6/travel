@@ -1,11 +1,13 @@
 import "./rightbar.css";
 import { Context } from "../../context/Context";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 
-export default function Rightbar({handleAdmin, user}) {
+export default function Rightbar({user}) {
 
     const { dispatch } = useContext(Context);
+
+    const[openAdmin, setOpenAdmin] = useState(false); 
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -13,9 +15,14 @@ export default function Rightbar({handleAdmin, user}) {
         window.location.replace("/login");
     }
 
+    const handleAdmin = () => {
+        setOpenAdmin(!openAdmin);
+    }
+
   return (
     <>
-    <nav className={handleAdmin ? "rightbarActive" : "rightbar"}>
+    <Link className="link" to="#" onClick={handleAdmin}><i className="topAdminIcon fa-solid fa-gear" ></i></Link>
+    <nav className={openAdmin ? "rightbarActive" : "rightbar"}>
             {user ? (
                 <ul className="rightbarMenuItems">
                     <li className="rightbarToggle" onClick={handleAdmin}>
