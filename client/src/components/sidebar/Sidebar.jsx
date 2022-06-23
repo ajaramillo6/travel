@@ -104,6 +104,7 @@ export default function Sidebar({author, compareProfile, post}) {
           </div>
       </div>
       <div className="sidebarItem">
+        {otherPosts.length > 0 &&
         <div className="sidebarList">
           <div className="sidebarTitle">Recent Posts</div>
           <hr />
@@ -125,31 +126,37 @@ export default function Sidebar({author, compareProfile, post}) {
               </div>
             ))}
         </div>
+        }
       </div>
-      <div className="sidebarItem">
-        <div className="sidebarList">
-          <div className="sidebarTitle">Related Posts</div>
-          <hr />
-          {relatedPosts.slice(0,10).map((post, i)=>(
-              <div>
-                <div key={i}>
-                <Link className="link" to={`/post/${post._id}`}>
-                    <div className="sidebarPostsWrapper">
-                      <div className="sidebarPostPicContainer">
-                        <img className="sidebarPostPic" src={post.photo} alt="" />
+      {relatedPosts.length > 0 &&
+      <>
+        <div className="sidebarItem">
+          <div className="sidebarList">
+            <div className="sidebarTitle">Related Posts</div>
+            <hr />
+            {relatedPosts.slice(0,10).map((post, i)=>(
+                <div>
+                  <div key={i}>
+                  <Link className="link" to={`/post/${post._id}`}>
+                      <div className="sidebarPostsWrapper">
+                        <div className="sidebarPostPicContainer">
+                          <img className="sidebarPostPic" src={post.photo} alt="" />
+                        </div>
+                        <div className="sidebarPostContainer">
+                          <div className="sidebarPostTitle">{post.title}</div>
+                          <div className="sidebarPostDate">{format(post.createdAt)}</div>
+                        </div>
                       </div>
-                      <div className="sidebarPostContainer">
-                        <div className="sidebarPostTitle">{post.title}</div>
-                        <div className="sidebarPostDate">{format(post.createdAt)}</div>
-                      </div>
-                    </div>
-                </Link>
+                  </Link>
+                  </div>
                 </div>
-              </div>
             ))}
+          </div>
         </div>
-      </div>
+      </>
+      }
       <div className="sidebarItemLocations">
+        {locs.length > 0 &&
         <div className="sidebarItem">
           <div className="sidebarList">
             <div className="sidebarTitle">
@@ -169,6 +176,8 @@ export default function Sidebar({author, compareProfile, post}) {
               ))}
           </div>
         </div>
+        }
+        {usStates.length > 1 &&
         <div className="sidebarItem">
           <div className="sidebarList">
             <div className="sidebarTitle">
@@ -192,6 +201,7 @@ export default function Sidebar({author, compareProfile, post}) {
               ))}
           </div>
         </div>
+        }
       </div>
     </div>
   )

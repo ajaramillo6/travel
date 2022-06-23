@@ -32,7 +32,7 @@ export default function Login() {
           ref={passwordRef}
         />
         <div className="loginSubmit" type="submit" disabled={isFetching}>
-          { !isFetching ? (
+          { isFetching ? (
           <div className="loginLoaders">
             <div className="lds-dual-ring"></div>
             <div className="lds-heart">
