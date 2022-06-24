@@ -49,9 +49,9 @@ export default function HomeAbout() {
                 <div className="homeAboutText">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, distinctio saepe labore magni tenetur minus quaerat dolor quo possimus, molestiae adipisci dolores eligendi sunt in tempora ullam similique ea obcaecati?
                 </div>
-                <div onMouseOver={handleButton} onMouseLeave={handleButtonLeave}>
+                <div>
                     <Link className="link" to="/about">
-                        <div className="homeAboutReadMore"> 
+                        <div className="homeAboutReadMore" onMouseOver={handleButton} onMouseLeave={handleButtonLeave}> 
                             Learn More 
                             <i className={buttonHover ? "homeAboutBook fa-solid fa-book":"homeAboutBookHide fa-solid fa-book"}></i>
                         </div>

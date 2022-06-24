@@ -111,11 +111,16 @@
     text-align: center;
 }
 
-.subscriberIconLike{
+.subscriberIconLikeFilled, 
+.subscriberIconLikeEmpty{
     font-size: 20px;
 }
 
-.subscriberIconLike:hover{
+.subscriberIconLikeFilled{
+    color: rgb(176, 73, 73);
+}
+
+.subscriberIconLikeEmpty:hover{
     color: rgb(176, 73, 73);
 }
 
@@ -137,7 +142,7 @@
 .notificationSubscriberError{
     background-color: rgb(207, 140, 81);
     color:white;
-    width: 220px;
+    width: 240px;
     padding: 5px;
     font-size: 12px;
     border-radius: 10px;

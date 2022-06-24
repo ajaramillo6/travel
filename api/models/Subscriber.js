@@ -4,6 +4,7 @@ const SubscriberSchema = new mongoose.Schema({
     subscriberName: {
         type: String,
         required: true,
+        unique: true,
     },
     subscriberEmail: {
         type: String,

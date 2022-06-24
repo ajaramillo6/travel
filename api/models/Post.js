@@ -5,6 +5,7 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        max: 40,
     },
     newDescWords: {
         type: Array,

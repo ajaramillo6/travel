@@ -51,6 +51,11 @@ const postWords = post.newDescWords;
     }
   }
 
+  //Number formatting on likes
+  function numberFormat(num) {
+    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
+}
+
   return (
     <div className="post">
       <Link to={`/post/${post._id}`}  className="link">
@@ -62,7 +67,7 @@ const postWords = post.newDescWords;
           <div className="postLikesContainer">
             <i className="postLikeIcon fa-solid fa-heart"></i> 
             <span className="postLikeCount">
-              {post.postLikes.length}
+              {numberFormat(post.postLikes.length)}
               {post.postLikes.length === 1 ? " like": " likes"}
             </span>
             </div>

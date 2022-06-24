@@ -18,8 +18,16 @@ export default function Subscribe({post}) {
     const[subscriberSuccess, setSubscriberSuccess] = useState(false);
     const[subscriberError, setSubscriberError]=useState(false);
     const[likes, setLikes] = useState([]);
+    const[isLiked, setIsLiked] = useState(false);
+    const[isDBLiked, setIsDBLiked] = useState(false);
+    const[alreadyLiked, setAlreadyLiked] = useState(false);
     const[showMoreComments, setShowMoreComments] = useState(false);
     const[subscribersList, setSubscribersList] = useState([]);
+
+    useEffect(()=> {
+        setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
+        postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
+    }, [subscriberCommentEmail, likes])
 
     useEffect(()=> {
         const fetchSubscribers = async() => {
@@ -66,11 +74,27 @@ export default function Subscribe({post}) {
         }
         if(subscriberCommentEmail !== "" && 
         (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
-            try{
-                await axios.put("/posts/" + post._id + "/like", newLike);
-                setLikes((prevLike) => [...prevLike, newLike]);
-            }catch(err){
-                console.log(err);   
+            if(!isDBLiked){
+                try {
+                    await axios.put("/posts/" + post._id + "/like", newLike)
+                    isLiked ? likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
+                }catch(err) {
+                    console.log(err);
+                }
+                setIsLiked(!isLiked);
+            } else {
+                handleAlreadyLiked();
+                for(let i = 0; i < postLikesList.length; i++){
+                    if(postLikesList[i].subscriberCommentEmail === subscriberCommentEmail){
+                        postLikesList.splice(i, 1);
+                    }
+                }
+                try {
+                    await axios.put("/posts/" + post._id + "/like", newLike)
+                }catch(err) {
+                    console.log(err);
+                }
+                setIsDBLiked(!isDBLiked);
             }
         } else {
             handleSubscriberError();
@@ -118,6 +142,11 @@ export default function Subscribe({post}) {
         setTimeout(()=>{setSubscriberError(false)}, 3000);
       }
 
+      const handleAlreadyLiked = () => {
+        setAlreadyLiked(!alreadyLiked);
+        setTimeout(()=>{setAlreadyLiked(false)}, 3000);
+      }
+
       const clearFields = () => {
         setSubscriberCommentEmail("");
         setSubscriberComment("");
@@ -160,7 +189,7 @@ export default function Subscribe({post}) {
         }
     }
 
-    //Number formatting on likes
+    //Number formatting on likes and comments
     function numberFormat(num) {
         return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
     }
@@ -223,7 +252,12 @@ export default function Subscribe({post}) {
                 {postLikesList &&
                     <>
                     <div>
-                        <i className="subscriberIconLike fa-regular fa-heart" onClick={handleLike}></i>
+                        {(subscriberCommentEmail !== '' && (isLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
+                        (isDBLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                        <i className="subscriberIconLikeFilled fa-solid fa-heart" onClick={handleLike}></i>: 
+                        <i className="subscriberIconLikeEmpty fa-regular fa-heart" onClick={handleLike}></i>}
                         {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
                             <span className="subscriberLikesCount">{numberFormat(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length)}
                             {(likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) === 1 ? " like" : " likes"}</span>}
@@ -234,6 +268,12 @@ export default function Subscribe({post}) {
                 <div className="notificationSubscriberError">
                     <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
                     Sorry. Only for subscribed members.
+                </div>
+                }
+                {alreadyLiked && 
+                <div className="notificationSubscriberError">
+                    <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
+                    Post had already been liked.
                 </div>
                 }
             </div>
@@ -268,9 +308,9 @@ export default function Subscribe({post}) {
             {postCommentList.filter((c)=> c.commentForPost === post._id).length > 0 &&
             <div className="commentPrevHeader">
                 {postCommentList.filter((c)=> c.commentForPost === post._id).length > 1 ? 
-                (postCommentList.filter((c)=> c.commentForPost === post._id).length +
-                comments.filter((c)=> c.commentForPost === post._id).length) + " COMMENTS" : 
-                postCommentList.filter((c)=> c.commentForPost === post._id).length + " COMMENT"}
+                numberFormat((postCommentList.filter((c)=> c.commentForPost === post._id).length +
+                comments.filter((c)=> c.commentForPost === post._id).length)) + " Comments" : 
+                numberFormat(postCommentList.filter((c)=> c.commentForPost === post._id).length) + " Comment"}
             </div>
             }
             <>

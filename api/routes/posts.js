@@ -45,15 +45,44 @@ router.put("/:id/comment", async(req, res)=>{
     }
 });
 
-//LIKE A POST
-router.put("/:id/like", async(req, res)=>{
-    try{
+// //LIKE A POST
+// router.put("/:id/like", async(req, res)=>{
+//     try{
+//         const post = await Post.findById(req.params.id);
+//         await post.update({$push:{ postLikes: req.body}});
+//         res.status(200).json("Liked.")
+//     }catch(err){
+//         res.status(500).json(err);
+//     }
+// });
+
+// //DISLIKE A POST
+// router.put("/:id/dislike", async(req, res)=>{
+//     try{
+//         const post = await Post.findById(req.params.id);
+//         await post.update({$pull:{ postLikes: req.body}});
+//         res.status(200).json("Disliked.")
+//     }catch(err){
+//         res.status(500).json(err);
+//     }
+// });
+
+//LIKE OR DISLIKE A POST
+router.put("/:id/like", async(req,res)=>{
+    try {
         const post = await Post.findById(req.params.id);
-        await post.update({$push:{ postLikes: req.body}});
-        res.status(200).json("Liked.")
-    }catch(err){
+        if(!post.postLikes.map(
+            (subscriber)=>subscriber.subscriberCommentEmail).join().includes(req.body.subscriberCommentEmail)){
+            await post.updateOne({ $push:{ postLikes: req.body } });
+            res.status(200).json("You liked the post! :)")
+        } else {
+            await post.updateOne({ $pull:{ postLikes: req.body } });
+            res.status(200).json("You disliked the post.")
+        }
+    } catch(err) {
         res.status(500).json(err);
     }
+    
 });
 
 //DELETE POST
