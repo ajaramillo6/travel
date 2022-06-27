@@ -152,6 +152,19 @@
     margin-left: 10px;
 }
 
+.notificationSubscriberErrorComments{
+    background-color: rgb(207, 140, 81);
+    color:white;
+    width: 270px;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
 .notificationSubscriberSuccess{
     background-color: rgb(80, 173, 128);
     color:white;
@@ -238,16 +251,53 @@
 .commentPrevDate, .commentAddedDate{
     color: #b39656;
     font-style: italic;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .commentPrevMessage, .commentAddedMessage{
     margin-top: 5px;
     margin-bottom: 10px;
+    font-size: 14px;
 }
 
 .commentsShowMoreText{
     font-size: 14px;
     color: rgb(97, 97, 97);
     cursor: pointer;
+}
+
+.commentLikeDeleteContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.commentLikeText{
+    font-size: 10px; 
+    color: rgb(148, 148, 148);
+    margin-left: 5px;
+}
+
+.commentDeleteText{
+    font-size: 10px;
+    color: rgb(148, 148, 148);
+    font-style: italic;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100px;
+    margin-left: 10px;
+}
+
+.commentIconLikeFilled, 
+.commentIconLikeEmpty{
+    font-size: 12px;
+    color: rgb(148, 148, 148);
+    cursor: pointer;
+}
+
+.commentIconLikeFilled{
+    color: rgb(176, 73, 73);
+}
+
+.commentIconLikeEmpty:hover{
+    color: rgb(176, 73, 73);
 }

@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const User = require('../models/User');
 const Post = require('../models/Post');
 
 //CREATE POST
@@ -38,34 +37,23 @@ router.put("/:id", async(req, res) => {
 router.put("/:id/comment", async(req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
-        await post.update({$push:{ postComments: req.body}});
+        await post.update({ $push:{ postComments: req.body } });
         res.status(200).json(post)
     }catch(err){
         res.status(500).json(err);
     }
 });
 
-// //LIKE A POST
-// router.put("/:id/like", async(req, res)=>{
-//     try{
-//         const post = await Post.findById(req.params.id);
-//         await post.update({$push:{ postLikes: req.body}});
-//         res.status(200).json("Liked.")
-//     }catch(err){
-//         res.status(500).json(err);
-//     }
-// });
-
-// //DISLIKE A POST
-// router.put("/:id/dislike", async(req, res)=>{
-//     try{
-//         const post = await Post.findById(req.params.id);
-//         await post.update({$pull:{ postLikes: req.body}});
-//         res.status(200).json("Disliked.")
-//     }catch(err){
-//         res.status(500).json(err);
-//     }
-// });
+//DELETE A COMMENT
+router.put("/:id/filterComment", async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+        await post.updateOne({ $set:{ postComments: req.body } });
+        res.status(200).json(post)
+    }catch(err){
+        res.status(500).json(err);
+    }
+});
 
 //LIKE OR DISLIKE A POST
 router.put("/:id/like", async(req,res)=>{

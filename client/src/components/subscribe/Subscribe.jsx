@@ -10,24 +10,51 @@ export default function Subscribe({post}) {
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
     const[subscribers, setSubscribers] = useState([]);
+    const[subscribersList, setSubscribersList] = useState([]);
     const[showSubscribe, setShowSubscribe] = useState(false);
     const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
     const[subscriberComment, setSubscriberComment] = useState("");
     const[comments, setComments] = useState([]);
+    const[currentCommentId, setCurrentCommentId] = useState("");
+    const[subscriberErrorComments, setSubscriberErrorComments]=useState(false);
     const[showComment, setShowComment] = useState(false);
+    const[showMoreComments, setShowMoreComments] = useState(false);
     const[subscriberSuccess, setSubscriberSuccess] = useState(false);
     const[subscriberError, setSubscriberError]=useState(false);
     const[likes, setLikes] = useState([]);
     const[isLiked, setIsLiked] = useState(false);
     const[isDBLiked, setIsDBLiked] = useState(false);
     const[alreadyLiked, setAlreadyLiked] = useState(false);
-    const[showMoreComments, setShowMoreComments] = useState(false);
-    const[subscribersList, setSubscribersList] = useState([]);
+    const[commentLikes, setCommentLikes] = useState([]);
+    const[isCommentLiked, setIsCommentLiked] = useState(false);
+    const[isDBCommentLiked, setIsDBCommentLiked] = useState(false);
+    const[alreadyCommentLiked, setAlreadyCommentLiked] = useState(false);
 
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
         postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
     }, [subscriberCommentEmail, likes])
+
+    useEffect(()=> {
+        let currentSubscriber;
+        if(subscriberCommentEmail !== ""){
+            for(let i = 0; i < subscribersList.length; i++){
+                if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
+                    currentSubscriber = subscribersList[i].subscriberName;
+                }
+            }
+        }
+        if(postCommentList){
+            if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+                for(let i = 0; i < postCommentList.length; i++){
+                    if(postCommentList[i].subscriberCommentEmail === currentSubscriber &&
+                        postCommentList[i].commentId === currentCommentId){
+                        postCommentList.splice(i, 1);
+                    }
+                }
+            }
+        }
+    },[postCommentList && postCommentList.length])
 
     useEffect(()=> {
         const fetchSubscribers = async() => {
@@ -46,6 +73,7 @@ export default function Subscribe({post}) {
           subscriberCommentEmail,
           subscriberComment,
           commentForPost: post._id,
+          commentId: Date.now(),
           commentCreatedAt: new Date().toLocaleDateString("en-US", 
             {year: 'numeric', month: 'short', day: 'numeric'}
             ),
@@ -62,6 +90,43 @@ export default function Subscribe({post}) {
             handleCommentBox();
         }   else {
             handleSubscriberError();
+        }
+      }
+
+      //HANDLES DELETING COMMENTS
+      const handleDeleteComment = async(commentId) => {
+        let currentSubscriber;
+        if(subscriberCommentEmail !== ""){
+            for(let i = 0; i < subscribersList.length; i++){
+                if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
+                    currentSubscriber = subscribersList[i].subscriberName;
+                }
+            }
+        }else {
+            handleSubscriberError();
+        }
+        
+        if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+            for(let i = 0; i < postCommentList.length; i++){
+                if(postCommentList[i].subscriberCommentEmail === currentSubscriber &&
+                    postCommentList[i].commentId === commentId){
+                    setCurrentCommentId(commentId);
+                    setSubscriberErrorComments(false);
+                    postCommentList.splice(i, 1);
+                    try{
+                        await axios.put("/posts/" + post._id + "/filterComment", postCommentList);
+                    }catch(err){
+                        console.log(err);   
+                    }
+                }else{
+                    setSubscriberErrorComments(true);
+                    setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
+                }
+            }
+        } else if(!postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber) && 
+        subscriberCommentEmail !== ""){
+            setSubscriberErrorComments(true);
+            setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
         }
       }
 
@@ -100,6 +165,15 @@ export default function Subscribe({post}) {
             handleSubscriberError();
         }
     }
+
+        //HANDLES LIKE ADDED TO COMMENT
+        // const handleLikeComment = async(commentId) => {
+        //     const newLikeComment = {
+        //         subscriberCommentEmail,
+        //         likeForPost: post._id,
+        //         likeForComment: commentId,
+        //     }
+        // }
 
     //HANDLES ADDED SUBSCRIBERS
     const handleSubscribeSubmit = async(e) => {
@@ -270,6 +344,12 @@ export default function Subscribe({post}) {
                     Sorry. Only for subscribed members.
                 </div>
                 }
+                {subscriberErrorComments && 
+                <div className="notificationSubscriberErrorComments">
+                    <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
+                    You can only delete your own comment.
+                </div>
+                }
                 {alreadyLiked && 
                 <div className="notificationSubscriberError">
                     <i className="notificationIcon fa-solid fa-circle-exclamation"></i>
@@ -317,7 +397,7 @@ export default function Subscribe({post}) {
             {!showMoreComments ?
             <>
                 {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-                <div className="commentPrevWrapper" key={i}>
+                <div className="commentPrevWrapper" key={comment.commentId}>
                     <div className="commentPrevInfo">
                         <div className="commentPrevUser">
                             {comment.subscriberCommentEmail}
@@ -328,6 +408,13 @@ export default function Subscribe({post}) {
                     </div>
                     <div className="commentPrevMessage">
                         {comment.subscriberComment}
+                    </div>
+                    <div className="commentLikeDeleteContainer">
+                        <i className="commentIconLikeEmpty fa-regular fa-heart"></i>
+                        <span className="commentLikeText">
+                            {commentLikes.length > 0 && commentLikes.length}
+                        </span>
+                        <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
                 </div>
                 ))}
@@ -344,6 +431,13 @@ export default function Subscribe({post}) {
                     </div>
                     <div className="commentPrevMessage">
                         {comment.subscriberComment}
+                    </div>
+                    <div className="commentLikeDeleteContainer">
+                        <i className="commentIconLikeEmpty fa-regular fa-heart"></i>
+                        <span className="commentLikeText">
+                            {commentLikes.length > 0 && commentLikes.length}
+                        </span>
+                        <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
                 </div>
                 ))}
