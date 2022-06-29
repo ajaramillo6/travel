@@ -85,6 +85,10 @@
     margin-bottom: 10px;
 }
 
+.replyHeaderUsername{
+    color: #be9656;
+}
+
 .replyForm{
     display: flex;
     flex-direction: column;

@@ -255,7 +255,7 @@ export default function SinglePost() {
             onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
               Go Back Up
           </div>
-          <Subscribe post={post}/>
+          <Subscribe post={post} />
         </div>
         <div className="sidebar">
           {showSidebar ? (

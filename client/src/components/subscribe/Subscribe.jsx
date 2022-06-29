@@ -1,8 +1,11 @@
 import './subscribe.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from 'axios';
+import { Context } from "../../context/Context";
 
 export default function Subscribe({post}) {
+
+    const { user } = useContext(Context);
 
     const postCommentList = post.postComments;
     const postLikesList = post.postLikes;
@@ -31,26 +34,40 @@ export default function Subscribe({post}) {
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
         postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
-    }, [subscriberCommentEmail, likes]);
+    }, [subscriberCommentEmail, likes, user]);
 
     useEffect(() => {
-        postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(subscriberCommentEmail));
+        if(!user){
+            postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(subscriberCommentEmail));
+        }else{
+            postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(user.username));
+        }
     }, [subscriberCommentEmail, postCommentList])
 
     useEffect(()=> {
-        let currentSubscriber;
-        if(subscriberCommentEmail !== ""){
-            for(let i = 0; i < subscribersList.length; i++){
-                if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
-                    currentSubscriber = subscribersList[i].subscriberName;
+        if(!user){
+            let currentSubscriber;
+            if(subscriberCommentEmail !== ""){
+                for(let i = 0; i < subscribersList.length; i++){
+                    if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
+                        currentSubscriber = subscribersList[i].subscriberName;
+                    }
                 }
             }
-        }
-        if(postCommentList){
-            if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+            if(postCommentList){
+                if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+                    for(let i = 0; i < postCommentList.length; i++){
+                        if(postCommentList[i].subscriberCommentEmail === currentSubscriber &&
+                            postCommentList[i].commentId === currentCommentId){
+                            postCommentList.splice(i, 1);
+                        }
+                    }
+                }
+            }
+        } else {
+            if(postCommentList){
                 for(let i = 0; i < postCommentList.length; i++){
-                    if(postCommentList[i].subscriberCommentEmail === currentSubscriber &&
-                        postCommentList[i].commentId === currentCommentId){
+                    if(postCommentList[i].commentId === currentCommentId){
                         postCommentList.splice(i, 1);
                     }
                 }
@@ -72,7 +89,7 @@ export default function Subscribe({post}) {
     const handleSubmitComment = async(e) => {
         e.preventDefault();
         const newComment = {
-          subscriberCommentEmail,
+          subscriberCommentEmail: user ? user.username : subscriberCommentEmail,
           subscriberComment,
           commentForPost: post._id,
           commentLikesList: [],
@@ -82,7 +99,8 @@ export default function Subscribe({post}) {
             ),
         }
         if(subscriberCommentEmail !== "" && subscriberComment !== "" && 
-        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
+        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))
+        || user.username.includes(subscriberCommentEmail)){
             try{
                 await axios.put("/posts/" + post._id + "/comment", newComment);
                 setComments((prevComments) => [...prevComments, newComment]);
@@ -98,54 +116,95 @@ export default function Subscribe({post}) {
 
       //HANDLES DELETING COMMENTS
       const handleDeleteComment = async(commentId) => {
-        let currentSubscriber;
-        if(subscriberCommentEmail !== ""){
-            for(let i = 0; i < subscribersList.length; i++){
-                if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
-                    currentSubscriber = subscribersList[i].subscriberName;
+        if(!user){
+            let currentSubscriber;
+            if(subscriberCommentEmail !== ""){
+                for(let i = 0; i < subscribersList.length; i++){
+                    if(subscribersList[i].subscriberEmail === subscriberCommentEmail){
+                        currentSubscriber = subscribersList[i].subscriberName;
+                    }
                 }
+            }else {
+                handleSubscriberError();
             }
-        }else {
-            handleSubscriberError();
-        }
-        
-        if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+            if(postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber)){
+                for(let i = 0; i < postCommentList.length; i++){
+                    if((postCommentList[i].subscriberCommentEmail === currentSubscriber) &&
+                        postCommentList[i].commentId === commentId){
+                        setCurrentCommentId(commentId);
+                        setSubscriberErrorComments(false);
+                        postCommentList.splice(i, 1);
+                        try{
+                            await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                        }catch(err){
+                            console.log(err);   
+                        }
+                    }else{
+                        setSubscriberErrorComments(true);
+                        setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
+                    }
+                }
+            } else if(!postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber) && 
+            subscriberCommentEmail !== ""){
+                setSubscriberErrorComments(true);
+                setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
+            }
+        } else {
             for(let i = 0; i < postCommentList.length; i++){
-                if(postCommentList[i].subscriberCommentEmail === currentSubscriber &&
-                    postCommentList[i].commentId === commentId){
+                if(postCommentList[i].commentId === commentId){
                     setCurrentCommentId(commentId);
-                    setSubscriberErrorComments(false);
                     postCommentList.splice(i, 1);
                     try{
                         await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
                     }catch(err){
                         console.log(err);   
                     }
-                }else{
-                    setSubscriberErrorComments(true);
-                    setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
                 }
             }
-        } else if(!postCommentList.map((subscriber) => subscriber.subscriberCommentEmail).includes(currentSubscriber) && 
-        subscriberCommentEmail !== ""){
-            setSubscriberErrorComments(true);
-            setTimeout(()=>{setSubscriberErrorComments(false)}, 3000);
         }
-      }
+    }
 
     //HANDLES LIKE ADDED TO POST
     const handleLike = async(e) => {
         e.preventDefault();
         const newLike = {
-            subscriberCommentEmail,
+            subscriberCommentEmail: user ? user.username : subscriberCommentEmail,
             likeForPost: post._id,
         }
-        if(subscriberCommentEmail !== "" && 
-        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
-            if(!isDBLiked){
+        if(!user){
+            if(subscriberCommentEmail !== "" && 
+            (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
+                if(!isDBLiked){
+                    try {
+                        await axios.put("/posts/" + post._id + "/like", newLike)
+                        isLiked ? likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
+                    }catch(err) {
+                        console.log(err);
+                    }
+                    setIsLiked(!isLiked);
+                } else {
+                    handleAlreadyLiked();
+                    for(let i = 0; i < postLikesList.length; i++){
+                        if(postLikesList[i].subscriberCommentEmail === subscriberCommentEmail){
+                            postLikesList.splice(i, 1);
+                        }
+                    }
+                    try {
+                        await axios.put("/posts/" + post._id + "/like", newLike)
+                    }catch(err) {
+                        console.log(err);
+                    }
+                    setIsDBLiked(!isDBLiked);
+                }
+            } else {
+                handleSubscriberError();
+            }
+        } else {
+            if((!postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))){
                 try {
                     await axios.put("/posts/" + post._id + "/like", newLike)
-                    isLiked ? likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
+                    likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username) ? 
+                    likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
                 }catch(err) {
                     console.log(err);
                 }
@@ -153,7 +212,7 @@ export default function Subscribe({post}) {
             } else {
                 handleAlreadyLiked();
                 for(let i = 0; i < postLikesList.length; i++){
-                    if(postLikesList[i].subscriberCommentEmail === subscriberCommentEmail){
+                    if(postLikesList[i].subscriberCommentEmail === user.username){
                         postLikesList.splice(i, 1);
                     }
                 }
@@ -164,22 +223,52 @@ export default function Subscribe({post}) {
                 }
                 setIsDBLiked(!isDBLiked);
             }
-        } else {
-            handleSubscriberError();
         }
     }
 
     //HANDLES LIKE ADDED TO COMMENT
     const handleLikeComment = async(commentId) => {
         const newCommentLike = {
-            subscriberCommentEmail,
+            subscriberCommentEmail: user ? user.username : subscriberCommentEmail,
             likeForPost: post._id,
             likeForComment: commentId,
         }
-        if(subscriberCommentEmail !== "" && 
-            (subscribersEmails.includes(subscriberCommentEmail) || 
-            subscribersEmailsDB.includes(subscriberCommentEmail)))
-        {
+        if(!user){
+            if(subscriberCommentEmail !== "" && 
+                (subscribersEmails.includes(subscriberCommentEmail) || 
+                subscribersEmailsDB.includes(subscriberCommentEmail)))
+            {
+                if(!isDBCommentLiked){
+                    let postCommentsLength = postCommentList.length;
+                    for(let j = 0; j < postCommentsLength; j++){
+                        if(postCommentList[j].commentId === commentId){
+                            isCommentLiked ? 
+                            postCommentList[j].commentLikesList.pop(): 
+                            postCommentList[j].commentLikesList.push(newCommentLike);
+                        }
+                    }
+                    setIsCommentLiked(!isCommentLiked);
+                } else {
+                    handleAlreadyLiked();
+                    let postCommentsLength = postCommentList.length;
+                    for(let j = 0; j < postCommentsLength; j++){
+                        if(postCommentList[j].commentId === commentId){
+                            isDBCommentLiked ? 
+                            postCommentList[j].commentLikesList.pop(): 
+                            postCommentList[j].commentLikesList.push(newCommentLike);
+                        }
+                    }
+                    setIsDBCommentLiked(!isDBCommentLiked);
+                }
+                try{
+                    await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                }catch(err){
+                    console.log(err);   
+                }
+            } else {
+                handleSubscriberError();
+            } 
+        } else {
             if(!isDBCommentLiked){
                 let postCommentsLength = postCommentList.length;
                 for(let j = 0; j < postCommentsLength; j++){
@@ -207,9 +296,7 @@ export default function Subscribe({post}) {
             }catch(err){
                 console.log(err);   
             }
-        } else {
-            handleSubscriberError();
-        } 
+        }
     }
 
     //HANDLES ADDED SUBSCRIBERS
@@ -264,7 +351,6 @@ export default function Subscribe({post}) {
       }
 
     //MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
-
     if(subscribersList && postCommentList){
         for(let s=0; s<subscribersList.length; s++){
             for(let c=0; c<postCommentList.length; c++){
@@ -307,7 +393,10 @@ export default function Subscribe({post}) {
 
   return (
     <>
+    
     <div className="subscribe">
+    {!user &&
+    <>
         <div className="subscribeHeader">Not yet a subscribed member? 
             <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> Click here.</span>
         </div>
@@ -339,34 +428,46 @@ export default function Subscribe({post}) {
                 Subscription was successful!
             </div>
         }
+    </>
+    }
     </div>
     <div className="reply">
-        <div className="replyHeader">Leave a comment and a like below (Only for subscribed members)</div>
+        {!user ?
+        <div className="replyHeader">Leave a comment and a like below (Only for subscribed members)</div>:
+        <div className="replyHeader">
+            Hi <span className="replyHeaderUsername">{user.username}</span>! You can comment and like below</div>
+        }
         <div className="replyForm">
-            {subscriberCommentEmail ?
-            <input 
-                type="email" 
-                placeholder="Confirm Subscribed Email" 
-                className="replyInput" 
-                onChange={e=>setSubscriberCommentEmail(e.target.value)}
-            /> : 
-            <input 
-                type="email" 
-                placeholder="Confirm subscribed email *" 
-                value={subscriberCommentEmail}
-                className="replyInput" 
-                onChange={e=>setSubscriberCommentEmail(e.target.value)}
-            />
+            {!user &&
+            <>
+                {(subscriberCommentEmail) ?
+                <input 
+                    type="email" 
+                    placeholder="Confirm Subscribed Email" 
+                    className="replyInput" 
+                    onChange={e=>setSubscriberCommentEmail(e.target.value)}
+                /> : 
+                <input 
+                    type="email" 
+                    placeholder="Confirm subscribed email *" 
+                    value={subscriberCommentEmail}
+                    className="replyInput" 
+                    onChange={e=>setSubscriberCommentEmail(e.target.value)}
+                />
+                }
+            </>
             }
             <div className="subscriberIconsContainer">
                 <i className="subscriberIconComment fa-regular fa-comment-dots" onClick={handleCommentBox}></i>
                 {postLikesList &&
                     <>
                     <div>
-                        {(subscriberCommentEmail !== '' && (isLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        {((user && (likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username)) || 
+                        user && (postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))) || 
+                        (subscriberCommentEmail !== '' && (isLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
                         subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
                         (isDBLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))))))) ? 
                         <i className="subscriberIconLikeFilled fa-solid fa-heart" onClick={handleLike}></i>: 
                         <i className="subscriberIconLikeEmpty fa-regular fa-heart" onClick={handleLike}></i>}
                         {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
@@ -447,7 +548,8 @@ export default function Subscribe({post}) {
                         {comment.subscriberComment}
                     </div>
                     <div className="commentLikeDeleteContainer">
-                        {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
+                        {((user && comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(user.username)) || 
+                        comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
                         comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
                         (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
                         subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
@@ -456,7 +558,7 @@ export default function Subscribe({post}) {
                         <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
                         <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
                         <span className="commentLikeText">
-                            {comment.commentLikesList.length > 0 && comment.commentLikesList.length}
+                            {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
                         </span>
                         <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
@@ -486,7 +588,7 @@ export default function Subscribe({post}) {
                         <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
                         <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
                         <span className="commentLikeText">
-                            {comment.commentLikesList.length > 0 && comment.commentLikesList.length}
+                            {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
                         </span>
                         <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
