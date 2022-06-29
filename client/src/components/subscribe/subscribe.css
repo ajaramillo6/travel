@@ -287,7 +287,6 @@
     margin-left: 10px;
 }
 
-.commentIconLikeFilled, 
 .commentIconLikeEmpty{
     font-size: 12px;
     color: rgb(148, 148, 148);
@@ -295,7 +294,9 @@
 }
 
 .commentIconLikeFilled{
+    font-size: 12px;
     color: rgb(176, 73, 73);
+    cursor: pointer;
 }
 
 .commentIconLikeEmpty:hover{

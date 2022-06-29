@@ -45,7 +45,7 @@ router.put("/:id/comment", async(req, res)=>{
 });
 
 //DELETE A COMMENT
-router.put("/:id/filterComment", async(req, res)=>{
+router.put("/:id/updateComment", async(req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
         await post.updateOne({ $set:{ postComments: req.body } });
@@ -69,8 +69,7 @@ router.put("/:id/like", async(req,res)=>{
         }
     } catch(err) {
         res.status(500).json(err);
-    }
-    
+    } 
 });
 
 //DELETE POST

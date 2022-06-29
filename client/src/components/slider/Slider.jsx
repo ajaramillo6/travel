@@ -33,7 +33,7 @@ export default function Slider() {
         <div className="sliderThumbnailsContainer">
             <div className="thumbnailsWrapper">
             {images.map((slide, i)=>(
-                <div key={i}>
+                <div className="sliderThumbnails" key={i}>
                     <div className={index === i ? "sliderThumbnailPicked":"sliderThumbnail"} onClick={()=>thumbChange(i)}>{slide}</div>
                 </div>
                 ))}

@@ -25,15 +25,17 @@ export default function Subscribe({post}) {
     const[isLiked, setIsLiked] = useState(false);
     const[isDBLiked, setIsDBLiked] = useState(false);
     const[alreadyLiked, setAlreadyLiked] = useState(false);
-    const[commentLikes, setCommentLikes] = useState([]);
     const[isCommentLiked, setIsCommentLiked] = useState(false);
     const[isDBCommentLiked, setIsDBCommentLiked] = useState(false);
-    const[alreadyCommentLiked, setAlreadyCommentLiked] = useState(false);
 
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
         postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
-    }, [subscriberCommentEmail, likes])
+    }, [subscriberCommentEmail, likes]);
+
+    useEffect(() => {
+        postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(subscriberCommentEmail));
+    }, [subscriberCommentEmail, postCommentList])
 
     useEffect(()=> {
         let currentSubscriber;
@@ -73,6 +75,7 @@ export default function Subscribe({post}) {
           subscriberCommentEmail,
           subscriberComment,
           commentForPost: post._id,
+          commentLikesList: [],
           commentId: Date.now(),
           commentCreatedAt: new Date().toLocaleDateString("en-US", 
             {year: 'numeric', month: 'short', day: 'numeric'}
@@ -114,7 +117,7 @@ export default function Subscribe({post}) {
                     setSubscriberErrorComments(false);
                     postCommentList.splice(i, 1);
                     try{
-                        await axios.put("/posts/" + post._id + "/filterComment", postCommentList);
+                        await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
                     }catch(err){
                         console.log(err);   
                     }
@@ -166,14 +169,48 @@ export default function Subscribe({post}) {
         }
     }
 
-        //HANDLES LIKE ADDED TO COMMENT
-        // const handleLikeComment = async(commentId) => {
-        //     const newLikeComment = {
-        //         subscriberCommentEmail,
-        //         likeForPost: post._id,
-        //         likeForComment: commentId,
-        //     }
-        // }
+    //HANDLES LIKE ADDED TO COMMENT
+    const handleLikeComment = async(commentId) => {
+        const newCommentLike = {
+            subscriberCommentEmail,
+            likeForPost: post._id,
+            likeForComment: commentId,
+        }
+        if(subscriberCommentEmail !== "" && 
+            (subscribersEmails.includes(subscriberCommentEmail) || 
+            subscribersEmailsDB.includes(subscriberCommentEmail)))
+        {
+            if(!isDBCommentLiked){
+                let postCommentsLength = postCommentList.length;
+                for(let j = 0; j < postCommentsLength; j++){
+                    if(postCommentList[j].commentId === commentId){
+                        isCommentLiked ? 
+                        postCommentList[j].commentLikesList.pop(): 
+                        postCommentList[j].commentLikesList.push(newCommentLike);
+                    }
+                }
+                setIsCommentLiked(!isCommentLiked);
+            } else {
+                handleAlreadyLiked();
+                let postCommentsLength = postCommentList.length;
+                for(let j = 0; j < postCommentsLength; j++){
+                    if(postCommentList[j].commentId === commentId){
+                        isDBCommentLiked ? 
+                        postCommentList[j].commentLikesList.pop(): 
+                        postCommentList[j].commentLikesList.push(newCommentLike);
+                    }
+                }
+                setIsDBCommentLiked(!isDBCommentLiked);
+            }
+            try{
+                await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+            }catch(err){
+                console.log(err);   
+            }
+        } else {
+            handleSubscriberError();
+        } 
+    }
 
     //HANDLES ADDED SUBSCRIBERS
     const handleSubscribeSubmit = async(e) => {
@@ -396,7 +433,7 @@ export default function Subscribe({post}) {
             <>
             {!showMoreComments ?
             <>
-                {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
+                {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment)=>(
                 <div className="commentPrevWrapper" key={comment.commentId}>
                     <div className="commentPrevInfo">
                         <div className="commentPrevUser">
@@ -410,9 +447,16 @@ export default function Subscribe({post}) {
                         {comment.subscriberComment}
                     </div>
                     <div className="commentLikeDeleteContainer">
-                        <i className="commentIconLikeEmpty fa-regular fa-heart"></i>
+                        {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
+                        comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
+                        (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
+                        (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                        <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
+                        <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
                         <span className="commentLikeText">
-                            {commentLikes.length > 0 && commentLikes.length}
+                            {comment.commentLikesList.length > 0 && comment.commentLikesList.length}
                         </span>
                         <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
@@ -433,9 +477,16 @@ export default function Subscribe({post}) {
                         {comment.subscriberComment}
                     </div>
                     <div className="commentLikeDeleteContainer">
-                        <i className="commentIconLikeEmpty fa-regular fa-heart"></i>
+                        {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
+                        comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
+                        (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
+                        (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                        <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
+                        <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
                         <span className="commentLikeText">
-                            {commentLikes.length > 0 && commentLikes.length}
+                            {comment.commentLikesList.length > 0 && comment.commentLikesList.length}
                         </span>
                         <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
