@@ -17,7 +17,6 @@ export default function Subscribe({post}) {
     const[showSubscribe, setShowSubscribe] = useState(false);
     const[subscriberCommentEmail, setSubscriberCommentEmail] = useState("");
     const[subscriberComment, setSubscriberComment] = useState("");
-    const[comments, setComments] = useState([]);
     const[currentCommentId, setCurrentCommentId] = useState("");
     const[subscriberErrorComments, setSubscriberErrorComments]=useState(false);
     const[showComment, setShowComment] = useState(false);
@@ -30,6 +29,7 @@ export default function Subscribe({post}) {
     const[alreadyLiked, setAlreadyLiked] = useState(false);
     const[isCommentLiked, setIsCommentLiked] = useState(false);
     const[isDBCommentLiked, setIsDBCommentLiked] = useState(false);
+    const[saveToLocal, setSaveToLocal] = useState(false);
 
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
@@ -88,9 +88,19 @@ export default function Subscribe({post}) {
     //HANDLES ADDED COMMENTS
     const handleSubmitComment = async(e) => {
         e.preventDefault();
+
+        let subscriberCommentName;
+        for(let s=0; s<subscribersList.length; s++){
+            if(subscribersList[s].subscriberEmail === subscriberCommentEmail){
+                subscriberCommentName = subscribersList[s].subscriberName;
+            }
+        }
+
         const newComment = {
           subscriberCommentEmail: user ? user.username : subscriberCommentEmail,
           subscriberComment,
+          subscriberCommentName: user ? user.username : subscriberCommentName,
+          commentPic: user ? user.profilePic : subscriberCommentEmail[0].toUpperCase(),
           commentForPost: post._id,
           commentLikesList: [],
           commentId: Date.now(),
@@ -102,12 +112,11 @@ export default function Subscribe({post}) {
         (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))
         || user.username.includes(subscriberCommentEmail)){
             try{
-                await axios.put("/posts/" + post._id + "/comment", newComment);
-                setComments((prevComments) => [...prevComments, newComment]);
+                await axios.put("/posts/" + post._id + "/updateComment", newComment);
+                postCommentList.push(newComment);
             }catch(err){
-                console.log(err);   
+                console.log(err);
             }
-            clearFields();
             handleCommentBox();
         }   else {
             handleSubscriberError();
@@ -345,9 +354,12 @@ export default function Subscribe({post}) {
         setTimeout(()=>{setAlreadyLiked(false)}, 3000);
       }
 
-      const clearFields = () => {
-        setSubscriberCommentEmail("");
-        setSubscriberComment("");
+      const handleSaveToLocal = () => {
+            if(!saveToLocal && subscriberCommentEmail !== ''){
+                console.log("Want to save to local storage")
+                // window.localStorage.setItem('subscriber', subscriberCommentEmail);
+                setSaveToLocal(!saveToLocal);
+            }
       }
 
     //MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
@@ -356,16 +368,6 @@ export default function Subscribe({post}) {
             for(let c=0; c<postCommentList.length; c++){
                 if(subscribersList[s].subscriberEmail === postCommentList[c].subscriberCommentEmail)
                     postCommentList[c].subscriberCommentEmail = subscribersList[s].subscriberName;
-            }
-        }
-    }
-
-    // MATCH NAMES WITH EMAILS FOR COMMENTS JUST ENTERED
-    if(subscribers & comments){
-        for(let s=0; s<subscribers.length; s++){
-            for(let c=0; c<comments.length; c++){
-                if(subscribers[s].subscriberEmail === comments[c].subscriberCommentEmail)
-                    comments[c].subscriberCommentEmail = subscribers[s].subscriberName;
             }
         }
     }
@@ -393,7 +395,6 @@ export default function Subscribe({post}) {
 
   return (
     <>
-    
     <div className="subscribe">
     {!user &&
     <>
@@ -439,7 +440,7 @@ export default function Subscribe({post}) {
         }
         <div className="replyForm">
             {!user &&
-            <>
+            <div className="replyFormSubscriber">
                 {(subscriberCommentEmail) ?
                 <input 
                     type="email" 
@@ -455,7 +456,11 @@ export default function Subscribe({post}) {
                     onChange={e=>setSubscriberCommentEmail(e.target.value)}
                 />
                 }
-            </>
+                <label className="replyFormSubscriberSave">
+                    <input type="checkbox" className="replyFormSubscriberCheckbox" onClick={handleSaveToLocal}/> 
+                    Remember me
+                </label>
+            </div>
             }
             <div className="subscriberIconsContainer">
                 <i className="subscriberIconComment fa-regular fa-comment-dots" onClick={handleCommentBox}></i>
@@ -526,8 +531,7 @@ export default function Subscribe({post}) {
             {postCommentList.filter((c)=> c.commentForPost === post._id).length > 0 &&
             <div className="commentPrevHeader">
                 {postCommentList.filter((c)=> c.commentForPost === post._id).length > 1 ? 
-                numberFormat((postCommentList.filter((c)=> c.commentForPost === post._id).length +
-                comments.filter((c)=> c.commentForPost === post._id).length)) + " Comments" : 
+                numberFormat((postCommentList.filter((c)=> c.commentForPost === post._id).length)) + " Comments" : 
                 numberFormat(postCommentList.filter((c)=> c.commentForPost === post._id).length) + " Comment"}
             </div>
             }
@@ -536,89 +540,92 @@ export default function Subscribe({post}) {
             <>
                 {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment)=>(
                 <div className="commentPrevWrapper" key={comment.commentId}>
-                    <div className="commentPrevInfo">
-                        <div className="commentPrevUser">
-                            {comment.subscriberCommentEmail}
+                    <div className="commentAddedRow">
+                        <div className="commentPicWrapper">
+                            {comment.commentPic.length > 1 ? 
+                            <img className="commentPic" src={comment.commentPic} alt="" />:
+                            <span>{comment.commentPic}</span>
+                            }
                         </div>
-                        <div className="commentPrevDate">
-                            {comment.commentCreatedAt}
+                        <div className="commentAddedColumn">
+                            <div className="commentPrevInfo">
+                                <div className="commentPrevUser">
+                                    {comment.subscriberCommentName}
+                                </div>
+                                <div className="commentPrevDate">
+                                    {comment.commentCreatedAt}
+                                </div>
+                            </div>
+                            <div className="commentPrevMessage">
+                                {comment.subscriberComment}
+                            </div>
+                            <div className="commentLikeDeleteContainer">
+                                {((user && comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(user.username)) || 
+                                comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
+                                comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
+                                (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
+                                (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                                    <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
+                                    <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
+                                <span className="commentLikeText">
+                                    {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
+                                </span>
+                                <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="commentPrevMessage">
-                        {comment.subscriberComment}
-                    </div>
-                    <div className="commentLikeDeleteContainer">
-                        {((user && comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(user.username)) || 
-                        comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
-                        comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
-                        (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
-                        (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
-                        <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
-                        <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
-                        <span className="commentLikeText">
-                            {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
-                        </span>
-                        <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
                 </div>
                 ))}
             </>:<>
                 {postCommentList.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
                 <div className="commentPrevWrapper" key={i}>
-                    <div className="commentPrevInfo">
-                        <div className="commentPrevUser">
-                            {comment.subscriberCommentEmail}
+                    <div className="commentAddedRow">
+                        <div className="commentPicWrapper">
+                            {comment.commentPic.length > 1 ? 
+                            <img className="commentPic" src={comment.commentPic} alt="" />:
+                            <span>{comment.commentPic}</span>
+                            }
                         </div>
-                        <div className="commentPrevDate">
-                            {comment.commentCreatedAt}
+                        <div className="commentAddedColumn">
+                            <div className="commentPrevInfo">
+                                <div className="commentPrevUser">
+                                    {comment.subscriberCommentName}
+                                </div>
+                                <div className="commentPrevDate">
+                                    {comment.commentCreatedAt}
+                                </div>
+                            </div>
+                            <div className="commentPrevMessage">
+                                {comment.subscriberComment}
+                            </div>
+                            <div className="commentLikeDeleteContainer">
+                                {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
+                                comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
+                                (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
+                                (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                                <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
+                                <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
+                                <span className="commentLikeText">
+                                    {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
+                                </span>
+                                <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="commentPrevMessage">
-                        {comment.subscriberComment}
-                    </div>
-                    <div className="commentLikeDeleteContainer">
-                        {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
-                        comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
-                        (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
-                        (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
-                        <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
-                        <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
-                        <span className="commentLikeText">
-                            {comment.commentLikesList.length > 0 && numberFormat(comment.commentLikesList.length)}
-                        </span>
-                        <div className="commentDeleteText" onClick={()=>handleDeleteComment(comment.commentId)}>Delete comment</div>
                     </div>
                 </div>
                 ))}
             </>
             }
-            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 && comments.length === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
-            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments && comments.length === 0) && "Show less"}</span>
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments === 0) && "Show less"}</span>
             </>
         </div>
         </>
         }
-        <div className="commentAdded">
-            {comments.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
-            <div className="commentAddedWrapper" key={i}>
-                <div className="commentAddedInfo">
-                    <div className="commentAddedUser">
-                        {comment.subscriberCommentEmail}
-                    </div>
-                    <div className="commentAddedDate">
-                        {comment.commentCreatedAt}
-                    </div>
-                </div>
-                <div className="commentAddedMessage">
-                    {comment.subscriberComment}
-                </div>
-            </div>
-            ))}
-        </div>
     </div>
     </>
   )

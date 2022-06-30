@@ -94,6 +94,27 @@
     flex-direction: column;
 }
 
+.replyFormSubscriber{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.replyFormSubscriberSave{
+    font-size: 14px;
+    margin-left: 15px;
+    color: rgb(78, 78, 78);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.replyFormSubscriberCheckbox{
+    margin-right: 5px;
+    width: 14px;
+}
+
 .replyInput{
     border-radius: 7px;
     padding: 10px 30px;
@@ -102,7 +123,6 @@
     background-color: rgb(245, 245, 245);
     outline: none;
     width: 180px;
-    margin-bottom: 10px;
 }
 
 
@@ -241,8 +261,44 @@
     width: 70%;
 }
 
+.commentAddedRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.commentAddedColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.commentPicWrapper{
+    background-color: rgb(75, 89, 105);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+.commentPic{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 .commentPrevInfo, .commentAddedInfo{
     display: flex;
+    flex-direction: row;
     margin-top: 15px;
     align-items: center;
 }

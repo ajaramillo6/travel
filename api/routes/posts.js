@@ -33,18 +33,7 @@ router.put("/:id", async(req, res) => {
     }
 });
 
-//ADD A COMMENT
-router.put("/:id/comment", async(req, res)=>{
-    try{
-        const post = await Post.findById(req.params.id);
-        await post.update({ $push:{ postComments: req.body } });
-        res.status(200).json(post)
-    }catch(err){
-        res.status(500).json(err);
-    }
-});
-
-//DELETE A COMMENT
+//UPDATE A COMMENT
 router.put("/:id/updateComment", async(req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
