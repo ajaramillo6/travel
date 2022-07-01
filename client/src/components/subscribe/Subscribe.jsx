@@ -34,7 +34,7 @@ export default function Subscribe({post}) {
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
         postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
-    }, [subscriberCommentEmail, likes, user]);
+    }, [postLikesList, likes, user, subscriberCommentEmail]);
 
     useEffect(() => {
         if(!user){
@@ -43,6 +43,10 @@ export default function Subscribe({post}) {
             postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(user.username));
         }
     }, [subscriberCommentEmail, postCommentList])
+
+    useEffect(()=>{
+        setLikes([]);
+    },[post._id])
 
     useEffect(()=> {
         if(!user){
@@ -354,11 +358,19 @@ export default function Subscribe({post}) {
         setTimeout(()=>{setAlreadyLiked(false)}, 3000);
       }
 
+      //Get from local storage
+      useEffect(()=> {
+        setSubscriberCommentEmail(JSON.parse(localStorage.getItem("subscriber")) || "");
+      },[]);
+
+      //Save subscriber email to local storage
+      useEffect(() => {
+        saveToLocal && localStorage.setItem("subscriber", JSON.stringify(subscriberCommentEmail))
+      }, [saveToLocal]);
+
       const handleSaveToLocal = () => {
             if(!saveToLocal && subscriberCommentEmail !== ''){
-                console.log("Want to save to local storage")
-                // window.localStorage.setItem('subscriber', subscriberCommentEmail);
-                setSaveToLocal(!saveToLocal);
+                setSaveToLocal(true);
             }
       }
 
@@ -444,7 +456,7 @@ export default function Subscribe({post}) {
                 {(subscriberCommentEmail) ?
                 <input 
                     type="email" 
-                    placeholder="Confirm Subscribed Email" 
+                    placeholder={subscriberCommentEmail}
                     className="replyInput" 
                     onChange={e=>setSubscriberCommentEmail(e.target.value)}
                 /> : 
