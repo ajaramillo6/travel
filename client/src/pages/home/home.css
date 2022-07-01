@@ -10,7 +10,7 @@
 
 .homeText{
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     font-family: 'Lora', 'serif';
     color: rgb(123, 123, 123);
     margin: 50px 0px 10px 0px;
@@ -25,7 +25,7 @@
     width: 160vw;
     left: 0;
     right: 0;
-    top: 100px;
+    top: 120px;
     position: absolute;
 }
 
@@ -44,14 +44,16 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    color: rgb(96, 125, 151);
+    /* color: rgb(96, 125, 151); */
+    color: white;
     font-family: 'Lora', 'serif';
     cursor: pointer;
     padding: 10px 20px;
-    background-color: rgb(236, 236, 236);
+    /* background-color: rgb(236, 236, 236); */
+    background-color: rgb(96, 117, 185);
     border: none;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     width: 140px;
     transition: all 0.5s linear;
     border-radius: 10px;
@@ -62,7 +64,7 @@
   }
 
   .homeReadMore:hover {
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(79, 103, 182);
     width: 160px;
   }
 

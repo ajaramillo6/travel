@@ -253,7 +253,7 @@ export default function SinglePost() {
           <div 
             className="backToTop" 
             onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
-              Go Back Up
+              <i className="backToTopIcon fa-solid fa-angle-up"></i>
           </div>
           <Subscribe post={post} />
         </div>
