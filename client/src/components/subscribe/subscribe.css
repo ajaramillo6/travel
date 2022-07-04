@@ -100,19 +100,29 @@
     align-items: center;
 }
 
-.replyFormSubscriberSave{
-    font-size: 14px;
+.replyFormSubscriberSaveBtn{
+    font-size: 12px;
     margin-left: 15px;
-    color: rgb(78, 78, 78);
+    /* color: white; */
     text-align: center;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    color: rgb(92, 124, 176);
+    border: 1px solid rgb(92, 124, 176);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.replyFormSubscriberCheckbox{
-    margin-right: 5px;
-    width: 14px;
+.replyFormSubscriberDeleteBtn{
+    font-size: 12px;
+    margin-left: 15px;
+    text-align: center;
+    display: flex;
+    color: rgb(125, 125, 125);
+    border: 1px solid rgb(161, 161, 161);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .replyInput{
@@ -199,6 +209,19 @@
     display: flex;
     align-items: center;
     font-weight: 800;
+}
+
+.notificationSubscriberEmailSaved{
+    background-color: rgb(80, 173, 128);
+    color:white;
+    width: 70px;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    margin-left: 15px;
 }
 
 .notificationIcon{

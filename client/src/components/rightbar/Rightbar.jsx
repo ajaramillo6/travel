@@ -1,13 +1,15 @@
 import "./rightbar.css";
 import { Context } from "../../context/Context";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Rightbar({user}) {
 
     const { dispatch } = useContext(Context);
 
     const[openAdmin, setOpenAdmin] = useState(false); 
+    const[subscribersList, setSubscribersList] = useState([]);
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -18,6 +20,21 @@ export default function Rightbar({user}) {
     const handleAdmin = () => {
         setOpenAdmin(!openAdmin);
     }
+
+    //Get all subscribers
+    useEffect(()=> {
+        const fetchSubscribers = async() => {
+          const res = await axios.get("/subscribers");
+          setSubscribersList(res.data.sort((a,b)=>
+          a.subscriberName.localeCompare(b.subscriberName)
+        ));
+        }
+        fetchSubscribers();
+      },[openAdmin]);
+
+      const handleCancelSubscribtion = () => {
+
+      }
 
   return (
     <>
@@ -80,6 +97,17 @@ export default function Rightbar({user}) {
                             <div className="rightSection">
                                 <i className="fa-solid fa-right-to-bracket"></i>
                                 <span className="rightText">Login</span>
+                            </div>
+                        </Link>
+                    </li>
+                    <li className="rightbarSection">
+                        <Link 
+                            className="link" 
+                            to="#" 
+                            onClick={handleCancelSubscribtion}>
+                            <div className="rightSection">
+                                <i className="fa-solid fa-user-gear"></i>
+                                <span className="rightText">Manage subscription</span>
                             </div>
                         </Link>
                     </li>

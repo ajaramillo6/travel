@@ -30,6 +30,7 @@ export default function Subscribe({post}) {
     const[isCommentLiked, setIsCommentLiked] = useState(false);
     const[isDBCommentLiked, setIsDBCommentLiked] = useState(false);
     const[saveToLocal, setSaveToLocal] = useState(false);
+    const[deleteFromLocal, setDeleteFromLocal] = useState(false);
 
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
@@ -79,6 +80,7 @@ export default function Subscribe({post}) {
         }
     },[postCommentList && postCommentList.length])
 
+    //Get all subscribers
     useEffect(()=> {
         const fetchSubscribers = async() => {
           const res = await axios.get("/subscribers");
@@ -87,7 +89,7 @@ export default function Subscribe({post}) {
         ));
         }
         fetchSubscribers();
-      },[])
+      },[subscriberSuccess]);
 
     //HANDLES ADDED COMMENTS
     const handleSubmitComment = async(e) => {
@@ -372,7 +374,18 @@ export default function Subscribe({post}) {
             if(!saveToLocal && subscriberCommentEmail !== ''){
                 setSaveToLocal(true);
             }
+            setTimeout(()=>{setSaveToLocal(false)}, 3000);
       }
+
+      //Delete subscriber email from local storage
+      const handleDeleteFromLocal = () => {
+            setDeleteFromLocal(true);
+            localStorage.removeItem("subscriber");
+            setSubscriberCommentEmail("");
+      }
+
+      //Subscriber exists in localstorage check
+      const subscriberExists = localStorage.getItem('subscriber');
 
     //MATCH NAMES WITH EMAILS FOR COMMENTS ON DATABASE
     if(subscribersList && postCommentList){
@@ -468,10 +481,25 @@ export default function Subscribe({post}) {
                     onChange={e=>setSubscriberCommentEmail(e.target.value)}
                 />
                 }
-                <label className="replyFormSubscriberSave">
-                    <input type="checkbox" className="replyFormSubscriberCheckbox" onClick={handleSaveToLocal}/> 
-                    Remember me
-                </label>
+                {!subscriberExists ?
+                (
+                <>
+                    {!saveToLocal ?
+                    <div className="replyFormSubscriberSaveBtn" onClick={handleSaveToLocal}> 
+                        Remember me
+                    </div>:
+                    <div className="notificationSubscriberEmailSaved">
+                    <i className="notificationIcon fa-solid fa-circle-check"></i>
+                        Saved
+                    </div>
+                    }
+                </>
+                ):(
+                <div className="replyFormSubscriberDelete">
+                    <div className="replyFormSubscriberDeleteBtn" onClick={handleDeleteFromLocal}>Clear</div>
+                </div>
+                )
+                }
             </div>
             }
             <div className="subscriberIconsContainer">
