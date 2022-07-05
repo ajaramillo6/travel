@@ -1,6 +1,7 @@
 import "./about.css";
 import { useState, useEffect } from "react";
-import { axiosInstance } from "../../config";
+// import { axiosInstance } from "../../config";
+import axios from 'axios';
 import { Link } from "react-router-dom"
 
 export default function About() {
@@ -11,7 +12,7 @@ export default function About() {
 
   useEffect(()=> {
     const fetchUsers = async() => {
-      const res = await axiosInstance.get("/users");
+      const res = await axios.get("/users");
       setUsers(res.data.sort((a,b)=>
         a.username.localeCompare(b.username)
       ));

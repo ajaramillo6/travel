@@ -1,7 +1,8 @@
 import "./singlePost.css";
 import { Link, useLocation } from "react-router-dom"
 import { useEffect, useState, useContext } from "react";
-import { axiosInstance } from "../../config";
+// import { axiosInstance } from "../../config";
+import axios from 'axios';
 import { format } from 'timeago.js';
 import { Context } from "../../context/Context";
 import Sidebar from "../sidebar/Sidebar";
@@ -25,7 +26,7 @@ export default function SinglePost() {
 
   useEffect(()=> {
     const getPost = async() => {
-      const res = await axiosInstance.get("/posts/" + path);
+      const res = await axios.get("/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setNewDescWords(res.data.newDescWords);
@@ -37,7 +38,7 @@ export default function SinglePost() {
 
   const handleDelete = async() => {
     try{
-      await axiosInstance.delete(`/posts/${post._id}`, {
+      await axios.delete(`/posts/${post._id}`, {
         data: {
           username: user.username, 
         },
@@ -50,7 +51,7 @@ export default function SinglePost() {
 
   const handleUpdate = async() => {
     try{
-      await axiosInstance.put(`/posts/${post._id}`, {
+      await axios.put(`/posts/${post._id}`, {
         username: user.username,
         title,
         newDescWords,
@@ -70,7 +71,7 @@ export default function SinglePost() {
   //Search for Users to compare with Author info
   useEffect(()=> {
     const fetchUsers = async() => {
-      const res = await axiosInstance.get("/users");
+      const res = await axios.get("/users");
       setUsers(res.data);
     }
     fetchUsers();

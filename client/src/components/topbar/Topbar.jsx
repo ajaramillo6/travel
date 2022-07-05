@@ -5,7 +5,8 @@ import { useState, useContext, useEffect } from "react";
 import Rightbar from "../rightbar/Rightbar";
 import { Context } from "../../context/Context";
 import { useLocation } from "react-router-dom";
-import { axiosInstance } from "../../config";
+// import { axiosInstance } from "../../config";
+import axios from 'axios';
 import MiniSearchbar from "../miniSearchbar/MiniSearchbar";
 
 export default function Topbar() {
@@ -19,7 +20,7 @@ export default function Topbar() {
 
   useEffect(()=> {
     const fetchPosts = async() => {
-      const res = await axiosInstance.get("/posts" + search);
+      const res = await axios.get("/posts" + search);
       setPosts(res.data.sort((p1,p2)=> {
         return new Date(p2.createdAt) - new Date(p1.createdAt)
       }));

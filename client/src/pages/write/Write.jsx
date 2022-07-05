@@ -1,6 +1,7 @@
 import "./write.css";
 import { useContext, useState } from "react";
-import {axiosInstance} from "../../config";
+// import {axiosInstance} from "../../config";
+import axios from 'axios';
 import { Context } from "../../context/Context";
 import PostSectionWrite from "../../components/postSectionWrite/PostSectionWrite";
 import { countryListAllIsoData } from "../../countryListAllIsoData";
@@ -51,7 +52,7 @@ const handleSubmitSection = async(e) => {
     data.append("file", sectionImg);
     data.append("upload_preset", "uploads");
     try{
-      const uploadRes = await axiosInstance.post(cloud, data);
+      const uploadRes = await axios.post(cloud, data);
       const {url} = uploadRes.data;
       newSection.sectionImg = url;
     }catch(err){
@@ -121,7 +122,7 @@ const handleSubmitSection = async(e) => {
         data.append("file", file);
         data.append("upload_preset", "uploads");
         try{
-          const uploadRes = await axiosInstance.post(cloud, data);
+          const uploadRes = await axios.post(cloud, data);
           const {url} = uploadRes.data;
           newPost.photo = url;
         }catch(err){
@@ -129,7 +130,7 @@ const handleSubmitSection = async(e) => {
         }
       }
       try{
-        const res = await axiosInstance.post("/posts", newPost);
+        const res = await axios.post("/posts", newPost);
         window.location.replace("/post/"+res.data._id);
       }catch(err){
         console.log(err);

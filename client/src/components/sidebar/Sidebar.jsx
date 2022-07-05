@@ -1,6 +1,7 @@
 import "./sidebar.css";
 import { useEffect, useState } from 'react';
-import {axiosInstance} from '../../config';
+// import {axiosInstance} from '../../config';
+import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
 import { format } from 'timeago.js';
 
@@ -14,7 +15,7 @@ export default function Sidebar({author, compareProfile, post}) {
   
     useEffect(()=> {
       const fetchPosts = async() => {
-        const res = await axiosInstance.get("/posts" + search);
+        const res = await axios.get("/posts" + search);
         setPosts(res.data.sort((p1,p2)=> {
           return new Date(p2.createdAt) - new Date(p1.createdAt)
         }));

@@ -2,7 +2,8 @@ import "./rightbar.css";
 import { Context } from "../../context/Context";
 import { useState, useContext, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import {axiosInstance} from "../../config";
+// import {axiosInstance} from "../../config";
+import axios from 'axios';
 
 export default function Rightbar({user}) {
 
@@ -30,7 +31,7 @@ export default function Rightbar({user}) {
     //Get all subscribers
     useEffect(()=> {
         const fetchSubscribers = async() => {
-          const res = await axiosInstance.get("/subscribers");
+          const res = await axios.get("/subscribers");
           setSubscribersList(res.data.sort((a,b)=>
           a.subscriberName.localeCompare(b.subscriberName)
         ));
@@ -40,7 +41,7 @@ export default function Rightbar({user}) {
 
       useEffect(()=> {
         const fetchPosts = async() => {
-          const res = await axiosInstance.get("/posts" + search);
+          const res = await axios.get("/posts" + search);
           setPosts(res.data.sort((p1,p2)=> {
             return new Date(p2.createdAt) - new Date(p1.createdAt)
           }));
@@ -60,7 +61,7 @@ export default function Rightbar({user}) {
         }
         //Send Delete Request
         try{
-            await axiosInstance.delete(`/subscribers/${subscriberId}`);
+            await axios.delete(`/subscribers/${subscriberId}`);
             window.alert("Membership deleted. Sorry to see you go :(");
           }catch(err){
             console.log(err);
