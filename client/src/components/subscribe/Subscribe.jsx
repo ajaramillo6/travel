@@ -9,7 +9,7 @@ export default function Subscribe({post}) {
 
     const postCommentList = post.postComments;
     const postLikesList = post.postLikes;
-    
+
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
     const[subscribers, setSubscribers] = useState([]);

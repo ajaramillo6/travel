@@ -106,6 +106,90 @@
     height: 100%;
   }
 
+  .rightDeleteSubscription{
+    position: fixed;
+    top: 200px;
+    left: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    font-family: 'Lora', 'serif';
+    border: 2px rgb(70, 70, 70) solid;
+    background-color: rgb(247, 247, 247);
+}
+
+.rightDeleteTextTitle{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.rightbarInput{
+  border-radius: 7px;
+  text-align: center;
+  padding: 10px 50px;
+  display: inline-block;
+  border: none;
+  background-color: rgb(227, 227, 227);
+  outline: none;
+  margin: 10px 0px;
+}
+
+.rightDeleteTextWrapper{
+    background-color: rgb(248, 239, 200);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px rgb(217, 131, 27) solid;
+    border-radius: 10px;
+}
+
+.rightDeleteIcon{
+    color: rgb(217, 131, 27);
+    font-size: 20px;
+    margin: 0px 20px;
+}
+
+.rightDeleteTextContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.rightDeleteText{
+    font-size: 15px;
+    color: rgb(217, 131, 27);
+    margin-bottom: 5px;
+}
+
+.rightDeleteOptions{
+    margin: 15px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.rightDeleteOption{
+    background-color: rgb(206, 59, 59);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 30px;
+    margin-left: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.rightDeleteOption:first-child{
+    background-color: rgb(45, 152, 92);
+}
+
   @media screen and (max-width: 1250px) {
     .rightText {
       display: none;

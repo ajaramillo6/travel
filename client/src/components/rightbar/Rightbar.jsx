@@ -1,15 +1,21 @@
 import "./rightbar.css";
 import { Context } from "../../context/Context";
 import { useState, useContext, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from "react-router-dom";
 import axios from 'axios';
 
 export default function Rightbar({user}) {
 
     const { dispatch } = useContext(Context);
 
+    const {search} = useLocation();
+
+    const[posts, setPosts] = useState([]);
     const[openAdmin, setOpenAdmin] = useState(false); 
+    const[openManageSubscription, setOpenManageSubscription] = useState(false);
     const[subscribersList, setSubscribersList] = useState([]);
+    const[subscriptionEmail, setSubscriptionEmail] = useState("");
+    const[subscriberId, setSubscriberId] = useState("");
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -32,9 +38,39 @@ export default function Rightbar({user}) {
         fetchSubscribers();
       },[openAdmin]);
 
-      const handleCancelSubscribtion = () => {
+      useEffect(()=> {
+        const fetchPosts = async() => {
+          const res = await axios.get("/posts" + search);
+          setPosts(res.data.sort((p1,p2)=> {
+            return new Date(p2.createdAt) - new Date(p1.createdAt)
+          }));
+        }
+        fetchPosts();
+      },[search])
 
+      const handleCancelSubscription = async() => {
+
+        //Filter out post comments from subscriber
+
+        //Find matching subscriber
+        for(let i = 0; i < subscribersList.length; i++){
+            if(subscribersList[i].subscriberEmail === subscriptionEmail){
+                setSubscriberId(subscribersList[i]._id);
+            }
+        }
+        //Send Delete Request
+        try{
+            await axios.delete(`/subscribers/${subscriberId}`);
+            window.alert("Membership deleted. Sorry to see you go :(");
+          }catch(err){
+            console.log(err);
+          }
+          setOpenManageSubscription(false);
       }
+
+    const handleOpenManageSubscription = () => {
+        setOpenManageSubscription(!openManageSubscription);
+    }
 
   return (
     <>
@@ -83,6 +119,7 @@ export default function Rightbar({user}) {
                     </li>
                 </ul> 
             ):(
+            <>
                 <ul className="rightbarMenuItems">
                     <li className="rightbarToggle" onClick={handleAdmin}>
                         <Link className="link" to="#">
@@ -103,8 +140,8 @@ export default function Rightbar({user}) {
                     <li className="rightbarSection">
                         <Link 
                             className="link" 
-                            to="#" 
-                            onClick={handleCancelSubscribtion}>
+                            to="#"
+                            onClick={handleOpenManageSubscription}>
                             <div className="rightSection">
                                 <i className="fa-solid fa-user-gear"></i>
                                 <span className="rightText">Manage subscription</span>
@@ -112,6 +149,36 @@ export default function Rightbar({user}) {
                         </Link>
                     </li>
                 </ul>
+                {openManageSubscription &&
+                <div className="rightDeleteSubscription">
+                  <div className="rightDeleteTextTitle">
+                     ARE YOU SURE YOU WANT TO DELETE YOUR SUBSCRIPTION?
+                  </div>
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email"
+                    className="rightbarInput" 
+                    onChange={e=>setSubscriptionEmail(e.target.value)}
+                    />
+                  <div className="rightDeleteTextWrapper">
+                    <div><i className="rightDeleteIcon fa-solid fa-triangle-exclamation"></i></div>
+                    <div className="rightDeleteTextContainer">
+                      <div className="rightDeleteText">
+                        You are about to delete your membership subscription.
+                      </div>
+                      <div className="rightDeleteText">
+                        Are you sure you want to continue?
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rightDeleteOptions">
+                    <div className="rightDeleteOption" onClick={handleOpenManageSubscription}>Cancel</div>
+                    <div className="rightDeleteOption" onClick={handleCancelSubscription}>Continue</div>
+                  </div>
+                </div>
+                }
+            </>
+                
             )}
     </nav>
     </>
