@@ -1,8 +1,11 @@
 import "./sideNavbar.css";
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from "../../context/Context";
 
 export default function SideNavbar() {
+
+  const {theme} = useContext(Context);
 
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => {
@@ -11,14 +14,14 @@ export default function SideNavbar() {
 
   return (
     <>
-      <div className="sideNavbar">
+      <div className="sideNavbar" data-theme={theme}>
           <Link className="link" to="#" onClick={showSidebar}><i className="bars fa-solid fa-bars"></i></Link>
       </div>
       <nav className={sidebar ? "navMenuActive" : "navMenu"}>
         <ul className="navbarMenuItems">
             <li className="navbarToggle" onClick={showSidebar}>
               <Link className="link" to="#">
-                <i className="fa-solid fa-xmark" style={{fontSize:"20px", color:"black", cursor:"pointer"}}></i>
+                <i className="fa-solid fa-xmark" style={{fontSize:"20px", cursor:"pointer"}}></i>
               </Link>
             </li>
             <li className="pageSection">

@@ -18,22 +18,22 @@ import { useContext } from "react";
 
 function App() {
 
-  const { user } = useContext(Context)
+  const { user } = useContext(Context);
 
   return (
-    <Router>
-      <Topbar />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/register" element={user ? <Home /> : <Register />} />
-        <Route path="/login" element={user ? <Home /> : <Login />} />
-        <Route path="/write" element={user ? <Write /> : <Login />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/travel" element={<Travel />} />
-        <Route path="/settings" element={user ? <Settings /> : <Login />} />
-        <Route path="/post/:postId" element={<Single />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Topbar />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/register" element={user ? <Home /> : <Register />} />
+          <Route path="/login" element={user ? <Home /> : <Login />} />
+          <Route path="/write" element={user ? <Write /> : <Login />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/travel" element={<Travel />} />
+          <Route path="/settings" element={user ? <Settings /> : <Login />} />
+          <Route path="/post/:postId" element={<Single />} />
+        </Routes>
+      </Router>
   );
 }
 

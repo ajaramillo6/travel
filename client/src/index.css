@@ -1,0 +1,47 @@
+:root {
+    --background-sliders: #ffffff;
+    --background: #f9f9f9;
+    --background-secondary:#f6f6f6;
+    --background-section: rgb(222, 227, 230);
+    --background-hover: rgb(238, 238, 238);
+    --text-title: rgb(123, 123, 123);
+    --text-primary: #000;
+    --text-secondary:rgb(18, 18, 18);
+    --icon-primary: rgb(165, 145, 122);
+    --box-shadow: rgba(104, 104, 104, 0.2);
+    --banner: rgb(98, 145, 203);
+    --profile-section-bg: rgb(241, 241, 241);
+    --profile-boxes: #dddddd;
+    --state: #939393;
+    --state-hover: #7e7e7e;
+    --main-color: rgb(79, 136, 205);
+    --main-color-secondary: rgb(66, 114, 209);
+    --main-color-third: rgb(87, 112, 143);
+    --main-color-third-hover: rgb(103, 120, 141);
+    --btn: rgb(79, 136, 205);
+    --latest-post-title: grey;
+}
+
+[data-theme = 'darkTheme'] {
+    --background-sliders: #151515;
+    --background: #222222;
+    --background-secondary: #2a2a2a;
+    --background-section: rgb(63, 64, 65);
+    --background-hover: #333333;
+    --text-title: rgb(214, 211, 211);
+    --text-primary: white;
+    --text-secondary:rgb(240, 240, 240);
+    --icon-primary: rgb(133, 160, 186);
+    --box-shadow: rgba(0, 0, 0, 0.2);
+    --banner: rgb(51, 74, 102);
+    --profile-section-bg: #151515;
+    --profile-boxes: #222222;
+    --state: #626262;
+    --state-hover: #4b4b4b;
+    --main-color: rgb(209, 130, 66);
+    --main-color-secondary: rgb(210, 116, 54);
+    --main-color-third: rgb(129, 101, 78);
+    --main-color-third-hover: rgb(128, 113, 100);
+    --btn: rgb(209, 130, 66);
+    --latest-post-title: white;
+}

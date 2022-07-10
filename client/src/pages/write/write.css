@@ -1,8 +1,10 @@
 .write{
-    padding-top: 15px;
+    padding: 15px 0px;
     margin-top: 40px;
-    color: #2d2d2d;
+    height: 100%;
+    color: var(--text-primary);
     position: relative;
+    background-color: var(--background-secondary);
 }
 
 .writeImg{
@@ -32,17 +34,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(58, 128, 193);
+    color: var(--main-color);
     cursor: pointer;
 }
 
 .writeIcon:hover, .writeIconImg:hover{
-    color:rgb(86, 144, 199)
+    color:var(--main-color-secondary)
 }
 
 .writeIconImg{
     margin-right: 10px;
-    color: rgb(58, 128, 193);
+    color: var(--main-color);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -62,10 +64,12 @@
     width: 70vw;
     font-family: 'Lora', 'serif';
     font-weight: bold;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
 }
 
 input::placeholder, textarea::placeholder{
-    color: #2d2d2d;
+    color: var(--text-secondary);
     font-family: 'Lora', 'serif';
 }
 
@@ -76,8 +80,9 @@ input::placeholder, textarea::placeholder{
 #textarea{
     border:none;
     height: 200px;
-    background-color: rgb(249, 249, 249);
+    background-color: var(--background-hover);
     border-radius: 15px;
+    color: var(--text-primary);
 }
 
 .writeLocationInput{
@@ -91,17 +96,19 @@ input::placeholder, textarea::placeholder{
     cursor: pointer;
     margin-right: 20px;
     font-family: 'Lora', 'serif';
-    color: gray;
+    color: var(--text-secondary);
     font-style: oblique;
+    background-color: var(--background-secondary);
 }
 
 .writeText{
     font-size: 20px;
     font-family: 'Lora', 'serif';
+    color: var(--text-primary);
 }
 
 .writeText::placeholder{
-    color: #2d2d2d;
+    color: var(--text-secondary);
     font-family: 'Lora', 'serif';
 }
 
@@ -143,7 +150,7 @@ input::placeholder, textarea::placeholder{
 
 .sectionQuestion{
     cursor: pointer;
-    color:rgb(93, 93, 93);
+    color:var(--main-color);
     font-size: 20px;
     margin-right: 10px;
 }
@@ -173,6 +180,8 @@ input::placeholder, textarea::placeholder{
     outline: none;
     border: none;
     border-bottom: 1px solid lightgray;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
 }
 
 .sectionInput{
@@ -213,7 +222,7 @@ input::placeholder, textarea::placeholder{
 .sectionImgClose{
     position: absolute;
     cursor: pointer;
-    color: rgb(70, 70, 70);
+    color: var(--main-color);
 }
 
 .sectionInputListTitle{
@@ -225,6 +234,8 @@ input::placeholder, textarea::placeholder{
     border: none;
     border-bottom: 1px solid lightgray;
     outline: none;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
 }
 
 .sectionInputListItems{
@@ -236,6 +247,8 @@ input::placeholder, textarea::placeholder{
     border: none;
     border-bottom: 1px solid lightgray;
     outline: none;
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
 }
 
 .writeSubmitSection{
@@ -293,7 +306,7 @@ input::placeholder, textarea::placeholder{
 .sectionUrlsQuestion{
     margin-right: 10px;
     cursor: pointer;
-    color:rgb(93, 93, 93);
+    color:var(--main-color);
     font-size: 20px;
 }
 
@@ -323,5 +336,5 @@ input::placeholder, textarea::placeholder{
 }
 
 .urlLink:hover{
-    color: rgb(98, 145, 203);
+    color: var(--main-color);
 }

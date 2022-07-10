@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px;
-    border-radius: 10px;
     margin-bottom: 20px;
     margin-top: 50px;
     font-family: 'Lora', 'serif';
@@ -15,10 +14,11 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: var(--text-primary);
 }
 
 .subscribeHeaderClick{
-    color: #be9656;
+    color: var(--main-color);
     cursor: pointer;
 }
 
@@ -35,9 +35,14 @@
     padding: 10px 50px;
     display: inline-block;
     border: none;
-    background-color: rgb(245, 245, 245);
+    background-color: var(--background-hover);
+    color: var(--text-secondary);
     outline: none;
     margin-right: 10px;
+}
+
+.subscribeInput::placeholder{
+    color: var(--text-secondary);
 }
 
 .subscribeSubmit{
@@ -57,7 +62,7 @@
 
 .subscribeSubmitCancel{
     font-weight: bold;
-    color: rgb(79, 79, 79);
+    color: var(--text-secondary);
     cursor: pointer;
     margin-left: 10px;
     align-items: center;
@@ -76,6 +81,7 @@
     flex-direction: column;
     justify-content: center;
     font-family: 'Lora', 'serif';
+    color: var(--text-primary);
 }
 
 .replyHeader{
@@ -86,7 +92,7 @@
 }
 
 .replyHeaderUsername{
-    color: #be9656;
+    color: var(--main-color);
 }
 
 .replyForm{
@@ -130,9 +136,14 @@
     padding: 10px 30px;
     display: inline-block;
     border: none;
-    background-color: rgb(245, 245, 245);
+    background-color: var(--background-hover);
+    color: var(--text-secondary);
     outline: none;
     width: 180px;
+}
+
+.replyInput::placeholder{
+    color: var(--text-secondary);
 }
 
 
@@ -143,6 +154,7 @@
     margin: 10px 0px;
     align-items: center;
     text-align: center;
+    color: var(--text-primary)
 }
 
 .subscriberIconLikeFilled, 
@@ -235,11 +247,16 @@
     padding: 10px 50px;
     display: inline-block;
     border: none;
-    background-color: rgb(245, 245, 245);
+    background-color: var(--background-hover);
     outline: none;
     width: 90%;
     margin-bottom: 15px;
     font-family: 'Lora', 'serif';
+    color: var(--text-secondary);
+}
+
+.replyText::placeholder{
+    color: var(--text-secondary)
 }
 
 .replySubmit{
@@ -260,6 +277,7 @@
     margin-bottom: 20px;
     padding-top: 20px;
     font-family: 'Lora', 'serif';
+    color: var(--text-primary);
 }
 
 .commentPrev, .commentAdded{
@@ -329,10 +347,11 @@
 .commentPrevUser, .commentAddedUser{
     margin-right: 15px;
     font-weight: bold;
+    color: var(--text-primary);
 }
 
 .commentPrevDate, .commentAddedDate{
-    color: #b39656;
+    color: var(--main-color);
     font-style: italic;
     font-size: 12px;
 }
@@ -341,11 +360,12 @@
     margin-top: 5px;
     margin-bottom: 10px;
     font-size: 14px;
+    color: var(--text-secondary);
 }
 
 .commentsShowMoreText{
     font-size: 14px;
-    color: rgb(97, 97, 97);
+    color: rgb(120, 120, 120);
     cursor: pointer;
 }
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-export default function HomeAbout() {
+export default function HomeAbout({ theme }) {
 
     const[users, setUsers] = useState([]);
     const[buttonHover, setButtonHover] = useState(false);
@@ -28,7 +28,7 @@ export default function HomeAbout() {
       }
 
   return (
-    <div className="homeAbout">
+    <div className="homeAbout" data-theme={theme}>
         <div className="homeAboutLeft">
             {users.map((a, i)=>(
             <>

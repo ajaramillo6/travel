@@ -18,7 +18,7 @@
 }
 
 .sidebarProfileWrapper{
-    background-color: #5694be;
+    background-color: var(--main-color);
     display: flex;
     padding: 5px;
     border-radius: 50%;
@@ -38,6 +38,7 @@
 
 .sidebarSocialIcon{
     margin-right: 10px;
+    color: var(--text-primary)
 }
 
 .sidebarItem{
@@ -47,7 +48,7 @@
 .sidebarList{
     display: flex;
     flex-direction: column;
-    background-color: rgb(246, 246, 246);
+    background-color: var(--background-hover);
     border-radius: 10px;
     margin-bottom: 15px;
     padding: 10px;
@@ -56,6 +57,7 @@
 .sidebarTitle{
     font-size: 14px;
     font-weight: bold;
+    color: var(--text-primary);
 }
 
 hr{
@@ -95,12 +97,12 @@ hr{
 }
 
 .sidebarPostsWrapper:hover{
-    background-color: rgb(226, 231, 235);
+    background-color: var(--background-section);
     border-radius: 10px;
 }
 
 .sidebarPostTitle{
-    color: rgb(61, 61, 61);
+    color: var(--text-primary);
     font-size: 12px;
 }
 
@@ -123,12 +125,12 @@ hr{
 }
 
 .sidebarListItemWrapper:hover{
-    background-color: rgb(226, 231, 235);
+    background-color: var(--background-section);
     border-radius: 10px;
 }
 
 .sidebarListItem{
     padding: 10px;
-    color: rgb(61, 61, 61);
+    color: var(--text-secondary);
 }
 

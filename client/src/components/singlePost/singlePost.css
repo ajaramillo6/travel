@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: var(--background-secondary);
 }
 
 .singlePostWrapper{
@@ -52,7 +53,7 @@
     font-size: 12px;
     padding: 5px;
     border-radius: 5px;
-    background-color: rgb(98, 145, 203);
+    background-color: var(--banner);
     color: white;
     width: 100%;
     text-align: center;
@@ -68,7 +69,7 @@
     font-size: 12px;
     padding: 5px;
     border-radius: 5px;
-    background-color: rgb(98, 145, 203);
+    background-color: var(--banner);
     color: white;
     width: 100%;
     text-align: center;
@@ -105,6 +106,7 @@
     font-family: 'Lora', 'serif';
     font-size: 20px;
     text-align: center;
+    color: var(--text-primary)
 }
 
 .singlePostTitleInput{
@@ -145,7 +147,7 @@
     justify-content: space-between;
     font-size: 14px;
     font-family: 'Varela Round', 'sans-serif';
-    color: #b39656;
+    color: var(--main-color);
     flex-direction: row;
 }
 
@@ -168,7 +170,7 @@
 }
 
 .singlePostDesc{
-    /* color: #667; */
+    color: var(--text-primary);
     font-size: 16px;
     line-height: 25px;
     white-space: pre-wrap;
@@ -240,10 +242,11 @@
     display: flex;
     padding: 2px;
     cursor: pointer;
+    color: var(--text-primary)
 }
 
 .postLink{
-    color: rgb(88, 140, 203);
+    color: var(--main-color);
     font-weight: bold;
     text-decoration: none;
 }
@@ -257,10 +260,10 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    color: rgb(96, 125, 151);
+    color: var(--main-color);
     font-family: 'Lora', 'serif';
     cursor: pointer;
-    background-color: rgb(236, 236, 236);
+    background-color: var(--background-hover);
     border: none;
     text-decoration: none;
     font-size: 40px;
@@ -272,6 +275,5 @@
   }
 
   .backToTop:hover {
-    background-color: rgb(205, 205, 205);
-    color: white;
+    color: var(--text-secondary);
   }

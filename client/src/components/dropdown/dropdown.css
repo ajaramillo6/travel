@@ -10,11 +10,11 @@
 
 .dropdownState{
     display: flex;
-    background-color: #939393;
+    background-color: var(--state);
     color: white;
-    border-right: 1px solid grey;
-    border-left: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-right: 1px solid var(--state-hover);
+    border-left: 1px solid var(--state-hover);
+    border-bottom: 1px solid var(--state-hover);
     border-radius: 15px;
     margin-right: 5px;
     padding: 4px 10px;
@@ -22,5 +22,5 @@
 }
 
 .dropdownState:hover{
-    background-color: #7e7e7e;
+    background-color: var(--state-hover);
 }

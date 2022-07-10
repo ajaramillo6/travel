@@ -2,14 +2,15 @@
     margin-top: 50px;
     display: flex;
     flex-direction: row;
-    /* background-color: rgb(249, 249, 249); */
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
 }
 
 .travelUserContainer{
     flex: 1;
     display: flex;
     align-items: center;
-    background-color: rgb(247, 248, 249);
+    background-color: var(--profile-section-bg);
     padding: 20px;
     flex-direction: column;
 }
@@ -22,7 +23,7 @@
 .travelCats{
     display: flex;
     padding: 5px 10px;
-    background-color: rgb(98, 145, 203);
+    background-color: var(--banner);
     align-items: center;
     flex-direction: row;
     overflow-x: scroll;
@@ -87,23 +88,34 @@ transform: none;
 .travelUserUsername{
     font-family: 'Varela Round', 'sans-serif';
     font-size: 20px;
-    color: #be9656;
+    color: var(--main-color);
     line-height: 20px;
-    margin-top: 15px;
+    margin: 15px 0px 10px 0px;
+}
+
+.travelUserStatsBox{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--profile-boxes);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100px;
+    font-family: 'Varela Round', 'sans-serif';
+}
+
+.travelUserPostsText{
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .travelUserPostsCount{
-    font-family: 'Varela Round', 'sans-serif';
     font-size: 15px;
-    color: #999999;
-    margin-top: 30px;
-}
-
-.travelUserPostsLikes{
-    font-family: 'Varela Round', 'sans-serif';
-    font-size: 15px;
-    color: #999999;
-    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #5694be;
 }
 
 .travelUserContactText{
@@ -125,9 +137,9 @@ transform: none;
 }
 
 .travelContactMe{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(245,240,240,0.52);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(245, 240, 240, 0.289);
     position: fixed;
     z-index: 2000;
     top: 0;
@@ -139,7 +151,7 @@ transform: none;
 
 .travelContactMeWrapper{
     width: 500px;
-    background-color: white;
+    background-color: var(--background);
     padding: 30px;
     border-radius: 20px;
     display: flex;
@@ -155,7 +167,7 @@ transform: none;
     cursor: pointer;
     top: 22px;
     left: 10px;
-    color:rgb(63, 64, 64);
+    color:var(--main-color);
 }
 
 .travelContactMeFormContainer{
@@ -169,10 +181,11 @@ transform: none;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    color: var(--text-primary);
 }
 
 .travelContactMeHeaderUser{
-    color: #be9656;
+    color: var(--main-color);
 }
 
 .travelContactForm{
@@ -191,7 +204,7 @@ transform: none;
     padding: 20px 70px;
     display: inline-block;
     border: none;
-    background-color: rgb(247, 245, 245);
+    background-color: var(--background-hover);
     outline: none;
 }
 
@@ -202,7 +215,7 @@ transform: none;
     cursor: pointer;
     margin: 10px 0 10px 0;
     width: 150px;
-    background-color: rgb(65, 72, 168);
+    background-color: var(--btn);
     border: none;
     text-decoration: none;
     font-size: 16px;

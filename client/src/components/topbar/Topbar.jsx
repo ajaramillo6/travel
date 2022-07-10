@@ -15,7 +15,7 @@ export default function Topbar() {
   const[posts, setPosts] = useState([]);
   const [query, setQuery] = useState("");
 
-  const { user } = useContext(Context);
+  const { user, theme } = useContext(Context);
   const {search} = useLocation();
 
   useEffect(()=> {
@@ -58,7 +58,7 @@ export default function Topbar() {
 
   return (
     <>
-    <div className="top">
+    <div className="top" data-theme={theme}>
       <div className="topLeft">
         <SideNavbar />
       </div>
@@ -91,7 +91,13 @@ export default function Topbar() {
         <div className="topIcons">
           {showMiniSearch &&
             <div className="topMiniSearchbar">
-              <MiniSearchbar posts={Search(posts)} setQuery={setQuery} query={query} handleMiniSearch={handleMiniSearch} />
+              <MiniSearchbar 
+                posts={Search(posts)} 
+                setQuery={setQuery} 
+                query={query} 
+                handleMiniSearch={handleMiniSearch} 
+                theme={theme} 
+              />
             </div>
           }
           <i class="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>

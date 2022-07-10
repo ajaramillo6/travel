@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     /* background: linear-gradient(to right, #7edbd1 0%,#97d1f2 35%,#8673db 100%); */
+    background: var(--background-secondary);
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -12,7 +13,7 @@
     text-align: center;
     font-size: 30px;
     font-family: 'Lora', 'serif';
-    color: rgb(123, 123, 123);
+    color: var(--latest-post-title);
     margin: 50px 0px 10px 0px;
 }
 
@@ -50,7 +51,7 @@
     cursor: pointer;
     padding: 10px 20px;
     /* background-color: rgb(236, 236, 236); */
-    background-color: rgb(96, 117, 185);
+    background-color: var(--main-color);
     border: none;
     text-decoration: none;
     font-size: 16px;
@@ -64,7 +65,7 @@
   }
 
   .homeReadMore:hover {
-    background-color: rgb(79, 103, 182);
+    background-color: var(--main-color-secondary);
     width: 160px;
   }
 
@@ -73,7 +74,7 @@
   }
 
   .homePostsArrowLeft, .homePostsArrowRight{
-    background-color: rgb(61, 80, 176);
+    background-color: var(--main-color);
     height: 50px;
     width: 50px;
     font-size: 30px;
@@ -90,5 +91,5 @@
   }
 
   .homePostsArrowLeft:hover, .homePostsArrowRight:hover{
-    background-color: rgb(77, 94, 179);
+    background-color: var(--main-color-secondary);
   }

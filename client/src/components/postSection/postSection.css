@@ -16,7 +16,7 @@
     font-family: 'Josefin Sans', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    /* color: #667; */
+    color: var(--text-primary);
     line-height: 25px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .postSectionImgDesc{
-    /* color: #667; */
+    color: var(--text-secondary);
     font-size: 14px;
     text-align: center;
     font-style: italic;
@@ -44,7 +44,7 @@
 
 .postSectionText{
     margin-top: 10px;
-    /* color: #667; */
+    color: var(--text-secondary);
     font-size: 16px;
     line-height: 25px;
     white-space: pre-wrap;
@@ -56,7 +56,7 @@
     font-size: 18px;
     font-weight: bold;
     font-family: 'Josefin Sans', 'sans-serif';
-    /* color: #667; */
+    color: var(--text-primary);
     line-height: 25px;
 }
 
@@ -68,7 +68,7 @@
 
 .postSectionListItem{
     font-size: 16px;
-    /* color: #667; */
+    color: var(--text-secondary);
     line-height: 25px;
     font-family: 'Lora', 'serif';
 }
@@ -81,7 +81,7 @@
 
 .postSectionTableOfContentsContainer{
     width: 200px;
-    background-color: rgb(246, 246, 246);
+    background-color: var(--background-hover);
     padding: 20px;
     border-radius: 10px;
 }
@@ -90,6 +90,7 @@
     font-family: 'Josefin Sans', 'sans-serif';
     font-weight: bold;
     margin-bottom: 5px;
+    color: var(--text-primary)
 }
 
 .postSectionTableOfContentsWrapper{
@@ -102,12 +103,12 @@
 .postSectionContent{
     margin-top: 5px;
     cursor: pointer;
-    color: rgb(61, 61, 61);
+    color: var(--text-secondary);
     padding: 10px;
     width: 100%;
 }
 
 .postSectionContent:hover{
-    background-color: rgb(226, 231, 235);
+    background-color: var(--background-section);
     border-radius: 10px;
 }

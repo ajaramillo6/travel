@@ -2,6 +2,7 @@
     display: flex;
     margin-top: 40px;
     position: relative;
+    background-color: var(--background-secondary);
 }
 
 .settingsWrapper{
@@ -18,7 +19,7 @@
 .settingsUpdateTitle{
     font-size: 30px;
     margin-bottom: 20px;
-    color: rgb(53, 109, 161);
+    color: var(--main-color);
 }
 
 .settingsUpdateMode{
@@ -49,7 +50,20 @@
     align-items: center;
     justify-content: center;
     margin-right: 10px;
-    color: rgb(65, 65, 65);
+    color: var(--main-color);
+}
+
+.settingsDeleteAccountContainer{
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    background-color: rgba(245, 240, 240, 0.289);
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .settingsDelete{
@@ -70,9 +84,6 @@
 }
 
 .settingsDeleteAccount{
-    position: fixed;
-    top: 200px;
-    left: 400px;
     padding: 20px;
     border-radius: 10px;
     display: flex;
@@ -82,6 +93,8 @@
     width: 600px;
     font-family: 'Lora', 'serif';
     border: 1px rgb(156, 156, 156) solid;
+    background: var(--background);
+    color: var(--text-primary)
 }
 
 .settingsDeleteTextTitle{
@@ -179,25 +192,28 @@
     justify-content: center;
     margin-left: 10px;
     cursor: pointer;
+    color: var(--text-primary)
 }
 
 .settingsPPIcon:hover{
-    background-color: rgb(74, 127, 176);
+    background-color: var(--main-color);
     color: white;
 }
 
 .settingsForm > label {
     font-size: 20px;
     margin-top: 20px;
+    color: var(--text-primary)
 }
 
 .settingsForm > input {
-    color: gray;
+    color: var(--text-secondary);
     margin: 10px 0;
     height: 30px;
     border: none;
     border-bottom: 1px solid lightgray;
     outline: none;
+    background-color: var(--background-secondary);
 }
 
 .settingsBioText {
@@ -205,11 +221,13 @@
     height: 50px;
     outline: none;
     margin: 10px 0;
+    color: var(--text-secondary);
+    background-color: var(--background-secondary);
 }
 
 .settingsInfoSaved{
     margin: 15px 0px;
-    color: gray;
+    color: var(--text-secondary);
 }
 
 .settingsFinalStep{

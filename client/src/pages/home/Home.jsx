@@ -1,6 +1,7 @@
 import "./home.css";
 import Header from "../../components/header/Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from "../../context/Context";
 // import { axiosInstance } from "../../config";
 import axios from 'axios';
 import { useLocation, Link } from "react-router-dom";
@@ -8,6 +9,9 @@ import LatestPosts from "../../components/latestPosts/LatestPosts";
 import HomeAbout from "../../components/homeAbout/HomeAbout";
 
 export default function Home() {
+
+  const { theme } = useContext(Context);
+
   const[posts, setPosts] = useState([]);
   const[buttonHover, setButtonHover] = useState(false);
   const [index, setIndex] = useState(0);
@@ -41,7 +45,7 @@ export default function Home() {
 }
 
   return (
-    <>
+    <div data-theme={theme}>
       <Header />
       <div className="home">
         <span className="homeText">Latest Posts</span>
@@ -69,8 +73,8 @@ export default function Home() {
           <i className="fa-solid fa-angle-right"></i>
         </div>
         }
-        <HomeAbout />
+        <HomeAbout theme={theme} />
       </div>
-    </>
+    </div>
   )
 }

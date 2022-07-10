@@ -1,5 +1,6 @@
 import "./travel.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { Context } from "../../context/Context";
 // import { axiosInstance } from "../../config";
 import axios from 'axios';
 import { useLocation, Link } from "react-router-dom";
@@ -8,6 +9,9 @@ import Posts from "../../components/posts/Posts";
 import emailjs from 'emailjs-com';
 
 export default function Travel() {
+
+  const { theme } = useContext(Context);
+
   const[posts, setPosts] = useState([]);
   const[user, setUser] = useState("");
   const[showDropdown, setShowDropdown] = useState(false);
@@ -104,8 +108,13 @@ export default function Travel() {
       window.location.replace("/travel/?user=" + user.username)
   }
 
+  //Number formatting on likes and comments
+  function numberFormat(num) {
+    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
+}
+
   return (
-    <>
+    <div data-theme={theme}>
       <div className="travel">
         {user &&
           <div className="travelUserContainer">
@@ -113,9 +122,28 @@ export default function Travel() {
               <img className="travelUserPic" src={user.profilePic} alt="" />
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
-            <span className="travelUserPostsCount">Number of posts: {posts.length}</span>
-            <span className="travelUserPostsLikes">Likes count: {posts.map(a=>a.postLikes.length)
-              .reduce((partialSum, a) => partialSum + a, 0)}</span>
+            {posts.length > 0 &&
+            <div className="travelUserStatsBox">
+              <div className="travelUserPostsText">Posts</div>
+              <div className="travelUserPostsCount">{posts.length}</div>
+            </div>
+            }
+            {posts.map(a=>a.postLikes.length)
+              .reduce((partialSum, a) => partialSum + a, 0) > 0 &&
+            <div className="travelUserStatsBox">
+              <div className="travelUserPostsText">Likes</div>
+              <div className="travelUserPostsCount">{numberFormat(posts.map(a=>a.postLikes.length)
+              .reduce((partialSum, a) => partialSum + a, 0))}</div>
+            </div>
+            }
+            {posts.map((c)=>c.postComments.length)
+              .reduce((partialSum, c) => partialSum + c, 0) > 0 &&
+            <div className="travelUserStatsBox">
+              <div className="travelUserPostsText">Comments</div>
+              <div className="travelUserPostsCount">{numberFormat(posts.map((c)=>c.postComments.length)
+              .reduce((partialSum, c) => partialSum + c, 0))}</div>
+            </div>
+            }
             <span className="travelUserContactText" onClick={handleEmailShow}>
               Contact Me
             </span>
@@ -149,7 +177,7 @@ export default function Travel() {
                     </Link>
                   </div>
                   <div className={!showDropdown && "hideDropdown"} onMouseLeave={handleDropdownLeave}>
-                    <Dropdown cat={cat} states={states} />
+                    <Dropdown cat={cat} states={states} theme={theme} />
                   </div>
                 </>
               ))}
@@ -176,6 +204,6 @@ export default function Travel() {
               </div>
             </div>
       }
-    </>
+    </div>
   )
 }

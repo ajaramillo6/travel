@@ -1,9 +1,9 @@
 import './postSectionWrite.css';
 
-export default function PostSectionWrite({postSection, handleRemoveSection}) {
+export default function PostSectionWrite({postSection, handleRemoveSection, theme}) {
 
   return (
-    <div className="postSectionWrite">
+    <div className="postSectionWrite" data-theme={theme}>
         <>
         {postSection.map((section, i) => (
             <>

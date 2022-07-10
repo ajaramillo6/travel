@@ -4,7 +4,7 @@
     padding: 30px;
     margin-bottom: 50px;
     margin-top: 80px;
-    background-color: rgb(222, 227, 230);
+    background-color: var(--background-section);
     border-radius: 20px;
     width: 90%;
 }
@@ -69,7 +69,7 @@
     font-family: 'Lora', 'serif';
     cursor: pointer;
     padding: 10px 15px;
-    background-color: rgb(124, 141, 155);
+    background-color: var(--main-color-third);
     border: none;
     text-decoration: none;
     font-size: 14px;
@@ -83,7 +83,7 @@
   }
 
   .homeAboutReadMore:hover {
-    background-color: rgb(112, 128, 142);
+    background-color: var(--main-color-third-hover);
     width: 150px;
   }
 
@@ -110,13 +110,13 @@
     margin-bottom: 20px;
     font-size: 20px;
     font-family: 'Lora', 'serif';
-    color: rgb(123, 123, 123);
+    color: var(--text-title);
 }
 
 .homeAboutText{
     align-items: center;
     font-family: 'Lora', 'serif';
-    color: rgb(73, 73, 73);
+    color: var(--text-primary);
     font-size: 18px;
     margin-bottom: 30px;
 }

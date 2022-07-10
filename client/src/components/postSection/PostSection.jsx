@@ -1,6 +1,6 @@
 import "./postSection.css";
 
-export default function PostSection({post, tableOfContents}) {
+export default function PostSection({post, tableOfContents, theme}) {
     let postSection = post.postSection;
     let postSections = [];
 
@@ -114,7 +114,7 @@ export default function PostSection({post, tableOfContents}) {
     }
 
   return (
-    <div className="postSection">
+    <div className="postSection" data-theme={theme}>
         {tableOfContents && (postSection?.length === tableOfContents?.length) && (tableOfContents?.length !== 0) &&
         <div className="postSectionTableOfContentsContainer">
             <div className="postSectionTableOfContentsTitle">

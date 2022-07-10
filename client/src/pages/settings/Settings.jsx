@@ -7,7 +7,7 @@ import axios from 'axios';
 export default function Settings() {
 
   const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
-  const { user, dispatch } = useContext(Context);
+  const { user, dispatch, theme } = useContext(Context);
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -99,7 +99,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="settings">
+    <div className="settings" data-theme={theme}>
         <div className="settingsWrapper">
           <div className="settingsTitle">
             <span className="settingsUpdateTitle">Update your account</span>
@@ -110,6 +110,7 @@ export default function Settings() {
               }
               <i className="settingsDelete fa-solid fa-trash" onClick={handleDeleteConfirm}></i>
               {deleteAccount &&
+              <div className="settingsDeleteAccountContainer">
                 <div className="settingsDeleteAccount">
                   <div className="settingsDeleteTextTitle">
                      ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT?
@@ -130,6 +131,7 @@ export default function Settings() {
                     <div className="settingsDeleteOption" onClick={handleDelete}>Continue</div>
                   </div>
                 </div>
+              </div>
               }
             </div>
           </div>

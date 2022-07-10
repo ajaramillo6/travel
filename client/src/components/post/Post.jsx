@@ -1,8 +1,12 @@
 import "./post.css";
 import { format } from 'timeago.js';
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
+import { useContext } from 'react';
 
 export default function Post({ post }) {
+
+  const { theme } = useContext(Context);
 
 const postWords = post.newDescWords;
 
@@ -57,7 +61,7 @@ const postWords = post.newDescWords;
 }
 
   return (
-    <div className="post">
+    <div className="post" data-theme={theme}>
       <Link to={`/post/${post._id}`}  className="link">
         <div>
           {post.photo && (

@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { Context } from "../../context/Context";
 
-export default function Subscribe({post}) {
+export default function Subscribe({post, theme}) {
 
     const { user } = useContext(Context);
 
@@ -118,9 +118,9 @@ export default function Subscribe({post}) {
         if(subscriberCommentEmail !== "" && subscriberComment !== "" && 
         (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))
         || user.username.includes(subscriberCommentEmail)){
+            postCommentList.push(newComment);
             try{
-                await axios.put("/posts/" + post._id + "/updateComment", newComment);
-                postCommentList.push(newComment);
+                await axios.put("/posts/" + post._id + "/addComment", newComment);
             }catch(err){
                 console.log(err);
             }
@@ -421,7 +421,7 @@ export default function Subscribe({post}) {
 
   return (
     <>
-    <div className="subscribe">
+    <div className="subscribe" data-theme={theme}>
     {!user &&
     <>
         <div className="subscribeHeader">Not yet a subscribed member? 
@@ -661,8 +661,8 @@ export default function Subscribe({post}) {
                 ))}
             </>
             }
-            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3 === 0) && `Show ${postCommentList.length - 3} more comments`}</span>
-            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments === 0) && "Show less"}</span>
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(!showMoreComments && postCommentList.length > 3) && `Show ${postCommentList.length - 3} more comments`}</span>
+            <span className="commentsShowMoreText" onClick={handleShowMoreComments}>{(showMoreComments) && "Show less"}</span>
             </>
         </div>
         </>

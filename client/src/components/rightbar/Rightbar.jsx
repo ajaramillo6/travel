@@ -1,4 +1,5 @@
 import "./rightbar.css";
+import "../../index.css";
 import { Context } from "../../context/Context";
 import { useState, useContext, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import axios from 'axios';
 
 export default function Rightbar({user}) {
 
-    const { dispatch } = useContext(Context);
+    const { dispatch, theme, switchTheme } = useContext(Context);
 
     const {search} = useLocation();
 
@@ -17,6 +18,7 @@ export default function Rightbar({user}) {
     const[subscribersList, setSubscribersList] = useState([]);
     const[subscriptionEmail, setSubscriptionEmail] = useState("");
     const[subscriberId, setSubscriberId] = useState("");
+    const[subscriberName, setSubscriberName] = useState("");
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -39,6 +41,7 @@ export default function Rightbar({user}) {
         fetchSubscribers();
       },[openAdmin]);
 
+      //Get all posts
       useEffect(()=> {
         const fetchPosts = async() => {
           const res = await axios.get("/posts" + search);
@@ -51,14 +54,24 @@ export default function Rightbar({user}) {
 
       const handleCancelSubscription = async() => {
 
-        //Filter out post comments from subscriber
-
         //Find matching subscriber
-        for(let i = 0; i < subscribersList.length; i++){
-            if(subscribersList[i].subscriberEmail === subscriptionEmail){
-                setSubscriberId(subscribersList[i]._id);
-            }
-        }
+        // for(let i = 0; i < subscribersList.length; i++){
+        //   if(subscribersList[i].subscriberEmail === subscriptionEmail){
+        //       setSubscriberId(subscribersList[i]._id);
+        //       setSubscriberName(subscribersList[i].subscriberName)
+        //   }
+        // }
+
+        //Find all comments by subscriber and filter out
+        // for(let p = 0; p < posts.length; p++){
+        //   let postCommentsLength = posts[p].postComments.length;
+        //   for(let c = 0; c < postCommentsLength; c++){
+        //     if(posts[p].postComments[c].subscriberCommentName === subscriberName){
+        //       posts[p].postComments.slice(0,c);
+        //     }
+        //   }
+        // }
+
         //Send Delete Request
         try{
             await axios.delete(`/subscribers/${subscriberId}`);
@@ -74,57 +87,76 @@ export default function Rightbar({user}) {
     }
 
   return (
-    <>
+    <div data-theme={theme}>
     <Link className="link" to="#" onClick={handleAdmin}><i className="topAdminIcon fa-solid fa-gear" ></i></Link>
     <nav className={openAdmin ? "rightbarActive" : "rightbar"}>
             {user ? (
                 <ul className="rightbarMenuItems">
-                    <li className="rightbarToggle" onClick={handleAdmin}>
-                        <Link className="link" to="#">
-                            <i className="fa-solid fa-xmark" style={{fontSize:"20px", color:"black", cursor:"pointer"}}></i>
-                        </Link>
-                    </li>
-                    <li className="rightbarImgSection">
-                        <Link 
-                            className="link" 
-                            to="/settings" 
-                            onClick={handleAdmin}>
-                            <img 
-                                className="rightbarImg" 
-                                src={user.profilePic ? user.profilePic : "https://res.cloudinary.com/alvjo/image/upload/v1654190156/uploads/blank_avatar_v4pcno.jpg"} 
-                                alt="" 
-                            />
-                        </Link> 
-                    </li>
-                    <li className="rightbarSection">
-                        <Link 
-                            className="link" 
-                            to="/write" 
-                            onClick={handleAdmin}>
-                            <div className="rightSection">
-                                <i className="fa-solid fa-pen"></i>
-                                <span className="rightText">Write</span>
-                            </div>
-                        </Link> 
-                    </li>
-                    <li className="rightbarSection">
-                        <Link
-                            className="link" 
-                            to="#" 
-                            onClick={handleAdmin}>
-                            <div className="rightSection" onClick={handleLogout}>
-                                <i className="fa-solid fa-right-from-bracket"></i>
-                                <span className="rightText">Logout</span>
-                            </div>
-                        </Link>
-                    </li>
+                  <li className="rightbarToggle" onClick={handleAdmin}>
+                    <Link className="link" to="#">
+                      <i className="fa-solid fa-xmark"></i>
+                    </Link>
+                  </li>
+                  <li className="rightbarImgSection">
+                    <Link 
+                      className="link" 
+                      to="/settings" 
+                      onClick={handleAdmin}>
+                      <img 
+                        className="rightbarImg" 
+                        src={user.profilePic ? user.profilePic : "https://res.cloudinary.com/alvjo/image/upload/v1654190156/uploads/blank_avatar_v4pcno.jpg"} 
+                        alt="" 
+                      />
+                    </Link> 
+                  </li>
+                  <li className="rightbarSection">
+                    <Link
+                      className="link" 
+                      to="#" 
+                      onClick={handleAdmin}>
+                      <div className="rightSection" onClick={handleLogout}>
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                        <span className="rightText">Logout</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li className="rightbarSection">
+                    <Link 
+                      className="link" 
+                      to="/write" 
+                      onClick={handleAdmin}>
+                      <div className="rightSection">
+                        <i className="fa-solid fa-pen"></i>
+                        <span className="rightText">Write</span>
+                      </div>
+                    </Link> 
+                  </li>
+                  <li className="rightbarSection">
+                    <Link 
+                      className="link" 
+                      to="#"
+                      onClick={ switchTheme }>
+                      <div className="rightSection">
+                        {theme === 'lightTheme' ? 
+                          <i className="fa-solid fa-sun"></i> : 
+                          <i className="fa-solid fa-moon"></i>
+                        }
+                        <span className="rightText">
+                          {theme === 'lightTheme' ? 
+                            "Light Mode" : 
+                            "Dark Mode"
+                          }
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
                 </ul> 
             ):(
             <>
                 <ul className="rightbarMenuItems">
                     <li className="rightbarToggle" onClick={handleAdmin}>
                         <Link className="link" to="#">
-                            <i className="fa-solid fa-xmark" style={{fontSize:"20px", color:"black", cursor:"pointer"}}></i>
+                            <i className="fa-solid fa-xmark" style={{fontSize:"20px", cursor:"pointer"}}></i>
                         </Link>
                     </li>
                     <li className="rightbarSection">
@@ -146,6 +178,25 @@ export default function Rightbar({user}) {
                             <div className="rightSection">
                                 <i className="fa-solid fa-user-gear"></i>
                                 <span className="rightText">Manage subscription</span>
+                            </div>
+                        </Link>
+                    </li>
+                    <li className="rightbarSection">
+                        <Link 
+                            className="link" 
+                            to="#"
+                            onClick={switchTheme}>
+                            <div className="rightSection">
+                            {theme === 'lightTheme' ? 
+                                <i className="fa-solid fa-sun"></i> : 
+                                <i className="fa-solid fa-moon"></i>
+                              }
+                              <span className="rightText">
+                              {theme === 'lightTheme' ? 
+                                "Light Mode" : 
+                                "Dark Mode"
+                              }
+                              </span>
                             </div>
                         </Link>
                     </li>
@@ -182,6 +233,6 @@ export default function Rightbar({user}) {
                 
             )}
     </nav>
-    </>
+    </div>
   )
 }

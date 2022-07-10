@@ -11,7 +11,7 @@ export default function Write() {
 
   const cloud = "https://api.cloudinary.com/v1_1/alvjo/image/upload";
   
-  const { user } = useContext(Context);
+  const { user, theme } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
@@ -240,7 +240,7 @@ const handleSubmitSection = async(e) => {
   const listWords = sectionListItems.split(", ");
   
   return (
-    <div className="write">
+    <div className="write" data-theme={theme}>
       {file &&
         <img src={URL.createObjectURL(file)} alt="" className="writeImg" />
       }
@@ -452,7 +452,7 @@ const handleSubmitSection = async(e) => {
                   Section is empty. Try again.
                 </div>
               }
-              <PostSectionWrite postSection={postSection} handleRemoveSection={handleRemoveSection} />
+              <PostSectionWrite postSection={postSection} handleRemoveSection={handleRemoveSection} theme={theme} />
             </div>
             <button className="writeSubmit" type="submit">Publish</button>
         </form>

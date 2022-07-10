@@ -19,7 +19,7 @@ export default function SinglePost() {
   const[updateMode, setUpdateMode] = useState(false);
   const[users, setUsers] = useState([]);
   const[showSidebar, setShowSidebar] = useState(true);
-  const { user } = useContext(Context);
+  const { user, theme } = useContext(Context);
 
   const location = useLocation()
   const path = location.pathname.split("/")[2];
@@ -156,7 +156,7 @@ export default function SinglePost() {
 
   return (
     <>
-    <div className="singlePost">
+    <div className="singlePost" data-theme={theme}>
         <div className={showSidebar ? "singlePostWrapper":"singlePostWrapperFill"}>
           {post.photo &&
             <img className="singlePostImg" src={post.photo} alt="" />
@@ -236,7 +236,7 @@ export default function SinglePost() {
             }
             </>
           )}
-          <PostSection post={post} tableOfContents={tableOfContents} />
+          <PostSection post={post} tableOfContents={tableOfContents} theme={theme} />
           {updateMode &&
           <div className="singlePostButtons">
             <button 
@@ -256,7 +256,7 @@ export default function SinglePost() {
             onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
               <i className="backToTopIcon fa-solid fa-angle-up"></i>
           </div>
-          <Subscribe post={post} />
+          <Subscribe post={post} theme={theme} />
         </div>
         <div className="sidebar">
           {showSidebar ? (
@@ -270,6 +270,7 @@ export default function SinglePost() {
                 instagram={post.instagram} 
                 facebook={post.facebook} 
                 author={post.username}
+                theme={theme}
               />
             </div>
           ):(

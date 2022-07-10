@@ -1,10 +1,13 @@
 import "./about.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from "../../context/Context";
 // import { axiosInstance } from "../../config";
 import axios from 'axios';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function About() {
+
+    const { theme } = useContext(Context);
 
     const[users, setUsers] = useState([]);
     const[readMore, setReadMore] = useState("");
@@ -27,7 +30,7 @@ export default function About() {
 
   return (
 <>
-    <div className="about">
+    <div className="about" data-theme={theme}>
         {users.map((a, i)=>(
         <>
             <div className="aboutAuthorContainer">

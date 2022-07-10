@@ -1,10 +1,10 @@
 import "./dropdown.css";
 import { Link } from "react-router-dom";
 
-export default function Dropdown({cat, states}) {
+export default function Dropdown({cat, states, theme}) {
 
   return (
-    <div>
+    <div data-theme={theme}>
         {(cat.includes("United States")) &&
             <div className="dropdownStates">
                 {states.map((state, x)=>(

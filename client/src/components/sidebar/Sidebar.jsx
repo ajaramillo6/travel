@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link, useLocation} from 'react-router-dom';
 import { format } from 'timeago.js';
 
-export default function Sidebar({author, compareProfile, post}) {
+export default function Sidebar({author, compareProfile, post, theme}) {
 
     //FIND LOCATIONS BY USER
 
@@ -83,7 +83,7 @@ export default function Sidebar({author, compareProfile, post}) {
   }
 
   return (
-    <div className="sidebar">
+    <div className="sidebar" data-theme={theme}>
       <div className="sidebarItemProfile">
         <Link className="link" to={`/travel/?user=${author}`}>
           <div className="sidebarProfileWrapper">

@@ -2,7 +2,7 @@ import "./miniSearchbar.css";
 import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
 
-export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch}) {
+export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch, theme}) {
 
     const handleSearch = () => {
       setQuery("");
@@ -10,7 +10,7 @@ export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch}
     }
 
   return (
-    <div className="miniSearchbar">
+    <div className="miniSearchbar" data-theme={theme}>
       <div className={query.length < 2 ? "miniSearchbarBar" : "miniSearchbarBarActive"}>
         <input 
           type="text" 
