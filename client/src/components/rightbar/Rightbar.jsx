@@ -202,31 +202,33 @@ export default function Rightbar({user}) {
                     </li>
                 </ul>
                 {openManageSubscription &&
-                <div className="rightDeleteSubscription">
-                  <div className="rightDeleteTextTitle">
-                     ARE YOU SURE YOU WANT TO DELETE YOUR SUBSCRIPTION?
-                  </div>
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email"
-                    className="rightbarInput" 
-                    onChange={e=>setSubscriptionEmail(e.target.value)}
-                    />
-                  <div className="rightDeleteTextWrapper">
-                    <div><i className="rightDeleteIcon fa-solid fa-triangle-exclamation"></i></div>
-                    <div className="rightDeleteTextContainer">
-                      <div className="rightDeleteText">
-                        You are about to delete your membership subscription.
-                      </div>
-                      <div className="rightDeleteText">
-                        Are you sure you want to continue?
+                <div className="rightDeleteSubscriptionContainer">
+                  <div className="rightDeleteSubscription">
+                    <div className="rightDeleteTextTitle">
+                      ARE YOU SURE YOU WANT TO DELETE YOUR SUBSCRIPTION?
+                    </div>
+                    <input 
+                      type="email" 
+                      placeholder="Enter your email"
+                      className="rightbarInput" 
+                      onChange={e=>setSubscriptionEmail(e.target.value)}
+                      />
+                    <div className="rightDeleteTextWrapper">
+                      <div><i className="rightDeleteIcon fa-solid fa-triangle-exclamation"></i></div>
+                      <div className="rightDeleteTextContainer">
+                        <div className="rightDeleteText">
+                          You are about to delete your membership subscription.
+                        </div>
+                        <div className="rightDeleteText">
+                          Are you sure you want to continue?
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="rightDeleteOptions">
-                    <div className="rightDeleteOption" onClick={handleOpenManageSubscription}>Cancel</div>
-                    <div className="rightDeleteOption" onClick={handleCancelSubscription}>Continue</div>
-                  </div>
+                    <div className="rightDeleteOptions">
+                      <div className="rightDeleteOption" onClick={handleOpenManageSubscription}>Cancel</div>
+                      <div className="rightDeleteOption" onClick={handleCancelSubscription}>Continue</div>
+                    </div>
+                  </div>              
                 </div>
                 }
             </>

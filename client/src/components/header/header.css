@@ -55,7 +55,7 @@
     padding: 10px 50px;
     display: inline-block;
     border: none;
-    background-color: rgb(245, 245, 245);
+    background-color: var(--background-hover);
     outline: none;
     margin-right: 10px;
 }

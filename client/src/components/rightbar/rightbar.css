@@ -101,10 +101,20 @@
     height: 100%;
   }
 
-  .rightDeleteSubscription{
+  .rightDeleteSubscriptionContainer{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(245, 240, 240, 0.289);
     position: fixed;
-    top: 200px;
-    left: 400px;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rightDeleteSubscription{
     padding: 20px;
     border-radius: 10px;
     display: flex;
@@ -113,8 +123,9 @@
     justify-content: center;
     width: 600px;
     font-family: 'Lora', 'serif';
-    border: 2px rgb(70, 70, 70) solid;
-    background-color: rgb(247, 247, 247);
+    border: 2px #5677be solid;
+    background-color: var(--background);
+    color: var(--text-primary);
 }
 
 .rightDeleteTextTitle{
@@ -128,13 +139,17 @@
   padding: 10px 50px;
   display: inline-block;
   border: none;
-  background-color: rgb(227, 227, 227);
+  background-color: var(--background-hover);
   outline: none;
   margin: 10px 0px;
 }
 
+.rightbarInput::placeholder{
+  color: var(--text-primary);
+}
+
 .rightDeleteTextWrapper{
-    background-color: rgb(248, 239, 200);
+    background-color: var(--notifications-change);
     display: flex;
     flex-direction: row;
     align-items: center;
