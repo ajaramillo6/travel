@@ -582,6 +582,11 @@ export default function Subscribe({post, theme}) {
                 {postCommentList.slice(0,3).filter((c)=> c.commentForPost === post._id).map((comment)=>(
                 <div className="commentPrevWrapper" key={comment.commentId}>
                     <div className="commentAddedRow">
+                        {user && 
+                        (!subscribersList.map(s=>s.subscriberName).includes(comment.subscriberCommentName) &&
+                        user.username !== comment.subscriberCommentName) && 
+                            <i className="fa-solid fa-user-xmark" style={{color: '#D15555', 'marginRight': '10px'}}></i>
+                        }
                         <div className="commentPicWrapper">
                             {comment.commentPic.length > 1 ? 
                             <img className="commentPic" src={comment.commentPic} alt="" />:
@@ -623,6 +628,11 @@ export default function Subscribe({post, theme}) {
                 {postCommentList.filter((c)=> c.commentForPost === post._id).map((comment, i)=>(
                 <div className="commentPrevWrapper" key={i}>
                     <div className="commentAddedRow">
+                        {user && 
+                            (!subscribersList.map(s=>s.subscriberName).includes(comment.subscriberCommentName) &&
+                            user.username !== comment.subscriberCommentName) && 
+                                <i className="fa-solid fa-user-xmark" style={{color: '#D15555', 'marginRight': '10px'}}></i>
+                        }
                         <div className="commentPicWrapper">
                             {comment.commentPic.length > 1 ? 
                             <img className="commentPic" src={comment.commentPic} alt="" />:

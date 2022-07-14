@@ -100,7 +100,7 @@ export default function Topbar() {
               />
             </div>
           }
-          <i class="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>
+          <i className="topSearchIcon fa-solid fa-magnifying-glass" onClick={handleMiniSearch}></i>
          
         </div>
         <Rightbar user={user} />

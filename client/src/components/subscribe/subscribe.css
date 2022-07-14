@@ -285,7 +285,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 600px;
+    width: 80%;
 }
 
 .commentPrevHeader{
@@ -405,3 +405,51 @@
 .commentIconLikeEmpty:hover{
     color: rgb(176, 73, 73);
 }
+
+@media screen and (max-width: 1150px){
+    .subscribe{
+        padding: 0px;
+    }
+    
+    .reply{
+        padding: 0px;
+    }
+
+    .replyText{
+        padding:0px;
+    }
+
+    .commentPrev, .commentAdded{
+        padding: 0px;
+    }
+}
+
+@media screen and (max-width: 850px){
+
+    .subscribeForm{
+        flex-direction: column;
+        width: 200px;
+    }
+
+    .subscribeInput{
+        padding: 10px 20px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
+
+    .subscribeSubmit{
+        height: 30px;
+        width: 120px;
+        font-size: 14px;
+        margin-left: 0px;
+    }
+    
+    .subscribeSubmitCancel{
+        margin-left: 0px;
+        font-size: 12px;
+        width: 100px;
+        justify-content: left;
+        margin-top: 5px;
+    }
+}
+

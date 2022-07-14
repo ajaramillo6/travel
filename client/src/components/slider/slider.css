@@ -1,5 +1,5 @@
 .slider {
-  height: 695px;
+  height: 96vh;
   width: 100%;
   overflow:hidden;
   display: flex;
@@ -10,7 +10,7 @@
 }
 
 .sliderImgWrapper {
-  height: 767px;
+  height: 96vh;
   display: flex;
 }
  
@@ -39,7 +39,7 @@
   padding-bottom: 30px;
   z-index: 500;
   position: absolute;
-  top: 610px;
+  top: 83vh;
 }
 
 .thumbnailsWrapper{
@@ -84,6 +84,13 @@
 
 .sliderDown:hover{
   transform: scale(1.08);
+}
+
+@media screen and (max-width: 995px){
+  .sliderDown{
+    margin-top: 20px;
+    font-size: 30px;
+  }
 }
   
 

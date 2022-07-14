@@ -49,7 +49,7 @@ export default function Home() {
       <Header />
       <div className="home">
         <span className="homeText">Latest Posts</span>
-        <hr style={{width:'50%', 'textAlign':'center', 'marginBottom': '400px'}}></hr>
+        <hr className="homeHr" style={{width:'50%', 'textAlign':'center', 'marginBottom': '400px'}}></hr>
         <div className="homePostsContainer" style={{transform:`translateX(${-280*index}px)`}}>
             {posts.slice(0,8).map((post) => (
               <LatestPosts post={post} />

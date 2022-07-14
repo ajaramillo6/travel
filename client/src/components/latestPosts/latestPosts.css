@@ -82,3 +82,20 @@
     font-size: 12px;
     margin-left: 5px;
 }
+
+@media screen and (max-width: 1430px){
+    .latestPost{
+        margin: 10px 20px 20px 20px;
+    }
+
+    .latestPostImg{
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 600px){
+
+    .latestPostImg{
+        width: 250px;
+    }
+}

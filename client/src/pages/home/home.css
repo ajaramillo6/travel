@@ -93,3 +93,29 @@
   .homePostsArrowLeft:hover, .homePostsArrowRight:hover{
     background-color: var(--main-color-secondary);
   }
+
+  @media screen and (max-width: 1430px){
+
+    .homePostsContainer{
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: static;
+    }
+
+    .homePostsArrowLeft, .homePostsArrowRight{
+      display: none;
+    }
+
+    .homeHr{
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 480px){
+    .homeText{
+      font-size: 20px;
+    }
+    
+  }

@@ -142,6 +142,7 @@
   background-color: var(--background-hover);
   outline: none;
   margin: 10px 0px;
+  color: var(--text-secondary);
 }
 
 .rightbarInput::placeholder{

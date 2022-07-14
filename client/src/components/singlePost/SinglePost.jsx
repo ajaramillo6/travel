@@ -214,13 +214,13 @@ export default function SinglePost() {
             </div>
           )}
           <div className="singlePostInfo">
-          <Link className="link" to={`/travel/?user=${post.username}`}>
-            <div className="singlePostAuthor">
-                <img className="singlePostProfile" src={compareProfile} alt="" />
-                <b>Author: {post.username}</b>
-            </div>
-          </Link>
-          <span className="singlePostDate">{format(post.createdAt)}</span>
+            <Link className="link" to={`/travel/?user=${post.username}`}>
+              <div className="singlePostAuthor">
+                  <img className="singlePostProfile" src={compareProfile} alt="" />
+                  <b>Author: {post.username}</b>
+              </div>
+            </Link>
+            <span className="singlePostDate">{format(post.createdAt)}</span>
           </div>
           {updateMode ? 
             <textarea 

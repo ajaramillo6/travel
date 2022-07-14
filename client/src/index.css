@@ -20,6 +20,7 @@
     --btn: rgb(205, 79, 110);
     --latest-post-title: grey;
     --notifications-change: rgb(248, 239, 200);
+    --sidebar:rgb(238, 238, 238);
 }
 
 [data-theme = 'darkTheme'] {
@@ -44,4 +45,5 @@
     --btn: rgb(209, 130, 66);
     --latest-post-title: white;
     --notifications-change: rgb(84, 80, 67);
+    --sidebar:#222222;
 }

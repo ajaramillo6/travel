@@ -18,8 +18,8 @@
     position: absolute;
     font-family: 'Lora', 'serif';
     width: 100%;
-    height: 625px;
-    top:50px;
+    height: 95vh;
+    top:0px;
     padding: 30px 0px;
     color: white;
     flex-direction: column;
@@ -115,4 +115,34 @@
 
 .subscribeBenefitsText{
   font-size: 15px;
+}
+
+@media screen and (max-width: 995px){
+
+  .headerTitleLg{
+    font-size: 25px;
+}
+
+  .homeSubscribeForm{
+    flex-direction: column;
+  }
+
+  .headerSubscriber{
+    padding:0px;
+  }
+
+  .headerSubscriberTitle{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 12px;
+  }
+
+  .homeSubscribeInput{
+    margin-bottom: 10px;
+    padding: 7px 50px;
+}
+
+.homeSubscribeSubmit{
+    margin-left: 0px;
+}
 }

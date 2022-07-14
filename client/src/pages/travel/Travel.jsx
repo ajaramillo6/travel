@@ -122,28 +122,30 @@ export default function Travel() {
               <img className="travelUserPic" src={user.profilePic} alt="" />
             </div>
             <span className="travelUserUsername">{user.username}'s posts</span>
-            {posts.length > 0 &&
-            <div className="travelUserStatsBox">
-              <div className="travelUserPostsText">Posts</div>
-              <div className="travelUserPostsCount">{posts.length}</div>
+            <div className="travelUserStatsBoxContainer">
+              {posts.length > 0 &&
+              <div className="travelUserStatsBox">
+                <div className="travelUserPostsText">Posts</div>
+                <div className="travelUserPostsCount">{posts.length}</div>
+              </div>
+              }
+              {posts.map((a)=>a.postLikes.length)
+                .reduce((partialSum, a) => partialSum + a, 0) > 0 &&
+              <div className="travelUserStatsBox">
+                <div className="travelUserPostsText">Likes</div>
+                <div className="travelUserPostsCount">{numberFormat(posts.map(a=>a.postLikes.length)
+                .reduce((partialSum, a) => partialSum + a, 0))}</div>
+              </div>
+              }
+              {posts.map((c)=>c.postComments.length)
+                .reduce((partialSum, c) => partialSum + c, 0) > 0 &&
+              <div className="travelUserStatsBox">
+                <div className="travelUserPostsText">Comments</div>
+                <div className="travelUserPostsCount">{numberFormat(posts.map((c)=>c.postComments.length)
+                .reduce((partialSum, c) => partialSum + c, 0))}</div>
+              </div>
+              }
             </div>
-            }
-            {posts.map(a=>a.postLikes.length)
-              .reduce((partialSum, a) => partialSum + a, 0) > 0 &&
-            <div className="travelUserStatsBox">
-              <div className="travelUserPostsText">Likes</div>
-              <div className="travelUserPostsCount">{numberFormat(posts.map(a=>a.postLikes.length)
-              .reduce((partialSum, a) => partialSum + a, 0))}</div>
-            </div>
-            }
-            {posts.map((c)=>c.postComments.length)
-              .reduce((partialSum, c) => partialSum + c, 0) > 0 &&
-            <div className="travelUserStatsBox">
-              <div className="travelUserPostsText">Comments</div>
-              <div className="travelUserPostsCount">{numberFormat(posts.map((c)=>c.postComments.length)
-              .reduce((partialSum, c) => partialSum + c, 0))}</div>
-            </div>
-            }
             <span className="travelUserContactText" onClick={handleEmailShow}>
               Contact Me
             </span>

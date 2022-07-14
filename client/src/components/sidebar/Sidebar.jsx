@@ -109,7 +109,7 @@ export default function Sidebar({author, compareProfile, post, theme}) {
         <div className="sidebarList">
           <div className="sidebarTitle">Recent Posts</div>
           <hr />
-          {otherPosts.slice(0,3).map((post, i)=>(
+          {otherPosts.slice(0,5).map((post, i)=>(
               <div>
                 <div key={i}>
                 <Link className="link" to={`/post/${post._id}`}>
@@ -135,23 +135,23 @@ export default function Sidebar({author, compareProfile, post, theme}) {
           <div className="sidebarList">
             <div className="sidebarTitle">Related Posts</div>
             <hr />
-            {relatedPosts.slice(0,10).map((post, i)=>(
-                <div>
-                  <div key={i}>
-                  <Link className="link" to={`/post/${post._id}`}>
-                      <div className="sidebarPostsWrapper">
-                        <div className="sidebarPostPicContainer">
-                          <img className="sidebarPostPic" src={post.photo} alt="" />
-                        </div>
-                        <div className="sidebarPostContainer">
-                          <div className="sidebarPostTitle">{post.title}</div>
-                          <div className="sidebarPostDate">{format(post.createdAt)}</div>
-                        </div>
-                      </div>
-                  </Link>
+            <div className="sidebarListContainer">
+            {relatedPosts.slice(0,25).map((post, i)=>(
+              <div key={i}>
+                <Link className="link" to={`/post/${post._id}`}>
+                  <div className="sidebarPostsWrapper">
+                    <div className="sidebarPostPicContainer">
+                      <img className="sidebarPostPic" src={post.photo} alt="" />
+                    </div>
+                    <div className="sidebarPostContainer">
+                      <div className="sidebarPostTitle">{post.title}</div>
+                      <div className="sidebarPostDate">{format(post.createdAt)}</div>
+                    </div>
                   </div>
-                </div>
+                </Link>
+              </div>
             ))}
+            </div>
           </div>
         </div>
       </>

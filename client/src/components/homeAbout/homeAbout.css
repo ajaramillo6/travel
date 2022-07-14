@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+    margin-right: 90px;
 }
 
 .homeAuthorContainer{
@@ -119,4 +120,53 @@
     color: var(--text-primary);
     font-size: 18px;
     margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1350px){
+    .homeAuthorPP{
+        height: 150px;
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 980px){
+    .homeAbout{
+        flex-direction: column;
+        padding: 0px;
+    }
+
+    .homeAuthorWrapper{
+        margin:5px;
+    }
+
+    .homeAboutLeft{
+        margin:-5px;
+    }
+}
+
+@media screen and (max-width: 700px){
+
+    .homeAbout{
+        padding: 0px;
+    }
+
+    .homeAuthorWrapper{
+        margin-left:-50px;
+    }
+
+    .homeAboutLeft{
+        padding:0px;
+        margin-left: 50px;
+        margin-right: 0px;
+        margin-top: 10px;
+    }
+
+    .homeAboutRight{
+        margin:0px;
+    }
+
+    .homeAuthorPP{
+        height: 100px;
+        width: 100px;
+    }
 }

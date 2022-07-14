@@ -27,8 +27,8 @@
 }
 
 .postSectionImg{
-    width: 500px;
-    height: 300px;
+    width: 70%;
+    height: 50%;
     object-fit: cover;
     margin: 20px;
     border-radius: 10px;
@@ -111,4 +111,10 @@
 .postSectionContent:hover{
     background-color: var(--background-section);
     border-radius: 10px;
+}
+
+@media screen and (max-width: 1150px){
+    .postSection{
+        padding: 0px;
+    }
 }

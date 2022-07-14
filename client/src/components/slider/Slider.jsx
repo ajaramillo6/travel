@@ -38,7 +38,7 @@ export default function Slider() {
                 </div>
                 ))}
             </div>
-            <div className="sliderDown" onClick={()=>window.scrollTo({top:690, left: 0, behavior: 'smooth'})}>
+            <div className="sliderDown" onClick={()=>window.scrollTo({top: window.innerHeight, left: 0, behavior: 'smooth'})}>
                 <i className="fa-solid fa-angle-down"></i>
             </div>
         </div>

@@ -48,10 +48,25 @@
 .sidebarList{
     display: flex;
     flex-direction: column;
-    background-color: var(--background-hover);
+    background-color: var(--sidebar);
+    width: 100%;
     border-radius: 10px;
     margin-bottom: 15px;
     padding: 10px;
+}
+
+.sidebarListContainer{
+    max-height: 270px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.sidebarListContainer:hover{
+    overflow-y: scroll;
+}
+
+.sidebarListContainer::-webkit-scrollbar{
+    display: none;
 }
 
 .sidebarTitle{
@@ -133,4 +148,38 @@ hr{
     padding: 10px;
     color: var(--text-secondary);
 }
+
+@media screen and (max-width: 1300px){
+    .sidebar{
+        flex:2.5;
+        padding: 0px;
+    }
+  }
+
+  @media screen and (max-width: 1150px){
+    .sidebar{
+        margin: 0px 10px;
+    }
+
+    .sidebarList{
+        background-color: var(--sidebar);
+        padding: 2% 5%;
+    }
+
+    .sidebarPostsWrapper{
+        width: 100%;
+    }
+    
+    .sidebarItemProfile{
+        display: none;
+    }
+    
+    .sidebarProfileWrapper{
+        display: none;
+    }
+
+    .sidebarItemLocations{
+        display: none;
+    }
+  }
 

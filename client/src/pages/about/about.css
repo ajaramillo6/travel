@@ -175,3 +175,9 @@
     left: 10px;
     color:var(--main-color);
 }
+
+@media screen and (max-width: 1350px){
+    .about{
+        height: 100%;
+    }
+}

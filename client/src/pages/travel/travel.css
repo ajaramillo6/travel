@@ -1,5 +1,5 @@
 .travel{
-    margin-top: 50px;
+    margin-top: 6vh;
     display: flex;
     flex-direction: row;
     background-color: var(--background-secondary);
@@ -220,5 +220,47 @@ transform: none;
     text-decoration: none;
     font-size: 16px;
     border-radius: 10px;
+}
+
+@media screen and (max-width: 800px){
+    .travel{
+        flex-direction: column;
+    }
+
+    .travelUserPic{
+        width: 150px;
+        height: 150px;
+    }
+
+    .travelUserUsername{
+        font-size: 15px;
+    }
+    
+    .travelUserStatsBoxContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .travelUserStatsBox{
+        width: 85px;
+        margin-right: 10px;
+    }
+
+    .travelCats{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px){
+
+    .travelUserUsername{
+        font-size: 15px;
+    }
+    
+    .travelUserStatsBoxContainer{
+        justify-content: space-between;
+    }
 }
 

@@ -2,7 +2,7 @@ import "./rightbar.css";
 import "../../index.css";
 import { Context } from "../../context/Context";
 import { useState, useContext, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import {axiosInstance} from "../../config";
 import axios from 'axios';
 
@@ -10,15 +10,11 @@ export default function Rightbar({user}) {
 
     const { dispatch, theme, switchTheme } = useContext(Context);
 
-    const {search} = useLocation();
-
-    const[posts, setPosts] = useState([]);
     const[openAdmin, setOpenAdmin] = useState(false); 
     const[openManageSubscription, setOpenManageSubscription] = useState(false);
     const[subscribersList, setSubscribersList] = useState([]);
     const[subscriptionEmail, setSubscriptionEmail] = useState("");
     const[subscriberId, setSubscriberId] = useState("");
-    const[subscriberName, setSubscriberName] = useState("");
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" });
@@ -41,44 +37,22 @@ export default function Rightbar({user}) {
         fetchSubscribers();
       },[openAdmin]);
 
-      //Get all posts
-      useEffect(()=> {
-        const fetchPosts = async() => {
-          const res = await axios.get("/posts" + search);
-          setPosts(res.data.sort((p1,p2)=> {
-            return new Date(p2.createdAt) - new Date(p1.createdAt)
-          }));
-        }
-        fetchPosts();
-      },[search])
-
       const handleCancelSubscription = async() => {
-
         //Find matching subscriber
-        // for(let i = 0; i < subscribersList.length; i++){
-        //   if(subscribersList[i].subscriberEmail === subscriptionEmail){
-        //       setSubscriberId(subscribersList[i]._id);
-        //       setSubscriberName(subscribersList[i].subscriberName)
-        //   }
-        // }
-
-        //Find all comments by subscriber and filter out
-        // for(let p = 0; p < posts.length; p++){
-        //   let postCommentsLength = posts[p].postComments.length;
-        //   for(let c = 0; c < postCommentsLength; c++){
-        //     if(posts[p].postComments[c].subscriberCommentName === subscriberName){
-        //       posts[p].postComments.slice(0,c);
-        //     }
-        //   }
-        // }
-
-        //Send Delete Request
-        try{
-            await axios.delete(`/subscribers/${subscriberId}`);
-            window.alert("Membership deleted. Sorry to see you go :(");
-          }catch(err){
-            console.log(err);
+        for(let i = 0; i < subscribersList.length; i++){
+          if(subscribersList[i].subscriberEmail === subscriptionEmail){
+              setSubscriberId(subscribersList[i]._id);
           }
+        }
+        if(subscriberId){
+          //Send Delete Request
+          try{
+              await axios.delete(`/subscribers/${subscriberId}`);
+              window.alert("Membership deleted. Sorry to see you go :(");
+            }catch(err){
+              console.log(err);
+            }
+        }
           setOpenManageSubscription(false);
       }
 
