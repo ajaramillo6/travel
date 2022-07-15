@@ -1,0 +1,130 @@
+import "./post.css";
+import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
+import { useContext } from 'react';
+
+export default function Post({ post }) {
+
+  const { theme } = useContext(Context);
+
+const postWords = post.newDescWords;
+
+  //************/CREATE LINKS IN DESC AREA
+
+  const findUrls = [];
+  const findIndex = [];
+  const createLinks = [];
+  const postLinks = [];
+  const newPostText = [];
+  const newPostWords = [];
+
+  //Find URLS in newDescWords
+  for(let i = 0; i < postWords.length; i++){
+    if(postWords[i][0] === "["){
+      findUrls.push(postWords[i]);
+      findIndex.push(i);
+    }
+  }
+
+  for(let j = 0; j < findUrls.length; j++){
+    if(findUrls[j].includes(",")){
+      createLinks.push(<a className="postLink" href={findUrls[j].split(",")[0].substring(1).slice(0,-1)}>
+        {(findUrls[j].split(",")[1].slice(0,-1).slice(0,-1)).split("-").join(" ")}</a>);
+    }
+  }
+
+  for(let x = 0; x < createLinks.length; x++){
+    postLinks.push([findIndex[x], createLinks[x]]);
+  }
+
+  //Insert link objects as replacement for square bracket content
+  for (let w = 0; w < postLinks.length; w++){
+    newPostText.push(postWords[postLinks[w][0]] = postLinks[w][1]);
+  }
+
+  //Create space between words, except if they're objects. Add period if object at end of sentence
+  for(let x = 0; x < postWords.length; x++){
+    if(typeof postWords[x-1] === 'object' && typeof postWords[x] !== 'object' && 
+    (postWords[x][0].toUpperCase() === postWords[x][0])){
+      newPostWords.push(". " + postWords[x]);
+    } else if (typeof postWords[x-1] === 'object'){
+      newPostWords.push(" " + postWords[x]);
+    } else {
+      newPostWords.push(postWords[x]);
+    }
+  }
+
+  //Number formatting on likes
+  function numberFormat(num) {
+    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
+}
+
+ //Format date
+ function timeSince(date) {
+
+  const seconds = Math.floor((date) / 1000);
+  console.log(seconds)
+  const interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + " years ago";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months ago";
+  }
+  interval = seconds / 604800;
+  if (interval > 1) {
+    return Math.floor(interval) + " weeks ago";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " days ago";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + " hours ago";
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
+
+  return (
+    <div className="post" data-theme={theme}>
+      <Link to={`/post/${post._id}`}  className="link">
+        <div>
+          {post.photo && (
+            <img className="postImg" src={post.photo} alt="" />
+          )}
+          {post.postLikes.length > 0 && 
+          <div className="postLikesContainer">
+            <i className="postLikeIcon fa-solid fa-heart"></i> 
+            <span className="postLikeCount">
+              {numberFormat(post.postLikes.length)}
+              {post.postLikes.length === 1 ? " like": " likes"}
+            </span>
+            </div>
+          }
+          <div className="postInfo">
+              <span className="postTitle">{post.title}</span>
+              <div className='postUserDate'>
+                <span className="postUser">{post.username}</span>
+                <span className="postDate">{timeSince(new Date(Date.now())-new Date(post.createdAt))}</span>
+              </div>
+          </div>
+          {newPostWords ? 
+          <div className="postDesc">
+            {newPostWords}
+          </div>:
+          <div className="postDesc">
+            {postWords}
+          </div>
+          }
+        </div>
+      </Link>
+    </div>
+  )
+}
