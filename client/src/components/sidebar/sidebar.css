@@ -181,5 +181,22 @@ hr{
     .sidebarItemLocations{
         display: none;
     }
+
+    .sidebarPostPicContainer{
+        height: 35px;
+        width: 35px;
+    }
+
+    .sidebarTitle{
+        font-size: 16px;
+    }
+
+    .sidebarPostTitle{
+        font-size: 14px;
+    }
+    
+    .sidebarPostDate{
+        font-size: 10px;
+    }
   }
 

@@ -161,102 +161,104 @@ export default function SinglePost() {
           {post.photo &&
             <img className="singlePostImg" src={post.photo} alt="" />
           }
-          {
-            updateMode ? 
-            <div className="singlePostTitleInputContainer">
-              <input 
-                type="text" 
-                value={title} 
-                className="singlePostTitleInput" 
-                onChange={(e)=>setTitle(e.target.value)}
-                autofocus
-              /> 
-              <input 
-                type="text" 
-                value={loc} 
-                className="singlePostLocInput" 
-                onChange={(e)=>setLoc(e.target.value)}
-              /> 
-              {post.state !== "" &&
-              <input 
-                type="text" 
-                value={state} 
-                className="singlePostStateInput" 
-                onChange={(e)=>setState(e.target.value)}
-              /> 
-              }
-            </div>
-          : (
-            <div className="singlePostTitleContainer">
-              <div className="singlePostLocationsContainer">
-                <div className="singlePostCatWrapper">
-                  <Link className="link" to={`/travel/?cat=${loc}`}>
-                    <div className="singlePostCat">{loc}</div>
-                  </Link>
-                </div>
-                <div className="singlePostStateWrapper">
-                  {post.state !== "" &&
-                    <Link className="link" to={`/travel/?state=${state}`}>
-                      <div className="singlePostState">{state}</div>
-                    </Link>
-                  }
-                </div>
-              </div>
-              <h1 className="singlePostTitle">
-                {title}
-                {post.username === user?.username &&
-                  <div className="singlePostEdit">
-                    {/* <i className="singlePostIcon fa-solid fa-pen-to-square" onClick={()=>setUpdateMode(true)}></i> */}
-                    <i className="singlePostIcon fa-solid fa-trash" onClick={handleDelete}></i>
-                  </div>
+          <div className="singlePostContainer">
+            {
+              updateMode ? 
+              <div className="singlePostTitleInputContainer">
+                <input 
+                  type="text" 
+                  value={title} 
+                  className="singlePostTitleInput" 
+                  onChange={(e)=>setTitle(e.target.value)}
+                  autofocus
+                /> 
+                <input 
+                  type="text" 
+                  value={loc} 
+                  className="singlePostLocInput" 
+                  onChange={(e)=>setLoc(e.target.value)}
+                /> 
+                {post.state !== "" &&
+                <input 
+                  type="text" 
+                  value={state} 
+                  className="singlePostStateInput" 
+                  onChange={(e)=>setState(e.target.value)}
+                /> 
                 }
-              </h1>
-            </div>
-          )}
-          <div className="singlePostInfo">
-            <Link className="link" to={`/travel/?user=${post.username}`}>
-              <div className="singlePostAuthor">
-                  <img className="singlePostProfile" src={compareProfile} alt="" />
-                  <b>Author: {post.username}</b>
               </div>
-            </Link>
-            <span className="singlePostDate">{format(post.createdAt)}</span>
-          </div>
-          {updateMode ? 
-            <textarea 
-              className="singlePostDescInput" 
-              value={newDescWords}
-              onChange={(e)=>setNewDescWords(e.target.value)}
-            /> 
-          :(
-            <>
-            {newPostWords ?
-              <div className="singlePostDesc">{newPostWords}</div>:
-              <div className="singlePostDesc">{newDescWords}</div>
+            : (
+              <div className="singlePostTitleContainer">
+                <div className="singlePostLocationsContainer">
+                  <div className="singlePostCatWrapper">
+                    <Link className="link" to={`/travel/?cat=${loc}`}>
+                      <div className="singlePostCat">{loc}</div>
+                    </Link>
+                  </div>
+                  <div className="singlePostStateWrapper">
+                    {post.state !== "" &&
+                      <Link className="link" to={`/travel/?state=${state}`}>
+                        <div className="singlePostState">{state}</div>
+                      </Link>
+                    }
+                  </div>
+                </div>
+                <h1 className="singlePostTitle">
+                  {title}
+                  {post.username === user?.username &&
+                    <div className="singlePostEdit">
+                      {/* <i className="singlePostIcon fa-solid fa-pen-to-square" onClick={()=>setUpdateMode(true)}></i> */}
+                      <i className="singlePostIcon fa-solid fa-trash" onClick={handleDelete}></i>
+                    </div>
+                  }
+                </h1>
+              </div>
+            )}
+            <div className="singlePostInfo">
+              <Link className="link" to={`/travel/?user=${post.username}`}>
+                <div className="singlePostAuthor">
+                    <img className="singlePostProfile" src={compareProfile} alt="" />
+                    <b>Author: {post.username}</b>
+                </div>
+              </Link>
+              <span className="singlePostDate">{format(post.createdAt)}</span>
+            </div>
+            {updateMode ? 
+              <textarea 
+                className="singlePostDescInput" 
+                value={newDescWords}
+                onChange={(e)=>setNewDescWords(e.target.value)}
+              /> 
+            :(
+              <>
+              {newPostWords ?
+                <div className="singlePostDesc">{newPostWords}</div>:
+                <div className="singlePostDesc">{newDescWords}</div>
+              }
+              </>
+            )}
+            <PostSection post={post} tableOfContents={tableOfContents} theme={theme} />
+            {updateMode &&
+            <div className="singlePostButtons">
+              <button 
+                className="singlePostButton"
+                onClick={handleUpdateCancel}>
+                Cancel
+              </button>
+              <button 
+                className="singlePostButton" 
+                onClick={handleUpdate}>
+                Update
+              </button>
+            </div>
             }
-            </>
-          )}
-          <PostSection post={post} tableOfContents={tableOfContents} theme={theme} />
-          {updateMode &&
-          <div className="singlePostButtons">
-            <button 
-              className="singlePostButton"
-              onClick={handleUpdateCancel}>
-              Cancel
-            </button>
-            <button 
-              className="singlePostButton" 
-              onClick={handleUpdate}>
-              Update
-            </button>
+            <div 
+              className="backToTop" 
+              onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
+                <i className="backToTopIcon fa-solid fa-angle-up"></i>
+            </div>
+            <Subscribe post={post} theme={theme} />
           </div>
-          }
-          <div 
-            className="backToTop" 
-            onClick={()=>window.scrollTo({top:0, left: 0, behavior: 'smooth'})}>
-              <i className="backToTopIcon fa-solid fa-angle-up"></i>
-          </div>
-          <Subscribe post={post} theme={theme} />
         </div>
         <div className="sidebar">
           {showSidebar ? (

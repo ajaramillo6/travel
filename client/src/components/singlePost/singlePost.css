@@ -300,14 +300,15 @@
     .singlePostWrapper{
         padding-left: 0px;
         padding-right: 0px;
-        margin-left: 20px;
-        margin-right: 20px;
     }
 
     .singlePostWrapperFill {
         padding-left: 0px;
         padding-right: 0px;
-        margin-left: 20px;
-        margin-right: 20px;
+    }
+
+    .singlePostContainer{
+        margin-left: 15px;
+        margin-right: 15px;
     }
   }
