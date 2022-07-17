@@ -4,14 +4,25 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), url("/public/img/travel4.jpg");
+    background-image: linear-gradient(var(--screen),var(--screen)), url("/public/img/travel4.jpg");
     background-size: cover;
     font-family: 'Lora', 'serif';
 }
 
+.loginContainer{
+  display: flex;
+  background-color: var(--login);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: var(--login-boxshadow);
+}
+
 .loginTitle{
-    font-size: 50px;
-    color: rgb(51, 96, 139);
+    font-size: 40px;
+    color: var(--main-color);
 }
 
 .loginForm{
@@ -23,15 +34,17 @@
 
 .loginForm > label{
     margin: 15px 0px;
+    color: var(--text-primary)
 }
 
 .loginForm > input{
     padding: 10px;
-    background-color: white;
+    background-color: var(--login-input);
     border: none;
     width: 200px;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
+    color: var(--text-primary)
 }
 
 .loginSubmit{
@@ -80,8 +93,8 @@
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid var(--main-color);
+  border-color: var(--main-color) transparent var(--main-color) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -106,7 +119,7 @@
   top: 22px;
   left: 22px;
   position: absolute;
-  color: white;
+  color: var(--main-color);
   font-size: 30px;
   animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }

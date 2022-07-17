@@ -25,6 +25,10 @@
     display: none;
 }
 
+.searchWithCenterLogo{
+    display: none;
+}
+
 .topRight{
     flex:4;
     display: flex;
@@ -130,8 +134,20 @@
         flex: 4;
     }
 
+    .searchWithCenterLogo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 4;
+    }
+
     .topRight{
         flex: 1;
     }
 }
 
+@media screen and (max-width: 480px){
+    .searchWithCenterLogo{
+        display: none;
+    }
+}

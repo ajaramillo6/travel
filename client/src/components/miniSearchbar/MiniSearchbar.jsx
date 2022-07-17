@@ -11,9 +11,8 @@ export default function MiniSearchbar({posts, query, setQuery, handleMiniSearch,
     //Format date
 function timeSince(date) {
 
-  const seconds = Math.floor((date) / 1000);
-  console.log(seconds)
-  const interval = seconds / 31536000;
+  let seconds = Math.floor((date) / 1000);
+  let interval = seconds / 31536000;
 
   if (interval > 1) {
     return Math.floor(interval) + " years ago";

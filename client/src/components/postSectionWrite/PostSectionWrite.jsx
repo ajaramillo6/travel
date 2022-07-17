@@ -18,7 +18,7 @@ export default function PostSectionWrite({postSection, handleRemoveSection, them
               }
               {section.sectionImg &&
                 <div className="sectionWriteImgWrapper">
-                  <img className="sectionWriteImg" src={section.sectionImg} />
+                  <img className="sectionWriteImg" src={section.sectionImg} alt="" />
                   <div className="sectionWriteImgDesc">{section.sectionImgDesc}</div>
                 </div>
               }

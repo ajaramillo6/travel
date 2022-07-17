@@ -31,12 +31,11 @@ export default function Subscribe({post, theme}) {
     const[isCommentLiked, setIsCommentLiked] = useState(false);
     const[isDBCommentLiked, setIsDBCommentLiked] = useState(false);
     const[saveToLocal, setSaveToLocal] = useState(false);
-    const[deleteFromLocal, setDeleteFromLocal] = useState(false);
 
     useEffect(()=> {
         setIsLiked(likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
         postLikesList && setIsDBLiked(postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(subscriberCommentEmail));
-    }, [postLikesList, likes, user, subscriberCommentEmail]);
+    }, [postLikesList, likes, subscriberCommentEmail]);
 
     useEffect(() => {
         if(!user){
@@ -44,7 +43,7 @@ export default function Subscribe({post, theme}) {
         }else{
             postCommentList && setIsDBCommentLiked(postCommentList.map((l)=>l.commentLikesList.map(s=>s.subscriberCommentEmail)).join().includes(user.username));
         }
-    }, [subscriberCommentEmail, postCommentList])
+    }, [subscriberCommentEmail, user, postCommentList])
 
     useEffect(()=>{
         setLikes([]);
@@ -79,7 +78,7 @@ export default function Subscribe({post, theme}) {
                 }
             }
         }
-    },[postCommentList && postCommentList.length])
+    },[postCommentList, currentCommentId, subscribersList, subscriberCommentEmail, user])
 
     //Get all subscribers
     useEffect(()=> {
@@ -115,9 +114,11 @@ export default function Subscribe({post, theme}) {
             {year: 'numeric', month: 'short', day: 'numeric'}
             ),
         }
-        if(subscriberCommentEmail !== "" && subscriberComment !== "" && 
-        (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))
-        || user.username.includes(subscriberCommentEmail)){
+        if((subscriberCommentEmail !== "" && subscriberComment !== "" && 
+        subscribersEmails.includes(subscriberCommentEmail)) || 
+        ((subscribersEmailsDB.includes(subscriberCommentEmail))
+        || user.username.includes(subscriberCommentEmail)))
+        {
             postCommentList.push(newComment);
             try{
                 await axios.put("/posts/" + post._id + "/addComment", newComment);
@@ -369,7 +370,7 @@ export default function Subscribe({post, theme}) {
       //Save subscriber email to local storage
       useEffect(() => {
         saveToLocal && localStorage.setItem("subscriber", JSON.stringify(subscriberCommentEmail))
-      }, [saveToLocal]);
+      }, [saveToLocal, subscriberCommentEmail]);
 
       const handleSaveToLocal = () => {
             if(!saveToLocal && subscriberCommentEmail !== ''){
@@ -380,7 +381,6 @@ export default function Subscribe({post, theme}) {
 
       //Delete subscriber email from local storage
       const handleDeleteFromLocal = () => {
-            setDeleteFromLocal(true);
             localStorage.removeItem("subscriber");
             setSubscriberCommentEmail("");
       }

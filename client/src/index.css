@@ -21,6 +21,10 @@
     --latest-post-title: grey;
     --notifications-change: rgb(248, 239, 200);
     --sidebar:rgb(238, 238, 238);
+    --screen: rgba(255,255,255,0.5);
+    --login: rgb(236, 236, 236);
+    --login-input:  #f9f9f9;
+    --login-boxshadow: 0 0 11px rgba(104, 104, 104, 0.492);
 }
 
 [data-theme = 'darkTheme'] {
@@ -46,4 +50,8 @@
     --latest-post-title: white;
     --notifications-change: rgb(84, 80, 67);
     --sidebar:#1e1e1e;
+    --screen: rgba(105, 105, 105, 0.5);
+    --login:  #1e1e1e;
+    --login-input:  #333333;
+    --login-boxshadow: 0 0 11px rgba(0, 0, 0, 0.651);
 }

@@ -69,7 +69,7 @@ export default function Topbar() {
           </Link>
         </div>
       </div>
-      <div className="topCenterLogo">
+      <div className={!showMiniSearch ? "topCenterLogo" : "searchWithCenterLogo"}>
         <div className="topLogoWrapper">
           <Link className="topListLogo" to="/">
             <span className="topListLogo">Backpack</span>
