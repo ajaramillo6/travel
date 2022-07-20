@@ -10,7 +10,7 @@ export default function Subscribe({post, theme}) {
 
     const postCommentList = post.postComments;
     const postLikesList = post.postLikes;
-
+    
     const[subscriberEmail, setSubscriberEmail] = useState("");
     const[subscriberName, setSubscriberName] = useState("");
     const[subscribers, setSubscribers] = useState([]);
@@ -422,41 +422,41 @@ export default function Subscribe({post, theme}) {
   return (
     <>
     <div className="subscribe" data-theme={theme}>
-    {!user &&
-    <>
-        <div className="subscribeHeader">Not yet a subscribed member? 
-            <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> Click here.</span>
-        </div>
-        {showSubscribe &&
-        <div className="subscribeForm">
-            <input 
-                type="text" 
-                placeholder="Name *" 
-                className="subscribeInput" 
-                onChange={e=>setSubscriberName(e.target.value)}
-            />
-            <input 
-                type="email" 
-                placeholder="Email *" 
-                className="subscribeInput" 
-                onChange={e=>setSubscriberEmail(e.target.value)}
-            />
-            <button className="subscribeSubmit" onClick={handleSubscribeSubmit}>
-                Subscribe
-            </button>
-            <div className="subscribeSubmitCancel" onClick={handleSubscribeBox}>
-                No Thanks
+        {!user &&
+        <>
+            <div className="subscribeHeader">Not yet a subscribed member? 
+                <span className="subscribeHeaderClick" onClick={handleSubscribeBox}> Click here.</span>
             </div>
-        </div>
-        }
-        {subscriberSuccess && 
-            <div className="notificationSubscriberSuccess">
-                <i className="notificationIcon fa-solid fa-circle-check"></i>
-                Subscription was successful!
+            {showSubscribe &&
+            <div className="subscribeForm">
+                <input 
+                    type="text" 
+                    placeholder="Name *" 
+                    className="subscribeInput" 
+                    onChange={e=>setSubscriberName(e.target.value)}
+                />
+                <input 
+                    type="email" 
+                    placeholder="Email *" 
+                    className="subscribeInput" 
+                    onChange={e=>setSubscriberEmail(e.target.value)}
+                />
+                <button className="subscribeSubmit" onClick={handleSubscribeSubmit}>
+                    Subscribe
+                </button>
+                <div className="subscribeSubmitCancel" onClick={handleSubscribeBox}>
+                    No Thanks
+                </div>
             </div>
+            }
+            {subscriberSuccess && 
+                <div className="notificationSubscriberSuccess">
+                    <i className="notificationIcon fa-solid fa-circle-check"></i>
+                    Subscription was successful!
+                </div>
+            }
+        </>
         }
-    </>
-    }
     </div>
     <div className="reply">
         {!user ?
@@ -508,12 +508,12 @@ export default function Subscribe({post, theme}) {
                 {postLikesList &&
                     <>
                     <div>
-                        {((user && (likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username)) || 
-                        user && (postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))) || 
+                        {(((user && likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username)) || 
+                        (user && postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))) || 
                         (subscriberCommentEmail !== '' && (isLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
-                        (isDBLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))))))) ? 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))))) || 
+                        (subscriberCommentEmail !== '' && (isDBLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
                         <i className="subscriberIconLikeFilled fa-solid fa-heart" onClick={handleLike}></i>: 
                         <i className="subscriberIconLikeEmpty fa-regular fa-heart" onClick={handleLike}></i>}
                         {((likes.filter((l)=> l.likeForPost === post._id).length + postLikesList.filter((l)=> l.likeForPost === post._id).length) > 0) && 
@@ -541,7 +541,7 @@ export default function Subscribe({post, theme}) {
                 </div>
                 }
             </div>
-            {showComment &&
+            {(showComment) &&
             <>
             {subscriberComment ?
              <textarea 
@@ -607,12 +607,12 @@ export default function Subscribe({post, theme}) {
                             </div>
                             <div className="commentLikeDeleteContainer">
                                 {((user && comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(user.username)) || 
-                                comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
-                                comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
-                                (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
-                                (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
+                                ((comment.commentLikesList.length > 0 && subscriberCommentEmail !== '') && 
+                                comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail)) && 
+                                (isCommentLiked && ((subscriberCommentEmail.includes("@")) && (subscriberCommentEmail.includes(".co") || 
+                                subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || (isDBCommentLiked && 
+                                    (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || subscriberCommentEmail.includes(".org") || 
+                                    subscriberCommentEmail.includes(".net")))))) ? 
                                     <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
                                     <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}
                                 <span className="commentLikeText">
@@ -654,9 +654,9 @@ export default function Subscribe({post, theme}) {
                             <div className="commentLikeDeleteContainer">
                                 {(comment.commentLikesList.length > 0 && subscriberCommentEmail !== '' && 
                                 comment.commentLikesList.map(s=>s.subscriberCommentEmail).join().includes(subscriberCommentEmail) &&
-                                (isCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                (isCommentLiked && ((subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co")) || 
                                 subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))) || 
-                                (isDBCommentLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
+                                (isDBCommentLiked && ((subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co")) || 
                                 subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
                                 <i className="commentIconLikeFilled fa-solid fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>:
                                 <i className="commentIconLikeEmpty fa-regular fa-heart" onClick={()=>handleLikeComment(comment.commentId)}></i>}

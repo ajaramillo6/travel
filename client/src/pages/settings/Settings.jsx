@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/Context";
 // import { axiosInstance } from "../../config";
 import axios from 'axios';
+import Toggle from "../../components/toggle/Toggle";
 
 export default function Settings() {
 
@@ -21,6 +22,7 @@ export default function Settings() {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [wrongPassword, setWrongPassword] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
+  const [enableMessaging, setEnableMessaging] = useState(user.enableMessaging);
 
   useEffect(()=> {
     const getUser = async() => {
@@ -31,6 +33,7 @@ export default function Settings() {
       setPinterest(res.data.pinterest);
       setInstagram(res.data.instagram);
       setFacebook(res.data.facebook);
+      setEnableMessaging(res.data.enableMessaging);
     }
     getUser();
   },[user._id]);
@@ -71,6 +74,7 @@ export default function Settings() {
       pinterest,
       instagram,
       facebook,
+      enableMessaging,
       }
       if(file){
         const data = new FormData();
@@ -268,6 +272,14 @@ export default function Settings() {
                 {user.facebook}
               </div>
             )}
+            {updateMode &&
+              <>
+              <label className="settingsEnable">Subscriber messaging 
+                <span className="settingsEnabledText">{enableMessaging ? " Enabled" : " Disabled"}</span>
+              </label>
+              <Toggle enableMessaging={enableMessaging} onToggle={(e)=> setEnableMessaging(e.target.checked)} />
+              </>
+            }
             {(updateMode && password !== "") &&
               <div className="settingsFinalStep">
                 <button 

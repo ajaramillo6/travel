@@ -10,6 +10,66 @@
     font-family: 'Lora', 'serif';
 }
 
+.subscribeToggleContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    width: 40px;
+}
+
+.subscribeToggleText{
+    color: var(--text-primary);
+}
+
+.subscriberToggleEnable{
+    color: var(--main-color);
+}
+
+.subscribeToggle {
+    position: relative;
+    display: inline-block;
+}
+
+.subscribeToggleInput {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+
+.subscribeToggleSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 40px;
+    height: 24px;
+    border-radius: 100px;
+    background-color: var(--toggle-background);
+    transition: 0.4s;
+}
+
+.subscribeToggleSlider:before{
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--main-color-secondary);
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.subscribeToggleInput:checked + .subscribeToggleSlider{
+    background-color: var(--toggle-background-clicked);
+}
+
+.subscribeToggleInput:checked + .subscribeToggleSlider:before{
+    transform: translateX(16px);
+}
+
 .subscribeHeader{
     font-size: 18px;
     font-weight: bold;
@@ -404,6 +464,14 @@
 
 .commentIconLikeEmpty:hover{
     color: rgb(176, 73, 73);
+}
+
+.commentsDisabledText{
+    color: #999;
+    font-style: italic;
+    margin-left: 10px;
+    font-size: 20px;
+    width: 300px;
 }
 
 @media screen and (max-width: 1150px){

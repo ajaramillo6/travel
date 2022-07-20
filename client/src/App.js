@@ -10,8 +10,7 @@ import Travel from "./pages/travel/Travel";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import { Context } from "./context/Context";
 import { useContext } from "react";

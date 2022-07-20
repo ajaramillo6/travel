@@ -25,6 +25,8 @@
     --login: rgb(236, 236, 236);
     --login-input:  #f9f9f9;
     --login-boxshadow: 0 0 11px rgba(104, 104, 104, 0.492);
+    --toggle-background: rgb(222, 222, 222);
+    --toggle-background-clicked: rgb(192, 168, 175);
 }
 
 [data-theme = 'darkTheme'] {
@@ -54,4 +56,6 @@
     --login:  #1e1e1e;
     --login-input:  #333333;
     --login-boxshadow: 0 0 11px rgba(0, 0, 0, 0.651);
+    --toggle-background: rgb(74, 74, 74);
+    --toggle-background-clicked: rgb(203, 181, 161);
 }

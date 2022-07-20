@@ -146,9 +146,11 @@ export default function Travel() {
               </div>
               }
             </div>
+            {(user.enableMessaging === true) &&
             <span className="travelUserContactText" onClick={handleEmailShow}>
               Contact Me
             </span>
+            }
             <div className="travelSocialContainer">
               <a className={user.pinterest !== "" ? "link":"noLink"} href={user.pinterest}>
                 <i className="travelSocialIcon fa-brands fa-pinterest-square"></i>

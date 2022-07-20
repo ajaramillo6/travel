@@ -58,6 +58,10 @@ const PostSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    enableComments: {
+        type: Boolean,
+        default: true,
+    },
 }, 
 { timestamps:true }
 );

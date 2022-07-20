@@ -3,6 +3,7 @@
     margin-top: 40px;
     position: relative;
     background-color: var(--background-secondary);
+    height: 100%;
 }
 
 .settingsWrapper{
@@ -228,6 +229,14 @@
 .settingsInfoSaved{
     margin: 15px 0px;
     color: var(--text-secondary);
+}
+
+.settingsEnable{
+    margin-bottom: 10px;
+}
+
+.settingsEnabledText{
+    color: var(--main-color)
 }
 
 .settingsFinalStep{
