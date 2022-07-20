@@ -251,6 +251,10 @@ transform: none;
     .travelCats{
         display: none;
     }
+
+    .travelUserStatsBoxContainer{
+        justify-content: space-between;
+    }
 }
 
 @media screen and (max-width: 480px){
@@ -261,6 +265,14 @@ transform: none;
     
     .travelUserStatsBoxContainer{
         justify-content: space-between;
+    }
+    
+    .travelContactMeWrapper{
+        width: 300px;
+    }
+    
+    .travelContactFormMessage{
+        padding: 20px 20px;
     }
 }
 

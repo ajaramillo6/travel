@@ -7,6 +7,7 @@
 }
 
 .settingsWrapper{
+    margin-top: 20px;
     flex: 9;
     padding: 20px;
 }
