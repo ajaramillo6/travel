@@ -508,10 +508,10 @@ export default function Subscribe({post, theme}) {
                 {postLikesList &&
                     <>
                     <div>
-                        {(((user && likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username)) || 
+                        {((((user && likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username)) || 
                         (user && postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))) || 
                         (subscriberCommentEmail !== '' && (isLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
-                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net"))))) || 
+                        subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) || 
                         (subscriberCommentEmail !== '' && (isDBLiked && (subscriberCommentEmail.includes("@") && (subscriberCommentEmail.includes(".co") || 
                         subscriberCommentEmail.includes(".org") || subscriberCommentEmail.includes(".net")))))) ? 
                         <i className="subscriberIconLikeFilled fa-solid fa-heart" onClick={handleLike}></i>: 
