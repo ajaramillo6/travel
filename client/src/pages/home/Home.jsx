@@ -2,8 +2,7 @@ import "./home.css";
 import Header from "../../components/header/Header";
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../../context/Context";
-// import { axiosInstance } from "../../config";
-import axios from 'axios';
+import { axiosInstance } from "../../config";
 import { useLocation, Link } from "react-router-dom";
 import LatestPosts from "../../components/latestPosts/LatestPosts";
 import HomeAbout from "../../components/homeAbout/HomeAbout";
@@ -19,7 +18,7 @@ export default function Home() {
 
   useEffect(()=> {
     const fetchPosts = async() => {
-      const res = await axios.get("/posts" + search);
+      const res = await axiosInstance.get("/posts" + search);
       setPosts(res.data.sort((p1,p2)=> {
         return new Date(p2.createdAt) - new Date(p1.createdAt)
       }));

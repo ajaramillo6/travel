@@ -3,8 +3,7 @@ import "../../index.css";
 import { Context } from "../../context/Context";
 import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import {axiosInstance} from "../../config";
-import axios from 'axios';
+import {axiosInstance} from "../../config";
 
 export default function Rightbar({user}) {
 
@@ -29,7 +28,7 @@ export default function Rightbar({user}) {
     //Get all subscribers
     useEffect(()=> {
         const fetchSubscribers = async() => {
-          const res = await axios.get("/subscribers");
+          const res = await axiosInstance.get("/subscribers");
           setSubscribersList(res.data.sort((a,b)=>
           a.subscriberName.localeCompare(b.subscriberName)
         ));
@@ -47,7 +46,7 @@ export default function Rightbar({user}) {
         if(subscriberId){
           //Send Delete Request
           try{
-              await axios.delete(`/subscribers/${subscriberId}`);
+              await axiosInstance.delete(`/subscribers/${subscriberId}`);
               window.alert("Membership deleted. Sorry to see you go :(");
             }catch(err){
               console.log(err);

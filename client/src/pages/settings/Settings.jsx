@@ -1,8 +1,7 @@
 import "./settings.css";
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/Context";
-// import { axiosInstance } from "../../config";
-import axios from 'axios';
+import { axiosInstance } from "../../config";
 import Toggle from "../../components/toggle/Toggle";
 
 export default function Settings() {
@@ -26,7 +25,7 @@ export default function Settings() {
 
   useEffect(()=> {
     const getUser = async() => {
-      const res = await axios.get("/users/" + user._id);
+      const res = await axiosInstance.get("/users/" + user._id);
       setUsername(res.data.username);
       setEmail(res.data.email);
       setBio(res.data.bio);
@@ -44,7 +43,7 @@ export default function Settings() {
 
   const handleDelete = async() => {
     try{
-      await axios.delete(`/users/${user._id}`, {
+      await axiosInstance.delete(`/users/${user._id}`, {
         data: {
           userId: user._id,
         },
@@ -83,7 +82,7 @@ export default function Settings() {
         data.append("file", file);
         data.append("upload_preset", "uploads");
         try{
-          const uploadRes = await axios.post(cloud, data);
+          const uploadRes = await axiosInstance.post(cloud, data);
           const {url} = uploadRes.data;
           updatedUser.profilePic = url;
         }catch(err){
@@ -91,7 +90,7 @@ export default function Settings() {
         }
       }
       try{
-        const res = await axios.put("/users/"+user._id, updatedUser);
+        const res = await axiosInstance.put("/users/"+user._id, updatedUser);
         dispatch({ type:'UPDATE_SUCCESS', payload: res.data });
         setSuccess(true);
         setUpdateMode(false);

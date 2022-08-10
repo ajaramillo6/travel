@@ -1,8 +1,7 @@
 import Slider from "../slider/Slider";
 import "./header.css";
 import { useState } from "react";
-// import {axiosInstance} from "../../config";
-import axios from 'axios';
+import {axiosInstance} from "../../config";
 
 export default function Header() {
 
@@ -19,7 +18,7 @@ export default function Header() {
     }
     if(subscriberEmail !== "" && subscriberName !== ""){
         try{
-            await axios.post("/subscribers", newSubscriber);
+            await axiosInstance.post("/subscribers", newSubscriber);
             setSubscriberEmail("");
             setSubscriberName("");
             handleSubscriberSuccess();

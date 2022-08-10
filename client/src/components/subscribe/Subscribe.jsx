@@ -1,7 +1,6 @@
 import './subscribe.css';
 import { useState, useEffect, useContext } from "react";
-// import {axiosInstance} from "../../config";
-import axios from 'axios';
+import {axiosInstance} from "../../config";
 import { Context } from "../../context/Context";
 
 export default function Subscribe({post, theme}) {
@@ -83,7 +82,7 @@ export default function Subscribe({post, theme}) {
     //Get all subscribers
     useEffect(()=> {
         const fetchSubscribers = async() => {
-          const res = await axios.get("/subscribers");
+          const res = await axiosInstance.get("/subscribers");
           setSubscribersList(res.data.sort((a,b)=>
           a.subscriberName.localeCompare(b.subscriberName)
         ));
@@ -121,7 +120,7 @@ export default function Subscribe({post, theme}) {
         {
             postCommentList.push(newComment);
             try{
-                await axios.put("/posts/" + post._id + "/addComment", newComment);
+                await axiosInstance.put("/posts/" + post._id + "/addComment", newComment);
             }catch(err){
                 console.log(err);
             }
@@ -152,7 +151,7 @@ export default function Subscribe({post, theme}) {
                         setSubscriberErrorComments(false);
                         postCommentList.splice(i, 1);
                         try{
-                            await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                            await axiosInstance.put("/posts/" + post._id + "/updateComment", postCommentList);
                         }catch(err){
                             console.log(err);   
                         }
@@ -172,7 +171,7 @@ export default function Subscribe({post, theme}) {
                     setCurrentCommentId(commentId);
                     postCommentList.splice(i, 1);
                     try{
-                        await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                        await axiosInstance.put("/posts/" + post._id + "/updateComment", postCommentList);
                     }catch(err){
                         console.log(err);   
                     }
@@ -193,7 +192,7 @@ export default function Subscribe({post, theme}) {
             (subscribersEmails.includes(subscriberCommentEmail) || subscribersEmailsDB.includes(subscriberCommentEmail))){
                 if(!isDBLiked){
                     try {
-                        await axios.put("/posts/" + post._id + "/like", newLike)
+                        await axiosInstance.put("/posts/" + post._id + "/like", newLike)
                         isLiked ? likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
                     }catch(err) {
                         console.log(err);
@@ -207,7 +206,7 @@ export default function Subscribe({post, theme}) {
                         }
                     }
                     try {
-                        await axios.put("/posts/" + post._id + "/like", newLike)
+                        await axiosInstance.put("/posts/" + post._id + "/like", newLike)
                     }catch(err) {
                         console.log(err);
                     }
@@ -219,7 +218,7 @@ export default function Subscribe({post, theme}) {
         } else {
             if((!postLikesList.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username))){
                 try {
-                    await axios.put("/posts/" + post._id + "/like", newLike)
+                    await axiosInstance.put("/posts/" + post._id + "/like", newLike)
                     likes.map((subscriber)=>subscriber.subscriberCommentEmail).join().includes(user.username) ? 
                     likes.pop() : setLikes((prevLike) => [...prevLike, newLike]);
                 }catch(err) {
@@ -234,7 +233,7 @@ export default function Subscribe({post, theme}) {
                     }
                 }
                 try {
-                    await axios.put("/posts/" + post._id + "/like", newLike)
+                    await axiosInstance.put("/posts/" + post._id + "/like", newLike)
                 }catch(err) {
                     console.log(err);
                 }
@@ -278,7 +277,7 @@ export default function Subscribe({post, theme}) {
                     setIsDBCommentLiked(!isDBCommentLiked);
                 }
                 try{
-                    await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                    await axiosInstance.put("/posts/" + post._id + "/updateComment", postCommentList);
                 }catch(err){
                     console.log(err);   
                 }
@@ -309,7 +308,7 @@ export default function Subscribe({post, theme}) {
                 setIsDBCommentLiked(!isDBCommentLiked);
             }
             try{
-                await axios.put("/posts/" + post._id + "/updateComment", postCommentList);
+                await axiosInstance.put("/posts/" + post._id + "/updateComment", postCommentList);
             }catch(err){
                 console.log(err);   
             }
@@ -325,7 +324,7 @@ export default function Subscribe({post, theme}) {
         }
         if(subscriberEmail !== "" && subscriberName !== ""){
             try{
-                await axios.post("/subscribers", newSubscriber);
+                await axiosInstance.post("/subscribers", newSubscriber);
                 setSubscribers((prevSubscribers) => [...prevSubscribers, newSubscriber]);
                 handleSubscriberSuccess();
             }catch(err){
