@@ -63,7 +63,9 @@ const PostSchema = new mongoose.Schema({
         default: true,
     },
 }, 
-{ timestamps:true }
-);
+{ 
+    collection: "travel",
+    timestamps:true 
+});
 
 module.exports = mongoose.model("Post", PostSchema);
