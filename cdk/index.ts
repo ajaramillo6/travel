@@ -13,7 +13,8 @@ const distribution = new cdk.aws_cloudfront.Distribution(stack, "Distribution", 
         compress: true,
         origin: new cdk.aws_cloudfront_origins.S3Origin(clientBucket),
         viewerProtocolPolicy: cdk.aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    }
+    },
+    defaultRootObject: "index.html"
 });
 
 // Upload client files to s3 bucket
