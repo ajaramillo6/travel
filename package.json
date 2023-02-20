@@ -5,7 +5,9 @@
   "main": "./api/index.js",
   "scripts": {
     "start": "node ./api/index.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "predeploy": "npx tsc -p ./",
+    "deploy": "npx cdk deploy"
   },
   "author": "",
   "license": "ISC",
